@@ -6,7 +6,7 @@ import Link from "next/link";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import XIcon from '@mui/icons-material/X';
 import styles from '@/styles/Footer.module.css'
 
 export default function Footer() {
@@ -84,7 +84,7 @@ export default function Footer() {
                   alignItems: "center"
                 }}>
                 <IconButton href="https://twitter.com/8ban_ramen" aria-label="Twitter" target="blank">
-                  <TwitterIcon />
+                  <XIcon />
                 </IconButton>
                 <IconButton href="https://www.instagram.com/8ban_ramen/" aria-label="Instagram" target="blank">
                   <InstagramIcon />
@@ -115,9 +115,9 @@ export default function Footer() {
                   alignItems: "center"
                 }}>
                 <IconButton href="https://twitter.com/foodc_8ban" aria-label="Twitter" target="blank">
-                  <TwitterIcon />
+                  <XIcon />
                 </IconButton>
-                <IconButton href="https://www.instagram.com/foodc_8ban/" aria-label="Instagram" target="blank">
+                <IconButton href="https://www.instagram.com/8ban_foodc" aria-label="Instagram" target="blank">
                   <InstagramIcon />
                 </IconButton>
 
