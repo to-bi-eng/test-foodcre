@@ -17,7 +17,8 @@ export default function Footer() {
         position: "fixed",
         inset: 0,
         top: 'auto',
-        bottom: 0
+        bottom: 0,
+        zIndex:1
       }}
       className={styles.box}
     >
@@ -37,7 +38,7 @@ export default function Footer() {
               flexDirection: 'column',
               gap: '1rem'
             }}>
-            <MuiLink component={Link} href="/contact" underline="none">
+            <MuiLink component={Link} href="/Contact" underline="none">
               <Typography
                 variant="body1"
                 component="div"
