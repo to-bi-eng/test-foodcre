@@ -23,7 +23,9 @@ export default function Contact() {
                 <Typography
                     id="contact_heading" 
                     variant="h1" 
-                    fontSize="2.0rem">
+                    fontSize="2.0rem"
+                    fontWeight="bold"
+                >
                     お問い合わせ
                 </Typography>
                 <Typography
