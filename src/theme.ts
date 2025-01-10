@@ -10,6 +10,9 @@ const theme = createTheme({
         secondary: {
             main: '#D9D9D9',
         },
+        info: {
+            main: '#332C12',
+        }
     },
     typography: {
         fontFamily: "'Kosugi Maru', 'Arial', sans-serif",
