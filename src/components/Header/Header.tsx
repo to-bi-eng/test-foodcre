@@ -9,7 +9,13 @@ import styles from '@/styles/Header.module.css'
 
 export default function Header() {
     return (
-        <Box sx={{ flexGrow: 1 }} className={styles.box}>
+        <Box sx={{
+            flexGrow: 1,
+            position: "fixed",
+            inset: 0,
+            top: 0,
+            bottom: "auto",
+        }} className={styles.box}>
             <AppBar position="sticky" color="primary" className={styles.header}>
                 <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
