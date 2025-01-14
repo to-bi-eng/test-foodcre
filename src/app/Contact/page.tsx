@@ -1,15 +1,12 @@
 import { Button, Stack, TextField,Typography,Link as MuiLink, Grid2 } from "@mui/material";
 import React from "react";
 import Link from "next/link";
-import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer/Footer";
 
 import styles from '@/styles/Contact.module.css'
 
 export default function Contact() {      
     return (
     <>
-        <Header/>
         <div className={styles.contact}>
             <Stack
                 component="form" 
@@ -56,7 +53,6 @@ export default function Contact() {
                 <MuiLink component={Link} href="/ContactConfirmation" underline="none">
                     <Button variant="contained" size="large" className={styles.botton}>確認</Button>
                 </MuiLink>
-                <Footer/>                       
             </Stack>
         </div>
     </>
