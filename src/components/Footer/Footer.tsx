@@ -38,7 +38,7 @@ export default function Footer() {
               flexDirection: 'column',
               gap: '1rem'
             }}>
-            <MuiLink component={Link} href="/Contact" underline="none">
+            <MuiLink component={Link} href="/contact" underline="none">
               <Typography
                 variant="body1"
                 component="div"
