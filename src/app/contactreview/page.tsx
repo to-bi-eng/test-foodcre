@@ -23,18 +23,18 @@ export default function ContactrReview() {
             >
             <Typography
             id="contactreview_heading" 
-                    variant="h1" 
-                    fontSize="2.0rem"
-                    fontWeight="bold"
-                >
-                    入力内容の確認
+                  variant="h1" 
+                  fontSize="2.0rem"
+                  fontWeight="bold"
+            >
+              入力内容の確認
                 </Typography>
                 <Typography
-                    id="contactreview_explanation" 
-                    variant="h2" 
-                    fontSize="1.25rem"
+                  id="contactreview_explanation" 
+                  variant="h2" 
+                  fontSize="1.25rem"
                 >
-                    入力内容に問題がなければ、送信ボタンを押してください。
+                  入力内容に問題がなければ、送信ボタンを押してください。
                 </Typography>
                 <Box component="section" sx={{ width: 330,borderRadius: 1,bgcolor: 'primary.main', inset: 0 ,flexGrow: 1 ,bottom: "auto"}} className={styles.box}
                 ><div className={styles.text}>
