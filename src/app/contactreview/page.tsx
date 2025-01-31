@@ -36,12 +36,12 @@ export default function ContactrReview() {
                 >
                   入力内容に問題がなければ、送信ボタンを押してください。
                 </Typography>
-                <Box component="section" sx={{ width: 330,borderRadius: 1,bgcolor: 'primary.main', inset: 0 ,flexGrow: 1 ,bottom: "auto"}} className={styles.box}
+                <Box component="section" sx={{ width: 330,borderRadius: 1,bgcolor: 'primary.main',color:'white', inset: 0 ,flexGrow: 1 ,bottom: "auto"}} className={styles.box}
                 ><div className={styles.text}>
-                <Typography variant="body1" fontSize="1.25rem">お名前: {contactData.name}</Typography>
-        <Typography variant="body1" fontSize="1.25rem">メールアドレス: {contactData.email}</Typography>
-        <Typography variant="body1" fontSize="1.25rem">件名: {contactData.subject}</Typography>
-        <Typography variant="body1" fontSize="1.25rem">お問い合わせ内容: {contactData.message}</Typography>
+                <Typography variant="body1" fontSize="1rem" sx={{ padding:0.5}}>お名前: {contactData.name}</Typography>
+        <Typography variant="body1" fontSize="1rem" sx={{ padding:0.5}}>メールアドレス: {contactData.email}</Typography>
+        <Typography variant="body1" fontSize="1rem" sx={{ padding:1}}>件名: {contactData.subject}</Typography>
+        <Typography variant="body1" fontSize="1rem" sx={{ padding:1}}>お問い合わせ内容: {contactData.message}</Typography>
                 </div>    </Box>  
 
                 <Stack direction="row" spacing={8}>

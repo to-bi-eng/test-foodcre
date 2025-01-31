@@ -42,6 +42,7 @@ export default function Contact() {
             alert("すべてのフィールドを正しく入力してください。");
         } else {
             sessionStorage.setItem('contactData', JSON.stringify({ name, email, subject, message }));
+            router.push('/contactreview');
         }
     };
 
