@@ -1,10 +1,10 @@
-import { Button, Stack, TextField,Typography,Link as MuiLink, Grid2 } from "@mui/material";
+import { Button, Stack, TextField, Typography, Link as MuiLink, Grid2 } from "@mui/material";
 import React from "react";
 import Link from "next/link";
 
 import styles from '@/styles/Contact.module.css'
 
-export default function Contact() {      
+export default function Contact() {
     return (
     <>
         <div className={styles.contact}>
@@ -46,12 +46,12 @@ export default function Contact() {
                 >
                     このアプリに関して8番らーめん公式様に問い合わせされるのは、ご遠慮ください
                 </Typography>
-                <TextField required id="contact-name" label="お名前(必須)"  className={styles.text} placeholder="例:工大太郎"  />
-                <TextField required id="contact-mail" label="メールアドレス(必須)" className={styles.text} placeholder="例:c1234567@st.kanazawa-it.ac.jp"/>
-                <TextField required id="contact-about" label="件名(必須)" className={styles.text} placeholder="例:○○について"/>
-                <TextField required  multiline maxRows={10} id="contact-main" label="お問い合わせ内容(必須)" className={styles.text} placeholder="お問い合わせ内容をお書きください"/>
+                <TextField required id="contact-name" label="お名前(必須)" className={styles.text} placeholder="例:工大太郎" color="info" />
+                <TextField required id="contact-mail" label="メールアドレス(必須)" className={styles.text} placeholder="例:c1234567@st.kanazawa-it.ac.jp" color="info" />
+                <TextField required id="contact-about" label="件名(必須)" className={styles.text} placeholder="例:○○について" color="info" />
+                <TextField required multiline maxRows={10} id="contact-main" label="お問い合わせ内容(必須)" className={styles.text} placeholder="お問い合わせ内容をお書きください" color="info" />
                 <MuiLink component={Link} href="/ContactConfirmation" underline="none">
-                    <Button variant="contained" size="large" className={styles.botton}>確認</Button>
+                    <Button variant="contained" size="large" className={styles.botton} color="info">確認</Button>
                 </MuiLink>
             </Stack>
         </div>
