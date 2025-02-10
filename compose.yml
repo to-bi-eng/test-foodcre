@@ -1,5 +1,5 @@
 services:
-  server:
+  web:
     build:
       context: .
     environment:
@@ -13,10 +13,8 @@ services:
   db:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: app_db
-      MYSQL_USER: app_user
-      MYSQL_PASSWORD: app_password
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: foocre_development
     ports:
       - 3306:3306
     volumes:
