@@ -8,14 +8,14 @@
     width: 100%;
 }
 
-.stack{
+.stack {
     display: flex;
-    justify-contact:center;
+    justify-contect:center;
     align-items: center; 
     cursor: pointer;
     margin-bottom: 10px;
 }
-.text{
+.text {
     origin:center;
     border-radius: 8px;
     padding: 10px;

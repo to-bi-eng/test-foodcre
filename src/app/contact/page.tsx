@@ -1,11 +1,11 @@
 "use client";
-import { Button, Stack, TextField,Typography,Link as MuiLink} from "@mui/material";
+import { Button, Stack, TextField, Typography, Link as MuiLink } from "@mui/material";
 import React from "react";
 import Link from "next/link";
-import { useState , useEffect} from 'react';
+import { useState , useEffect } from 'react';
 import { useRouter } from "next/navigation";
 
-import styles from '@/styles/Contact.module.css'
+import styles from '@/styles/Contact.module.css';
 
 export default function Contact() {      
     const [name, setName] = useState('');
@@ -48,51 +48,50 @@ export default function Contact() {
 
     return (
     <>
-        <div className={styles.contact}>
+        <div className={ styles.contact }>
             <Stack
                 component="form" 
                 gap="26px" 
                 aria-labelledby="contact_one" 
-                className={styles.stack} 
+                className={ styles.stack } 
             >
                 <Typography
                     id="contact_heading" 
                     variant="h1" 
                     fontSize="2.0rem"
                     fontWeight="bold"
-                >
+                    >
                     お問い合わせ
                 </Typography>
                 <Typography
                     id="contact_explanation" 
                     variant="h2" 
                     fontSize="1.25rem"
-                >
+                    >
                     下記のフォームに必要事項をご入力ください。
                 </Typography>
                 <Typography
                     id="contact_explanation" 
                     variant="h3" 
                     fontSize="1.00rem"
-                >
+                    >
                     ご入力いただきました個人情報については、適切な管理を実施しております。詳しくは、「プライバシーポリシー」をご覧ください。
                 </Typography>
                 <Typography
                     id="contact_explanation" 
                     variant="h3" 
                     fontSize="1.00rem"
-                >
+                    >
                     このアプリに関して8番らーめん公式様に問い合わせされるのは、ご遠慮ください
                 </Typography>
-                <TextField required id="name" label="お名前(必須)"  className={styles.text} placeholder="例:工大太郎" value={name} onChange={(e) => setName(e.target.value)} />
-                <TextField required id="mail" label="メールアドレス(必須)" className={styles.text} placeholder="例:c1234567@st.kanazawa-it.ac.jp" value={email} onChange={(e) => setEmail(e.target.value)} error={!isEmailValid && email !== ''} helperText={!isEmailValid && email !== '' ? '有効なメールアドレスを入力してください。' : ''}
-                />
-                <TextField required id="subject" label="件名(必須)" className={styles.text} placeholder="例:○○について"  value={subject} onChange={(e) => setSubject(e.target.value)}/>
-                <TextField required  multiline maxRows={10} id="message" label="お問い合わせ内容(必須)" className={styles.text} placeholder="お問い合わせ内容をお書きください"  value={message} onChange={(e) => setMessage(e.target.value)}/>
+                <TextField required id="name" label="お名前(必須)" className={ styles.text } placeholder="例:工大太郎" value={ name } onChange={ (e) => setName(e.target.value) } />
+                <TextField required id="mail" label="メールアドレス(必須)" className={ styles.text } placeholder="例:c1234567@st.kanazawa-it.ac.jp" value={ email } onChange={(e) => setEmail(e.target.value)} error={ !isEmailValid && email !== '' } helperText={!isEmailValid && email !== '' ? '有効なメールアドレスを入力してください。' : ''} />
+                <TextField required id="subject" label="件名(必須)" className={ styles.text } placeholder="例:○○について" value={ subject } onChange={(e) => setSubject(e.target.value)} />
+                <TextField required multiline maxRows={ 10 } id="message" label="お問い合わせ内容(必須)" className={ styles.text } placeholder="お問い合わせ内容をお書きください" value={ message } onChange={(e) => setMessage(e.target.value)} />
                 
                 <div>
-                <MuiLink component={Link} href="/contactreview" underline="none" onClick={handleSave} >
-                    <Button variant="contained" size="large" disabled={!isFormValid}>確認</Button>
+                <MuiLink component={ Link } href="/contactreview" underline="none" onClick={ handleSave } >
+                    <Button variant="contained" size="large" disabled={ !isFormValid }>確認</Button>
                 </MuiLink>
                 </div>
             </Stack>
