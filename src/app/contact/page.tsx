@@ -11,7 +11,7 @@ export default function Contact() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [subject, setSubject] = useState('');
-    const [message, setMessage] = useState('');
+    const [content, setContent] = useState('');
     const [isEmailValid, setIsEmailValid] = useState(false);
     const [isFormValid, setIsFormValid] = useState(false);
     const router = useRouter();
@@ -19,11 +19,11 @@ export default function Contact() {
     useEffect(() => {
         const savedData = sessionStorage.getItem('contactData');
         if (savedData) {
-            const { name, email, subject, message } = JSON.parse(savedData);
+            const { name, email, subject, content } = JSON.parse(savedData);
             setName(name);
             setEmail(email);
             setSubject(subject);
-            setMessage(message);
+            setContent(content);
         }
     }, []);
 
@@ -33,15 +33,15 @@ export default function Contact() {
     }, [email]);
 
     useEffect(() => {
-        setIsFormValid(!!name && !!email && !!subject && !!message && isEmailValid);
-    }, [name, email, subject, message, isEmailValid]);
+        setIsFormValid(!!name && !!email && !!subject && !!content && isEmailValid);
+    }, [name, email, subject, content, isEmailValid]);
     const handleSave = (e: React.FormEvent) => {
         e.preventDefault(); 
         if (!isFormValid) {
             e.preventDefault();
             alert("すべてのフィールドを正しく入力してください。");
         } else {
-            sessionStorage.setItem('contactData', JSON.stringify({ name, email, subject, message }));
+            sessionStorage.setItem('contactData', JSON.stringify({ name, email, subject, content }));
             router.push('/contactreview');
         }
     };
@@ -87,7 +87,7 @@ export default function Contact() {
                 <TextField required id="name" label="お名前(必須)" className={ styles.text } placeholder="例:工大太郎" value={ name } onChange={ (e) => setName(e.target.value) } />
                 <TextField required id="mail" label="メールアドレス(必須)" className={ styles.text } placeholder="例:c1234567@st.kanazawa-it.ac.jp" value={ email } onChange={(e) => setEmail(e.target.value)} error={ !isEmailValid && email !== '' } helperText={!isEmailValid && email !== '' ? '有効なメールアドレスを入力してください。' : ''} />
                 <TextField required id="subject" label="件名(必須)" className={ styles.text } placeholder="例:○○について" value={ subject } onChange={(e) => setSubject(e.target.value)} />
-                <TextField required multiline maxRows={ 10 } id="message" label="お問い合わせ内容(必須)" className={ styles.text } placeholder="お問い合わせ内容をお書きください" value={ message } onChange={(e) => setMessage(e.target.value)} />
+                <TextField required multiline maxRows={ 10 } id="content" label="お問い合わせ内容(必須)" className={ styles.text } placeholder="お問い合わせ内容をお書きください" value={ content } onChange={(e) => setContent(e.target.value)} />
                 
                 <div>
                 <MuiLink component={ Link } href="/contactreview" underline="none" onClick={ handleSave } >

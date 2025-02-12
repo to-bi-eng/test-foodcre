@@ -5,7 +5,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export default function ContactrReview() {
-    const [ contactData, setContactData ] = useState({ name: '', email: '', subject: '', message: '' });
+    const [ contactData, setContactData ] = useState({ name: '', email: '', subject: '', content: '' });
   useEffect(() => {
     const data = sessionStorage.getItem('contactData');
     if (data) {
@@ -51,7 +51,7 @@ export default function ContactrReview() {
             <Typography variant="body1" fontSize="1rem" sx={{ padding:0.5 }}>お名前: { contactData.name }</Typography>
             <Typography variant="body1" fontSize="1rem" sx={{ padding:0.5 }}>メールアドレス: { contactData.email }</Typography>
             <Typography variant="body1" fontSize="1rem" sx={{ padding:1 }}>件名: { contactData.subject }</Typography>
-            <Typography variant="body1" fontSize="1rem" sx={{ padding:1 }}>お問い合わせ内容: { contactData.message }</Typography>
+            <Typography variant="body1" fontSize="1rem" sx={{ padding:1 }}>お問い合わせ内容: { contactData.content }</Typography>
           </div>     
         </Box>  
         <Stack direction="row" spacing={ 8 }>
