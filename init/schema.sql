@@ -1,15 +1,15 @@
 -- メニューテーブル
-CREATE TABLE menu (
+CREATE TABLE menus (
     menu_id INT AUTO_INCREMENT PRIMARY KEY,
     menu_name VARCHAR(255) NOT NULL,
     menu_contact TEXT,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     point_cost INT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     is_enabled BOOLEAN DEFAULT TRUE
 );
 
 -- クーポンテーブル
-CREATE TABLE coupon (
+CREATE TABLE coupons (
     coupon_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT,
     menu_id INT,
@@ -20,12 +20,12 @@ CREATE TABLE coupon (
 );
 
 -- ユーザーテーブル
-CREATE TABLE user (
+CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    rst_pwd VARCHAR(255),
-    rst_pwd_send_at DATETIME,
+    reset_password VARCHAR(255),
+    reset_password_send_at DATETIME,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     last_login_day DATETIME,
     visit_at DATETIME,
