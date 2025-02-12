@@ -1,5 +1,5 @@
 "use client";
-import { Button, Stack, Typography, Box, Link as MuiLink } from "@mui/material";
+import { Button, Stack, Typography, Box } from "@mui/material";
 import styles from '@/styles/ContactReview.module.css';
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -55,12 +55,12 @@ export default function ContactrReview() {
           </div>     
         </Box>  
         <Stack direction="row" spacing={ 8 }>
-          <MuiLink component={ Link } href="/contact" underline="none">
+          <Link href="/contact" passHref>
             <Button variant="contained" size="large">戻る</Button>
-          </MuiLink>
-          <MuiLink component={ Link } href="/contactok" underline="none">
+          </Link>
+          <Link href="/contactok" passHref>
             <Button variant="contained" size="large">送信</Button>
-          </MuiLink>
+          </Link>
         </Stack>
       </Stack>
     </div>

@@ -1,5 +1,5 @@
 "use client";
-import { Button, Stack, TextField, Typography, Link as MuiLink } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import React from "react";
 import Link from "next/link";
 import { useState , useEffect } from 'react';
@@ -90,9 +90,9 @@ export default function Contact() {
                 <TextField required multiline maxRows={ 10 } id="content" label="お問い合わせ内容(必須)" className={ styles.text } placeholder="お問い合わせ内容をお書きください" value={ content } onChange={(e) => setContent(e.target.value)} />
                 
                 <div>
-                <MuiLink component={ Link } href="/contactreview" underline="none" onClick={ handleSave } >
-                    <Button variant="contained" size="large" disabled={ !isFormValid }>確認</Button>
-                </MuiLink>
+                <Link href="/contactreview" passHref>
+                    <Button variant="contained" size="large" disabled={ !isFormValid } onClick={ handleSave }>確認</Button>
+                </Link>
                 </div>
             </Stack>
         </div>
