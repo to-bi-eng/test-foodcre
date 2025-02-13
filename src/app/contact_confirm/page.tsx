@@ -1,10 +1,10 @@
 "use client";
 import { Button, Stack, Typography, Box } from "@mui/material";
-import styles from '@/styles/ContactReview.module.css';
+import styles from '@/styles/Contact_confirm.module.css';
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-export default function ContactrReview() {
+export default function Contact_confirm() {
     const [ contactData, setContactData ] = useState({ name: '', email: '', subject: '', content: '' });
   useEffect(() => {
     const data = sessionStorage.getItem('contactData');

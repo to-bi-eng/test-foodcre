@@ -1,24 +1,21 @@
 .contact {
     max-width:330px;
-    margin-left: auto;
-    margin-right: auto;    
-    margin-top:20px;
-    margin-bottom: 200px;
+    margin:20px auto 200px;
     overflow: auto;
     width: 100%;
 }
 
 .stack {
     display: flex;
-    justify-contect:center;
+    justify-content: center;
     align-items: center; 
     cursor: pointer;
     margin-bottom: 10px;
 }
+
 .text {
-    origin:center;
-    border-radius: 8px;
-    padding: 10px;
     width: 100%;
     margin:0 auto;
+    padding: 10px;
+    border-radius: 8px;
 }

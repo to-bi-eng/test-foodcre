@@ -42,7 +42,7 @@ export default function Contact() {
             alert("すべてのフィールドを正しく入力してください。");
         } else {
             sessionStorage.setItem('contactData', JSON.stringify({ name, email, subject, content }));
-            router.push('/contactreview');
+            router.push('/contact_confirm');
         }
     };
 
@@ -90,7 +90,7 @@ export default function Contact() {
                 <TextField required multiline maxRows={ 10 } id="content" label="お問い合わせ内容(必須)" className={ styles.text } placeholder="お問い合わせ内容をお書きください" value={ content } onChange={(e) => setContent(e.target.value)} />
                 
                 <div>
-                <Link href="/contactreview" passHref>
+                <Link href="/contact_confirm" passHref>
                     <Button variant="contained" size="large" disabled={ !isFormValid } onClick={ handleSave }>確認</Button>
                 </Link>
                 </div>
