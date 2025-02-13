@@ -38,7 +38,6 @@ export default function Contact() {
     const handleSave = (e: React.FormEvent) => {
         e.preventDefault(); 
         if (!isFormValid) {
-            e.preventDefault();
             alert("すべてのフィールドを正しく入力してください。");
         } else {
             sessionStorage.setItem('contactData', JSON.stringify({ name, email, subject, content }));
