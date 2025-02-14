@@ -14,7 +14,7 @@ export default function Contact_confirm() {
   }, []);
   return(
   <>
-    <div className={ styles.contactreview }>
+    <div className={ styles.contact_confirm }>
       <Stack
         component="form"
         gap="26px"

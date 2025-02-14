@@ -63,25 +63,25 @@ export default function Contact() {
                     お問い合わせ
                 </Typography>
                 <Typography
-                    id="contact_explanation" 
+                    id="contact_explanation1" 
                     variant="h2" 
                     fontSize="1.25rem"
                     >
                     下記のフォームに必要事項をご入力ください。
                 </Typography>
                 <Typography
-                    id="contact_explanation" 
+                    id="contact_explanation2" 
                     variant="h3" 
                     fontSize="1.00rem"
                     >
                     ご入力いただきました個人情報については、適切な管理を実施しております。詳しくは、「プライバシーポリシー」をご覧ください。
                 </Typography>
                 <Typography
-                    id="contact_explanation" 
+                    id="contact_explanation3" 
                     variant="h3" 
                     fontSize="1.00rem"
                     >
-                    このアプリに関して8番らーめん公式様に問い合わせされるのは、ご遠慮ください
+                    このアプリに関して8番らーめん公式様に問い合わせされるのは、ご遠慮ください。
                 </Typography>
                 <TextField required id="name" label="お名前(必須)" className={ styles.text } placeholder="例:工大太郎" value={ name } onChange={ (e) => setName(e.target.value) } />
                 <TextField required id="mail" label="メールアドレス(必須)" className={ styles.text } placeholder="例:c1234567@st.kanazawa-it.ac.jp" value={ email } onChange={(e) => setEmail(e.target.value)} error={ !isEmailValid && email !== '' } helperText={!isEmailValid && email !== '' ? '有効なメールアドレスを入力してください。' : ''} />
