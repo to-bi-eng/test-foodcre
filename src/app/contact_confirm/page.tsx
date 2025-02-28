@@ -56,10 +56,10 @@ export default function Contact_confirm() {
         </Box>  
         <Stack direction="row" spacing={ 8 }>
           <Link href="/contact" passHref>
-            <Button variant="contained" size="large">戻る</Button>
+            <Button variant="contained" size="large" color="info">戻る</Button>
           </Link>
           <Link href="/contactok" passHref>
-            <Button variant="contained" size="large">送信</Button>
+            <Button variant="contained" size="large"  color="info">送信</Button>
           </Link>
         </Stack>
       </Stack>

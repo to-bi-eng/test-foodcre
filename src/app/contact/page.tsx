@@ -83,14 +83,14 @@ export default function Contact() {
                     >
                     このアプリに関して8番らーめん公式様に問い合わせされるのは、ご遠慮ください。
                 </Typography>
-                <TextField required id="name" label="お名前(必須)" className={ styles.text } placeholder="例:工大太郎" value={ name } onChange={ (e) => setName(e.target.value) } />
-                <TextField required id="mail" label="メールアドレス(必須)" className={ styles.text } placeholder="例:c1234567@st.kanazawa-it.ac.jp" value={ email } onChange={(e) => setEmail(e.target.value)} error={ !isEmailValid && email !== '' } helperText={!isEmailValid && email !== '' ? '有効なメールアドレスを入力してください。' : ''} />
-                <TextField required id="subject" label="件名(必須)" className={ styles.text } placeholder="例:○○について" value={ subject } onChange={(e) => setSubject(e.target.value)} />
-                <TextField required multiline maxRows={ 10 } id="content" label="お問い合わせ内容(必須)" className={ styles.text } placeholder="お問い合わせ内容をお書きください" value={ content } onChange={(e) => setContent(e.target.value)} />
+                <TextField required id="name" label="お名前(必須)" className={ styles.text } placeholder="例:工大太郎" value={ name } onChange={ (e) => setName(e.target.value) } color="info" />
+                <TextField required id="mail" label="メールアドレス(必須)" className={ styles.text } placeholder="例:c1234567@st.kanazawa-it.ac.jp" value={ email } onChange={(e) => setEmail(e.target.value)} error={ !isEmailValid && email !== '' } helperText={!isEmailValid && email !== '' ? '有効なメールアドレスを入力してください。' : ''} color="info" />
+                <TextField required id="subject" label="件名(必須)" className={ styles.text } placeholder="例:○○について" value={ subject } onChange={(e) => setSubject(e.target.value)} color="info" />
+                <TextField required multiline maxRows={ 10 } id="content" label="お問い合わせ内容(必須)" className={ styles.text } placeholder="お問い合わせ内容をお書きください" value={ content } onChange={(e) => setContent(e.target.value)} color="info" />
                 
                 <div>
                 <Link href="/contact_confirm" passHref>
-                    <Button variant="contained" size="large" disabled={ !isFormValid } onClick={ handleSave }>確認</Button>
+                    <Button variant="contained" size="large" disabled={ !isFormValid } onClick={ handleSave } color="info">確認</Button>
                 </Link>
                 </div>
             </Stack>

@@ -84,16 +84,16 @@ export default function Footer() {
                   justifyContent: "space-between",
                   alignItems: "center"
                 }}>
-                <IconButton href="https://twitter.com/8ban_ramen" aria-label="Twitter" target="blank">
+                <IconButton href="https://twitter.com/8ban_ramen" aria-label="Twitter" target="blank" color="info">
                   <XIcon />
                 </IconButton>
-                <IconButton href="https://www.instagram.com/8ban_ramen/" aria-label="Instagram" target="blank">
+                <IconButton href="https://www.instagram.com/8ban_ramen/" aria-label="Instagram" target="blank" color="info">
                   <InstagramIcon />
                 </IconButton>
-                <IconButton href="https://www.facebook.com/hachibanramen.jp/" aria-label="Facebook" target="blank">
+                <IconButton href="https://www.facebook.com/hachibanramen.jp/" aria-label="Facebook" target="blank" color="info">
                   <FacebookIcon />
                 </IconButton>
-                <IconButton href="https://www.youtube.com/user/hachibanramen" aria-label="YouTube" target="blank">
+                <IconButton href="https://www.youtube.com/user/hachibanramen" aria-label="YouTube" target="blank" color="info">
                   <YouTubeIcon />
                 </IconButton>
               </Box>
@@ -115,10 +115,10 @@ export default function Footer() {
                   justifyContent: "center",
                   alignItems: "center"
                 }}>
-                <IconButton href="https://twitter.com/foodc_8ban" aria-label="Twitter" target="blank">
+                <IconButton href="https://twitter.com/foodc_8ban" aria-label="Twitter" target="blank" color="info">
                   <XIcon />
                 </IconButton>
-                <IconButton href="https://www.instagram.com/8ban_foodc" aria-label="Instagram" target="blank">
+                <IconButton href="https://www.instagram.com/8ban_foodc" aria-label="Instagram" target="blank" color="info">
                   <InstagramIcon />
                 </IconButton>
 

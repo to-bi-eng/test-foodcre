@@ -1,5 +1,5 @@
 .box {
-    margin: 50px 0;
+    margin: auto auto;
     width: 100%;
 }
 
@@ -19,4 +19,5 @@
 
 .text {
     padding: 20px;
+    color: black;
 }
