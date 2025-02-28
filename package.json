@@ -12,6 +12,7 @@
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@fontsource/kosugi-maru": "^5.1.1",
     "@mui/icons-material": "^6.3.0",
     "@mui/material": "^6.2.1",
     "@mui/material-nextjs": "^6.2.1",
