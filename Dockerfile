@@ -5,6 +5,9 @@ ARG NODE_VERSION=22.5.1
 # Base image
 FROM node:${NODE_VERSION}-alpine as base
 
+# bash を追加
+RUN apk add --no-cache bash
+
 WORKDIR /usr/src/app
 
 # Install dependencies
