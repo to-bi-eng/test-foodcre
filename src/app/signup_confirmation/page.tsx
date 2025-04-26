@@ -6,12 +6,11 @@ export default function ConfirmRegistration() {
   return (
     <>
       <Header />
-
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
-          height: '100vh', // フッター固定前提
+          height: '100vh', 
           fontFamily: 'Arial, sans-serif',
           backgroundColor: '#fff',
         }}
@@ -44,10 +43,10 @@ export default function ConfirmRegistration() {
             <p style={{ marginTop: '20px' }}><strong>パスワード:</strong><br />********************</p>
           </div>
 
-          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', gap: '70px', flexWrap: 'wrap', justifyContent: 'center' }}>
             <button
               style={{
-                padding: '10px 20px',
+                padding: '15px 25px',
                 backgroundColor: '#4B4B4B',
                 color: '#fff',
                 border: 'none',
@@ -61,7 +60,7 @@ export default function ConfirmRegistration() {
             </button>
             <button
               style={{
-                padding: '10px 20px',
+                padding: '15px 25px',
                 backgroundColor: '#4B4B4B',
                 color: '#fff',
                 border: 'none',
