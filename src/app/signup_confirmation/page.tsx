@@ -6,25 +6,24 @@ export default function ConfirmRegistration() {
   return (
     <>
       <Header />
+
       <div
         style={{
-          fontFamily: 'Arial, sans-serif',
-          textAlign: 'center',
-          backgroundColor: '#fff',
-          height: '80vh',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
+          height: '100vh', // フッター固定前提
+          fontFamily: 'Arial, sans-serif',
+          backgroundColor: '#fff',
         }}
       >
-        <div
+        <main
           style={{
             flex: 1,
+            overflowY: 'auto',
+            padding: '40px 20px',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'center',
             alignItems: 'center',
-            padding: '0 20px',
           }}
         >
           <h2 style={{ marginBottom: '30px', fontSize: '24px', fontWeight: 'bold' }}>登録内容確認</h2>
@@ -37,6 +36,7 @@ export default function ConfirmRegistration() {
               width: '100%',
               maxWidth: '400px',
               textAlign: 'left',
+              backgroundColor: '#fff',
             }}
           >
             <p><strong>名前:</strong><br />工大太郎</p>
@@ -44,7 +44,7 @@ export default function ConfirmRegistration() {
             <p style={{ marginTop: '20px' }}><strong>パスワード:</strong><br />********************</p>
           </div>
 
-          <div style={{ display: 'flex', gap: '20px' }}>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
             <button
               style={{
                 padding: '10px 20px',
@@ -74,9 +74,13 @@ export default function ConfirmRegistration() {
               登録
             </button>
           </div>
-        </div>
+
+          {/* ←←← フッターに被らないように余白追加 */}
+          <div style={{ height: '100px' }}></div>
+        </main>
+
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }
