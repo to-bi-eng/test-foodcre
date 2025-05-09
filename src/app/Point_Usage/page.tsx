@@ -78,7 +78,7 @@ export default function Usage() {
               maxWidth="400px"
               className={ styles.box }
               >
-                <Box        /* クーポン詳細 */
+                <Box
                   className={ styles.framework }
                   >
                     <Box
@@ -107,7 +107,7 @@ export default function Usage() {
                             </Typography>
                         </Box>
                     </Box>
-                    <Typography  /* box2つ追加してクーポンつくる */
+                    <Typography
                       textAlign="center"
                       fontSize="1.1rem"
                       >
@@ -120,7 +120,7 @@ export default function Usage() {
                         </ Box>
                     </Link>
                 </Box>
-                <Box        /* クーポン詳細 */
+                <Box
                   className={ styles.framework }
                   >
                     <Box
@@ -149,7 +149,7 @@ export default function Usage() {
                             </Typography>
                         </Box>
                     </Box>
-                    <Typography  /* box2つ追加してクーポンつくる */
+                    <Typography
                       textAlign="center"
                       fontSize="1.1rem"
                       >
@@ -163,12 +163,12 @@ export default function Usage() {
                     </Link>
                 </Box>
             </Box>
-            <Box      /* クーポン全体 */
+            <Box
               sx={{ mt: "20px" }}
               maxWidth="400px"
               className={ styles.box }
             >
-                <Box        /* クーポン詳細 */
+                <Box
                   className={ styles.framework }
                   >
                     <Box
@@ -197,7 +197,7 @@ export default function Usage() {
                             </Typography>
                         </Box>
                     </Box>
-                    <Typography  /* box2つ追加してクーポンつくる */
+                    <Typography
                       textAlign="center"
                       fontSize="1.1rem"
                       >
@@ -210,7 +210,7 @@ export default function Usage() {
                         </ Box>
                     </Link>
                 </Box>
-                <Box        /* クーポン詳細 */
+                <Box
                   className={ styles.framework }
                   >
                     <Box
@@ -239,7 +239,7 @@ export default function Usage() {
                             </Typography>
                         </Box>
                     </Box>
-                    <Typography  /* box2つ追加してクーポンつくる */
+                    <Typography
                       textAlign="center"
                       fontSize="1.1rem"
                       >
