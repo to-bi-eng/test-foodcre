@@ -1,14 +1,45 @@
+import styles from '@/styles/privacypolicy.module.css';
+import {Typography, Button, Box} from '@mui/material';
+// import Link from "next/link";
+
 export default function Privacypolicy() {
     return (
-      <div style={{ fontFamily: 'Arial, sans-serif', textAlign: 'center', backgroundColor: '#fff', height: '115vh', display: 'flex', flexDirection: 'column'}}>
-        <h1 style={{ padding: '20px 0px'}}>
-            プライバシー<br />
+      <div className={ styles.page }>
+        <Box 
+          className={ styles.box }
+        >
+          <Typography
+            fontSize="2.0rem"
+            fontWeight="bold"
+          >
+            プライバシー
+          </Typography>
+
+          <Typography
+            fontSize="2.0rem"
+            fontWeight="bold"
+          >
             ポリシー
-        </h1>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'row', justifyContent: 'center', alignItems: 'center',  gap: '100px'}}>
-            <button style={{ padding: '20px 30px', backgroundColor: '#4B4B4B', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>戻る</button>
-            <button style={{ padding: '20px 30px', backgroundColor: '#4B4B4B', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>次へ</button>
-        </div>
+          </Typography>
+
+
+          <div className={ styles.button }>
+            <Button 
+              variant="contained" 
+              size="large" 
+              color="info"
+            >
+              戻る
+            </Button>
+            <Button 
+              variant="contained" 
+              size="large" 
+              color="info"
+            >
+              次へ
+            </Button>
+          </div>
+        </Box>
       </div>
     );
   }
