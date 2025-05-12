@@ -12,19 +12,15 @@ WORKDIR /usr/src/app
 
 # Install dependencies
 FROM base as deps
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci --omit=dev
+
+# package.json と lock ファイルを先にコピー（キャッシュが効くように）
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
 # Build application
 FROM deps as build
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci
 COPY . .
-RUN npm run build
+RUN npm ci && npm run build
 
 # Final stage
 FROM base as final
@@ -35,6 +31,7 @@ ENV NODE_ENV development
 COPY package.json .
 COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/.next ./.next
+COPY --from=build /usr/src/app/public ./public
 
 # 権限を設定
 RUN mkdir -p .next/cache && chmod -R 777 .next
@@ -43,5 +40,3 @@ USER node
 
 EXPOSE 3000
 CMD ["npm", "run", "dev"]
-
-
