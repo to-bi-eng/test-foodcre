@@ -15,6 +15,7 @@ export default function Header() {
             inset: 0,
             top: 0,
             bottom: "auto",
+            zIndex: 1,
         }} className={styles.box}>
             <AppBar position="sticky" color="primary" className={styles.header}>
                 <Toolbar>
