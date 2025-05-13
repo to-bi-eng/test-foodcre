@@ -17,15 +17,15 @@ export default function Login () {
     margin: '0 auto'  // 中央配置
 }}>
     <h1 style={{ color: '#4b3f2e', fontSize: '2.5rem' }}>登録</h1>
-    <form style={{ display: 'inline-block', textAlign: 'left', marginTop: '0px' }}>
-        <div style={{ marginBottom: '15px' }}>
-            <TextField id="outlined-basic" label="name" variant="outlined"></TextField>
+    <form style={{ display: 'inline-block', textAlign: 'left', marginTop: '10px' }}>
+        <div style={{ marginBottom: '40px' }}>
+            <TextField id="outlined-basic" label="name" variant="outlined" sx={{ width: '300px' }}></TextField>
         </div>
-        <div style={{ marginBottom: '15px' }}>
-            <TextField id="outlined-basic" label="mail" variant="outlined" ></TextField>
+        <div style={{ marginBottom: '40px' }}>
+            <TextField id="outlined-basic" label="mail" variant="outlined" sx={{ width: '300px' }}></TextField>
         </div>
-        <div style={{ marginBottom: '30px' }}>
-            <TextField id="outlined-basic" label="password" variant="outlined" ></TextField>
+        <div style={{ marginBottom: '60px' }}>
+            <TextField id="outlined-basic" label="password" variant="outlined" sx={{ width: '300px' }} ></TextField>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', width: '300px' }}>
             <Button variant="contained" size="large">戻る</Button>
