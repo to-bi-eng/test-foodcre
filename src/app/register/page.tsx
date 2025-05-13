@@ -19,13 +19,13 @@ export default function Login () {
     <h1 style={{ color: '#4b3f2e', fontSize: '2.5rem' }}>登録</h1>
     <form style={{ display: 'inline-block', textAlign: 'left', marginTop: '0px' }}>
         <div style={{ marginBottom: '15px' }}>
-            <TextField id="outlined-basic" label="名前" variant="outlined" ></TextField>
+            <TextField id="outlined-basic" label="name" variant="outlined"></TextField>
         </div>
         <div style={{ marginBottom: '15px' }}>
-            <TextField id="outlined-basic" label="メールアドレス" variant="outlined" ></TextField>
+            <TextField id="outlined-basic" label="mail" variant="outlined" ></TextField>
         </div>
         <div style={{ marginBottom: '30px' }}>
-            <TextField id="outlined-basic" label="パスワード" variant="outlined" ></TextField>
+            <TextField id="outlined-basic" label="password" variant="outlined" ></TextField>
         </div>
         <div style={{ display: 'flex', justifyContent: 'space-between', width: '300px' }}>
             <Button variant="contained" size="large">戻る</Button>
