@@ -1,85 +1,40 @@
+'use client'
 import React from 'react';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
+import styles from '@/styles/ConfirmRegistration.module.css';
+
+import { Box, Button, Typography, Paper, Container } from '@mui/material';
 
 export default function ConfirmRegistration() {
   return (
     <>
       <Header />
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100vh', 
-          fontFamily: 'Arial, sans-serif',
-          backgroundColor: '#fff',
-        }}
-      >
-        <main
-          style={{
-            flex: 1,
-            overflowY: 'auto',
-            padding: '40px 20px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <h2 style={{ marginBottom: '30px', fontSize: '24px', fontWeight: 'bold' }}>登録内容確認</h2>
+      <Box className={styles.wrapper}>
+        <Container component="main" maxWidth="sm" className={styles.main}>
+          <Typography variant="h5" className={styles.heading}>
+            登録内容確認
+          </Typography>
 
-          <div
-            style={{
-              border: '2px solid red',
-              padding: '20px',
-              marginBottom: '40px',
-              width: '100%',
-              maxWidth: '400px',
-              textAlign: 'left',
-              backgroundColor: '#fff',
-            }}
-          >
-            <p><strong>名前:</strong><br />工大太郎</p>
-            <p style={{ marginTop: '20px' }}><strong>メールアドレス:</strong><br />c1234567@st-kanazawa.ac.jp</p>
-            <p style={{ marginTop: '20px' }}><strong>パスワード:</strong><br />********************</p>
-          </div>
+          <Paper elevation={3} className={styles.infoBox}>
+            <Typography><strong>名前:</strong><br />工大太郎</Typography>
+            <Typography className={styles.field}><strong>メールアドレス:</strong><br />c1234567@st.kanazawa-it.ac.jp</Typography>
+            <Typography className={styles.field}><strong>パスワード:</strong><br />********************</Typography>
+          </Paper>
 
-          <div style={{ display: 'flex', gap: '70px', flexWrap: 'wrap', justifyContent: 'center' }}>
-            <button
-              style={{
-                padding: '15px 25px',
-                backgroundColor: '#4B4B4B',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '5px',
-                cursor: 'pointer',
-                fontWeight: 'bold',
-                width: '100px',
-              }}
-            >
+          <Box className={styles.buttonGroup}>
+            <Button variant="contained" className={styles.button}>
               戻る
-            </button>
-            <button
-              style={{
-                padding: '15px 25px',
-                backgroundColor: '#4B4B4B',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '5px',
-                cursor: 'pointer',
-                fontWeight: 'bold',
-                width: '100px',
-              }}
-            >
+            </Button>
+            <Button variant="contained" className={styles.button}>
               登録
-            </button>
-          </div>
+            </Button>
+          </Box>
 
-          {/* ←←← フッターに被らないように余白追加 */}
-          <div style={{ height: '100px' }}></div>
-        </main>
-
+          <Box className={styles.footerSpacer}></Box>
+        </Container>
         <Footer />
-      </div>
+      </Box>
     </>
   );
 }
