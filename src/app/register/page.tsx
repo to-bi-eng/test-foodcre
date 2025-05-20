@@ -1,14 +1,9 @@
-"use client"
 import React from 'react';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 export default function Login () {
     return (
-    <div>
-    <Header></Header>
     <div className='register' style={{ 
     fontFamily: 'Arial, sans-serif', 
     textAlign: 'center', 
@@ -33,8 +28,5 @@ export default function Login () {
         </div>
     </form>
 </div>
-
-    <Footer></Footer>
-    </div>
     );
 };
