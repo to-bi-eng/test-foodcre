@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import styles from '@/styles/Register.module.css';
 
 export default function Login () {
     return (
@@ -11,22 +12,22 @@ export default function Login () {
     maxWidth: '600px',  // 最大幅を広げる
     margin: '0 auto'  // 中央配置
 }}>
-    <h1 style={{ color: '#4b3f2e', fontSize: '2.5rem' }}>登録</h1>
-    <form style={{ display: 'inline-block', textAlign: 'left', marginTop: '10px' }}>
-        <div style={{ marginBottom: '40px' }}>
+    <div className={styles.title}>登録</div>
+    <div className={styles.form}>
+        <div className={styles.TextField_name}>
             <TextField id="outlined-basic" label="name" variant="outlined" sx={{ width: '300px' }}></TextField>
         </div>
-        <div style={{ marginBottom: '40px' }}>
+        <div className={styles.TextField_mail}>
             <TextField id="outlined-basic" label="mail" variant="outlined" sx={{ width: '300px' }}></TextField>
         </div>
-        <div style={{ marginBottom: '60px' }}>
+        <div className={styles.TextField_password}>
             <TextField id="outlined-basic" label="password" variant="outlined" sx={{ width: '300px' }} ></TextField>
         </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', width: '300px' }}>
+        <div className={styles.Button}style={{ display: 'flex', justifyContent: 'space-between', width: '300px' }}>
             <Button variant="contained" size="large">戻る</Button>
             <Button variant="contained" size="large">次へ</Button>
         </div>
-    </form>
+    </div>
 </div>
     );
 };

@@ -1,0 +1,28 @@
+.title {
+    color:#4b3f2e;
+    font-size:2.5rem;
+    margin-top: 20px;
+}
+
+.form {
+    display: inline-block;
+    text-align: left;
+    margin-top: 40px;
+}
+
+.TextField_name {
+    margin-bottom: 40px;
+}
+.TextField_mail {
+    margin-bottom: 40px;
+}
+
+.TextField_password {
+    margin-bottom: 60px;
+}
+
+.Button {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+}
