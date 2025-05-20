@@ -1,6 +1,6 @@
-.page{
+.privacypolicy{
      max-width: 330px;
-     margin: 10px auto 200px;
+     margin: auto auto;
      overflow: auto;
      width: 100%;
 }
@@ -10,14 +10,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 100px;
-    margin: auto;
-    margin-top: 100px;
 }
 
 .button{
     display: flex;
-    grid-row: auto;
     gap: 50px;
     margin-top: 350px;
+}
+
+.text {
+    margin-top: 80px;
 }
