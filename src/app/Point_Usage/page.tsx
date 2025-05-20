@@ -4,6 +4,61 @@ import { Box, Typography, Divider, Button } from '@mui/material';
 import Image from 'next/image';
 import Link from "next/link";
 
+type CouponCardProps = {
+  imageSrc: string;
+  imageAlt: string;
+  title: string;
+  discount: number;
+  points: number;
+  detailHref: string;
+};
+
+const CouponCard: React.FC<CouponCardProps> = ({
+  imageSrc,
+  imageAlt,
+  title,
+  discount,
+  points,
+  detailHref,
+}) => (
+  <Box className={styles.framework}>
+    <Box
+      component="section"
+      sx={{ mt: "20px", mb: "10px", ml: "10px" }}
+      className={styles.row}
+    >
+      <Image src={imageSrc} alt={imageAlt} width="60" height="70" />
+      <Box sx={{ ml: "10px" }} className={styles.coupon}>
+        <Typography textAlign="center" variant="h4" fontSize="1.3rem">
+          {title}
+        </Typography>
+        <Typography textAlign="center" variant="h4" fontSize="1.4rem">
+          {discount}%off
+        </Typography>
+      </Box>
+    </Box>
+    <Typography textAlign="center" fontSize="1.1rem">
+      {points}ポイント使用
+    </Typography>
+    <Divider
+      orientation="horizontal"
+      sx={{
+        borderBottomWidth: "3px",
+        borderColor: "#000000",
+        mt: "5px",
+        mb: "5px",
+      }}
+    />
+    <Link href={detailHref} passHref>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Button variant="contained" color="info">
+          詳細
+        </Button>
+      </Box>
+    </Link>
+  </Box>
+);
+
 
 export default function Usage() {
     return (
@@ -73,185 +128,49 @@ export default function Usage() {
                     </Typography>
                 </ Box>
             </ Box>
-            <Box      /* クーポン1行ずつ */
+            <Box
               sx={{ mt: "40px" }}
               maxWidth="400px"
-              className={ styles.box }
-              >
-                <Box
-                  className={ styles.framework }
-                  >
-                    <Box
-                      component="section"
-                      sx={{ mt: "20px", mb: "10px", ml: "10px" }}
-                      className={ styles.row }
-                      >
-                        <Image src="/hachiko.png" alt="餃子6個" width="60" height="70"/>
-                        <Box
-                          sx={{ ml: "10px" }}
-                          className={ styles.coupon }
-                          >
-                            <Typography 
-                              textAlign="center"
-                              variant='h4'
-                              fontSize="1.3rem"
-                              >
-                                餃子6個
-                            </Typography>
-                            <Typography
-                              textAlign="center"
-                              variant='h4'
-                              fontSize="1.4rem"
-                              >
-                                5%off
-                            </Typography>
-                        </Box>
-                    </Box>
-                    <Typography
-                      textAlign="center"
-                      fontSize="1.1rem"
-                      >
-                        〇ポイント使用
-                    </Typography>
-                    <Divider orientation="horizontal" sx={{ borderBottomWidth: '3px', borderColor: '#000000', mt: "5px", mb: "5px" }} />
-                    <Link href="/" passHref>
-                        <Box sx={{ display: "flex", justifyContent: "center"}}>
-                            <Button variant="contained" color="info" >詳細</Button>
-                        </ Box>
-                    </Link>
-                </Box>
-                <Box
-                  className={ styles.framework }
-                  >
-                    <Box
-                      component="section"
-                      sx={{ mt: "20px", mb: "10px", ml: "10px" }}
-                      className={ styles.row }
-                      >
-                        <Image src="/hachiko.png" alt="餃子6個" width="60" height="70"/>
-                        <Box
-                          sx={{ ml: "10px" }}
-                          className={ styles.coupon }
-                          >
-                            <Typography 
-                              textAlign="center"
-                              variant='h4'
-                              fontSize="1.3rem"
-                              >
-                                餃子12個
-                            </Typography>
-                            <Typography
-                              textAlign="center"
-                              variant='h4'
-                              fontSize="1.4rem"
-                              >
-                                5%off
-                            </Typography>
-                        </Box>
-                    </Box>
-                    <Typography
-                      textAlign="center"
-                      fontSize="1.1rem"
-                      >
-                        〇ポイント使用
-                    </Typography>
-                    <Divider orientation="horizontal" sx={{ borderBottomWidth: '3px', borderColor: '#000000', mt: "5px", mb: "5px" }} />
-                    <Link href="/" passHref>
-                        <Box sx={{ display: "flex", justifyContent: "center"}}>
-                            <Button variant="contained" color="info" >詳細</Button>
-                        </ Box>
-                    </Link>
-                </Box>
+              className={styles.box}
+            >
+              <CouponCard
+                imageSrc="/hachiko.png"
+                imageAlt="餃子6個"
+                title="餃子6個"
+                discount={5}
+                points={0}
+                detailHref="/"
+              />
+              <CouponCard
+                imageSrc="/hachiko.png"
+                imageAlt="餃子12個"
+                title="餃子12個"
+                discount={5}
+                points={0}
+                detailHref="/"
+              />
             </Box>
             <Box
               sx={{ mt: "20px" }}
               maxWidth="400px"
-              className={ styles.box }
+              className={styles.box}
             >
-                <Box
-                  className={ styles.framework }
-                  >
-                    <Box
-                      component="section"
-                      sx={{ mt: "20px", mb: "10px", ml: "10px" }}
-                      className={ styles.row }
-                      >
-                        <Image src="/hachiko.png" alt="餃子6個" width="60" height="70"/>
-                        <Box
-                          sx={{ ml: "10px" }}
-                          className={ styles.coupon }
-                          >
-                            <Typography 
-                              textAlign="center"
-                              variant='h4'
-                              fontSize="1.3rem"
-                              >
-                                餃子6個
-                            </Typography>
-                            <Typography
-                              textAlign="center"
-                              variant='h4'
-                              fontSize="1.4rem"
-                              >
-                                5%off
-                            </Typography>
-                        </Box>
-                    </Box>
-                    <Typography
-                      textAlign="center"
-                      fontSize="1.1rem"
-                      >
-                        〇ポイント使用
-                    </Typography>
-                    <Divider orientation="horizontal" sx={{ borderBottomWidth: '3px', borderColor: '#000000', mt: "5px", mb: "5px" }} />
-                    <Link href="/" passHref>
-                        <Box sx={{ display: "flex", justifyContent: "center"}}>
-                            <Button variant="contained" color="info" >詳細</Button>
-                        </ Box>
-                    </Link>
-                </Box>
-                <Box
-                  className={ styles.framework }
-                  >
-                    <Box
-                      component="section"
-                      sx={{ mt: "20px", mb: "10px", ml: "10px" }}
-                      className={ styles.row }
-                      >
-                        <Image src="/hachiko.png" alt="餃子12個" width="60" height="70"/>
-                        <Box
-                          sx={{ ml: "10px" }}
-                          className={ styles.coupon }
-                          >
-                            <Typography 
-                              textAlign="center"
-                              variant='h4'
-                              fontSize="1.3rem"
-                              >
-                                餃子12個
-                            </Typography>
-                            <Typography
-                              textAlign="center"
-                              variant='h4'
-                              fontSize="1.4rem"
-                              >
-                                5%off
-                            </Typography>
-                        </Box>
-                    </Box>
-                    <Typography
-                      textAlign="center"
-                      fontSize="1.1rem"
-                      >
-                        〇ポイント使用
-                    </Typography>
-                    <Divider orientation="horizontal" sx={{ borderBottomWidth: '3px', borderColor: '#000000', mt: "5px", mb: "5px" }} />
-                    <Link href="/" passHref>
-                        <Box sx={{ display: "flex", justifyContent: "center"}}>
-                            <Button variant="contained" color="info" >詳細</Button>
-                        </ Box>
-                    </Link>
-                </Box>
+              <CouponCard
+                imageSrc="/hachiko.png"
+                imageAlt="餃子6個"
+                title="餃子6個"
+                discount={5}
+                points={0}
+                detailHref="/"
+              />
+              <CouponCard
+                imageSrc="/hachiko.png"
+                imageAlt="餃子12個"
+                title="餃子12個"
+                discount={5}
+                points={0}
+                detailHref="/"
+              />
             </Box>
         </div>
     )
