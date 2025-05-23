@@ -1,0 +1,55 @@
+import React from "react";
+import styles from "@/styles/Login.module.css";
+import { Button, Stack, TextField, Typography, Link } from "@mui/material";
+
+export default function LoginPage() {
+  return (
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        <Stack spacing={6} pt={10}></Stack>
+        <Typography variant="h3" className={styles.title}>
+          ログイン
+        </Typography>
+
+        <Stack spacing={6} pt={10}>
+          <div>
+            <Typography className={styles.label}>メールアドレス</Typography>
+            <TextField
+              variant="filled"
+              placeholder="mail"
+              fullWidth
+              InputProps={{ disableUnderline: true }}
+              className={styles.input}
+            />
+          </div>
+
+          <div>
+            <Typography className={styles.label}>パスワード</Typography>
+            <TextField
+              type="password"
+              variant="filled"
+              placeholder="password"
+              fullWidth
+              InputProps={{ disableUnderline: true }}
+              className={styles.input}
+            />
+            <div className={styles.linkWrapper}>
+              <Link href="#" underline="hover" color="blue" fontSize={14}>
+                パスワード変更
+              </Link>
+            </div>
+          </div>
+
+          <Stack direction="row" spacing={3} justifyContent="center" pt={10}>
+            <Button variant="contained" className={styles.button}>
+              戻る
+            </Button>
+            <Button variant="contained" className={styles.button}>
+              ログイン
+            </Button>
+          </Stack>
+        </Stack>
+      </div>
+    </div>
+  );
+}
