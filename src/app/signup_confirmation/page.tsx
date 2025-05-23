@@ -1,4 +1,3 @@
-'use client'
 import React from 'react';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
@@ -9,7 +8,6 @@ import { Box, Button, Typography, Paper, Container } from '@mui/material';
 export default function ConfirmRegistration() {
   return (
     <>
-      <Header />
       <Box className={styles.wrapper}>
         <Container component="main" maxWidth="sm" className={styles.main}>
           <Typography variant="h5" className={styles.heading}>
@@ -33,7 +31,6 @@ export default function ConfirmRegistration() {
 
           <Box className={styles.footerSpacer}></Box>
         </Container>
-        <Footer />
       </Box>
     </>
   );
