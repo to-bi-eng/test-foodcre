@@ -49,13 +49,13 @@ const CouponCard: React.FC<CouponCardProps> = ({
         mb: "5px",
       }}
     />
-    <Link href={detailHref} passHref>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Button variant="contained" color="info">
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
+      <Link href={detailHref} passHref legacyBehavior>
+        <Button variant="contained" color="info" component="a" sx={{ textDecoration: "none" }}>
           詳細
         </Button>
-      </Box>
-    </Link>
+      </Link>
+    </Box>
   </Box>
 );
 
