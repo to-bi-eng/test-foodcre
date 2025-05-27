@@ -12,16 +12,12 @@ export default function Login () {
 }}>
     <div className={styles.title}>ポイント付与</div>
     <div className={styles.form}>
+        <div className={styles.QR}></div>
         <div className={styles.TextField_name}>
-            <div className={styles.name}>名前：</div>
+            <div className={styles.Text1}>店内に設置されているQRコードを会計時に読み取ってください</div>
         </div>
-        <div className={styles.TextField_mail}>
-            <div className={styles.mail}>メールアドレス：</div>
-        </div>
-        <div className={styles.TextField_password}>
-            <div className={styles.password}>パスワード：</div>
-        </div>
-        <div className={styles.Button}style={{ display: 'flex', justifyContent: 'space-between', width: '300px' }}>
+        <div className={styles.Text2}>
+            <div className={styles.mail}>※一日に一度のみポイントが加算されます</div>
         </div>
     </div>
 </div>
