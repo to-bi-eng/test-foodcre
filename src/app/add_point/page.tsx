@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '@/styles/Add_point.module.css';
 
-export default function Login () {
+export default function Add_point () {
     return (
     <div className='register' style={{ 
     fontFamily: 'Arial, sans-serif', 
