@@ -6,12 +6,12 @@ export default function LoginPage() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <Stack spacing={6} pt={10}></Stack>
+        <Stack spacing={1} pt={8}></Stack>
         <Typography variant="h3" className={styles.title}>
           ログイン
         </Typography>
 
-        <Stack spacing={6} pt={10}>
+        <Stack spacing={3} pt={1}>
           <div>
             <Typography className={styles.label}>メールアドレス</Typography>
             <TextField
@@ -40,7 +40,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <Stack direction="row" spacing={3} justifyContent="center" pt={10}>
+          <Stack direction="row" spacing={1} justifyContent="center" pt={8}>
             <Button variant="contained" className={styles.button}>
               戻る
             </Button>
