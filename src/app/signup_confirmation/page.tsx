@@ -1,8 +1,5 @@
 import React from 'react';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
 import styles from '@/styles/ConfirmRegistration.module.css';
-
 import { Box, Button, Typography, Paper, Container } from '@mui/material';
 
 export default function ConfirmRegistration() {
