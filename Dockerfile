@@ -1,42 +1,22 @@
-# syntax=docker/dockerfile:1
+FROM node:22.5.1-alpine
 
-ARG NODE_VERSION=22.5.1
-
-# Base image
-FROM node:${NODE_VERSION}-alpine as base
-
-# bash を追加
+# bash追加（任意）
 RUN apk add --no-cache bash
 
+# 作業ディレクトリ
 WORKDIR /usr/src/app
 
-# Install dependencies
-FROM base as deps
+# パッケージファイルを先にコピーして依存解決
+COPY package*.json ./
+RUN npm ci
 
-# package.json と lock ファイルを先にコピー（キャッシュが効くように）
-COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
-
-# Build application
-FROM deps as build
+# アプリの全コードをコピー
 COPY . .
-RUN npm ci && npm run build
 
-# Final stage
-FROM base as final
-
-ENV NODE_ENV development
-
-# Copy built files
-COPY package.json .
-COPY --from=deps /usr/src/app/node_modules ./node_modules
-COPY --from=build /usr/src/app/.next ./.next
-COPY --from=build /usr/src/app/public ./public
-
-# 権限を設定
-RUN mkdir -p .next/cache && chmod -R 777 .next
-
-USER node
+# エントリポイントスクリプトを追加
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 EXPOSE 3000
+
 CMD ["npm", "run", "dev"]
