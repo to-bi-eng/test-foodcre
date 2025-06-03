@@ -12,8 +12,8 @@ const PointApp: React.FC<PointAppProps> = ({ plusPoints, totalPoints }) => {
   return (
     <Box className={styles.container}>
       {/* ポイント付与メッセージ */}
-      <Box className={styles.awardedPointsContainer}>
-        <Typography variant="h4" className={styles.awardedPointsText}>
+      <Box className={styles.awardPoint}>
+        <Typography variant="h4">
           {plusPoints}ポイント付与
           <br />
           されました！
@@ -21,34 +21,26 @@ const PointApp: React.FC<PointAppProps> = ({ plusPoints, totalPoints }) => {
       </Box>
 
       {/* 現在の所有ポイント表示 */}
-      <Box className={styles.totalPointsContainer}>
-        <Typography className={styles.totalPointsText}>
+      <Box className={styles.totalPoint}>
+        <Typography variant="h5">
           現在の所有ポイント：
-          <br />
+          <br/>
           {totalPoints}ポイント
         </Typography>
       </Box>
 
       {/* メッセージ */}
-      <Box className={styles.MessageContainer}>
-        <Typography className={styles.MessageText}>
-          getしたポイントを交換して
-          <br />
-          クーポンを手に入れよう！！
-        </Typography>
-      </Box>
+      <Typography className={styles.Message}>
+        getしたポイントを交換して
+        <br />
+        クーポンを手に入れよう！！
+      </Typography>
 
       {/* ポイント交換ボタン */}
-      <br />
-      <Box className={styles.buttonContainer}>
-        <Button
-          variant="contained"
-          className={styles.exchangeButton}
-          disableElevation
-        >
-          ポイントを交換する
-        </Button>
-      </Box>
+      <Button className={styles.button}
+        variant="contained">
+        ポイントを交換する
+      </Button>
     </Box>
   );
 };
