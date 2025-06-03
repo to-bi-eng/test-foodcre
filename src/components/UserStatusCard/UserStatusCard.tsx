@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 
+// BEが出来たら、ユーザー情報を取得して表示するようにしてください。
+// 現状は、propsで受け取った値を表示するだけです。
 type UserCardProps = {
     name: string;
     points: number;
