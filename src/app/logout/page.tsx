@@ -2,7 +2,7 @@
 import React from 'react';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
-import { Padding } from '@mui/icons-material';
+//import { Padding } from '@mui/icons-material';
 export default function LogoutScreen()  {
   return (
     <>
