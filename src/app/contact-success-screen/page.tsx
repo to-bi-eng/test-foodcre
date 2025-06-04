@@ -2,7 +2,7 @@
 import { Button, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useRouter } from "next/navigation";
-import styles from './contact-success-screen.module.css';
+import styles from '../../styles/contact-success-screen.module.css';
 
 export default function SentConfirmation() {
   const router = useRouter();
@@ -15,7 +15,7 @@ export default function SentConfirmation() {
     <Stack
       justifyContent="center"
       alignItems="center"
-      minHeight="100vh"
+      minHeight="50vh"
       spacing={4}
       className={styles.container}
     >
@@ -36,3 +36,4 @@ export default function SentConfirmation() {
     </Stack>
   );
 }
+
