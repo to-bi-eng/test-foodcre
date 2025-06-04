@@ -15,24 +15,48 @@ export default function LoginPage() {
           <div>
             <Typography className={styles.label}>メールアドレス</Typography>
             <TextField
-              variant="filled"
-              placeholder="mail"
-              fullWidth
-              InputProps={{ disableUnderline: true }}
-              className={styles.input}
+                variant="filled"
+                placeholder="mail"
+                fullWidth
+                className={styles.input}
+                sx={{
+                  '& .MuiFilledInput-root': {
+                    backgroundColor: 'transparent',
+                    borderBottom: 'none',
+                  },
+                  '& .MuiFilledInput-underline:before': {
+                    borderBottom: 'none',
+                  },
+                  '& .MuiFilledInput-underline:after': {
+                    borderBottom: 'none',
+                  },
+                }}
             />
+
           </div>
 
           <div>
             <Typography className={styles.label}>パスワード</Typography>
             <TextField
-              type="password"
-              variant="filled"
-              placeholder="password"
-              fullWidth
-              InputProps={{ disableUnderline: true }}
-              className={styles.input}
-            />
+                type="password"
+                variant="filled"
+                placeholder="password"
+                fullWidth
+                className={styles.input}
+                sx={{
+                  '& .MuiFilledInput-root': {
+                    backgroundColor: 'transparent',
+                    borderBottom: 'none',
+                  },
+                  '& .MuiFilledInput-underline:before': {
+                    borderBottom: 'none',
+                  },
+                  '& .MuiFilledInput-underline:after': {
+                    borderBottom: 'none',
+                  },
+                }}
+              />
+
             <div className={styles.linkWrapper}>
               <Link href="#" underline="hover" color="blue" fontSize={14}>
                 パスワード変更
