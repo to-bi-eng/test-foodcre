@@ -26,7 +26,17 @@ export default function Home() {
         工大前店”でのみポイントの付与、<br />
         クーポンの使用ができます
       </Typography>
-      <Image src="/hachiko.png" alt="キャラクター" width="70" height="70" className={styles.character} />
+      <Box display="flex" justifyContent="flex-end" mt={1}>
+        <Image src="/hachiko.png" alt="キャラクター" width="70" height="70" />
+      </Box>
+      <Box className={styles.news}>
+        <Typography
+          variant="h3"
+          align="center"
+        >
+          お知らせ
+        </Typography>
+      </Box>
     </div>
   );
 }
