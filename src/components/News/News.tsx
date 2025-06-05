@@ -1,3 +1,5 @@
+import news_styles from "@/styles/News.module.css"
+import Button from '@mui/material/Button';
 type News = {
     id: number,
     title: string,
@@ -12,17 +14,23 @@ export default async function News() {
         return <p>新しいお知らせはありません。</p>;
     }
     return (
-        <>
-            <table className="table">
-                <tbody>
-                    {news.map(news => (
-                        <tr key={news.id}>
-                            <td>{news.title}</td>
-                            <td>{news.created_at}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </>
+        <div className={news_styles.news_list_wrapper}>
+            <div className={news_styles.news_list}>
+                {news.map((item) => (
+                    <div className={news_styles.news_item} key={item.id}>
+                        <time className={news_styles.news_date}>{new Date(item.created_at).toLocaleDateString('sv-SE')}</time>
+                        <div
+                            className={news_styles.news_title}
+                            dangerouslySetInnerHTML={{
+                                __html: `${item.title}`,
+                            }}
+                        />
+                    </div>
+                ))}
+            </div>
+            <div className={news_styles.news_button_wrapper}>
+                <Button variant="contained" color="secondary" disableElevation href="/home">戻る</Button>
+            </div>
+        </div>
     )
 }
