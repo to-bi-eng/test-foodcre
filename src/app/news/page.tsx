@@ -1,7 +1,9 @@
-export default function News() {
+import News from "@/components/News/News"
+
+export default function NewsScreen() {
     return (
         <div>
-            <h1>あああああ</h1>
+            <News />
         </div>
     )
 }
