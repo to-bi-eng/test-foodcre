@@ -6,6 +6,7 @@ import theme from '@/theme';
 import { Metadata } from 'next';
 
 import Header from '@/components/Header/Header';
+import BG from '@/components/Background/Background';
 import Footer from '@/components/Footer/Footer';
 
 import styles from '@/styles/ContentBox.module.css'
@@ -25,12 +26,13 @@ export default function RootLayout({
       <body>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Header />
-          <div className={styles.ContentBox}>
-            {children}
-          </div>
-          <Footer />
+            <CssBaseline />
+            <Header />
+            <BG />
+            <div className={styles.ContentBox}>
+              {children}
+            </div>
+            <Footer />
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
