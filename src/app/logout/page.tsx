@@ -12,7 +12,7 @@ export default function LogoutScreen()  {
         aria-labelledby="logout"
         className={ styles.box }
         >
-        <Image src="/hachiko1.png" alt="Character" width="180" height="150"/>
+        <Image src="/Hachiko.png" alt="ハチコのイラスト" width="180" height="150"/>
         <Typography
           id="logout"
           variant="h2"
