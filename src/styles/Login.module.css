@@ -9,6 +9,7 @@
   overflow: auto;          /* 高さが足りないときにスクロール可能に */
   padding: 24px 12px;      /* スクロール時に端が切れないよう余白追加 */
   box-sizing: border-box;
+  padding-bottom: 425px;
 }
 
 .container {
