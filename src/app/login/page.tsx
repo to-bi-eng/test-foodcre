@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "@/styles/Login.module.css";
-import { Button, Stack, TextField, Typography, Link } from "@mui/material";
+import { Box, Button, Stack, TextField, Typography, Link } from "@mui/material";
 
+// 共通TextFieldスタイル
 const commonTextFieldSx = {
   '& .MuiFilledInput-root': {
     backgroundColor: 'transparent',
@@ -17,26 +18,25 @@ const commonTextFieldSx = {
 
 export default function LoginPage() {
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.container}>
-        <Typography variant="h3" className={styles.title}>
+    <Box className={styles.wrapper}>
+      <Box className={styles.container}>
+        <Typography variant="h3" className={styles.title} pt={8}>
           ログイン
         </Typography>
 
         <Stack spacing={3} pt={1}>
-          <div>
+          <Box>
             <Typography className={styles.label}>メールアドレス</Typography>
             <TextField
-            variant="filled"
-            placeholder="mail"
-            fullWidth
-            className={styles.input}
-            sx={commonTextFieldSx}
+              variant="filled"
+              placeholder="mail"
+              fullWidth
+              className={styles.input}
+              sx={commonTextFieldSx}
             />
+          </Box>
 
-          </div>
-
-          <div>
+          <Box>
             <Typography className={styles.label}>パスワード</Typography>
             <TextField
               type="password"
@@ -47,12 +47,12 @@ export default function LoginPage() {
               sx={commonTextFieldSx}
             />
 
-            <div className={styles.linkWrapper}>
+            <Box className={styles.linkWrapper}>
               <Link href="#" underline="hover" color="blue" fontSize={14}>
                 パスワード変更
               </Link>
-            </div>
-          </div>
+            </Box>
+          </Box>
 
           <Stack direction="row" spacing={1} justifyContent="center" pt={8}>
             <Button variant="contained" className={styles.button}>
@@ -63,7 +63,7 @@ export default function LoginPage() {
             </Button>
           </Stack>
         </Stack>
-      </div>
-    </div>
+      </Box>
+    </Box>
   );
 }
