@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from '@/styles/Individual_Point_Usage.module.css';
 
-const GyozaCoupon = () => {
+const Coupon = ({ validityMonths = 0 , userPoint = 0 }) => {
   return (
     <div className={styles.couponContainer}>
       <div className={styles.imageContainer}>
@@ -11,9 +11,9 @@ const GyozaCoupon = () => {
       </div>
 
       <div className={styles.infoContainer}>
-        <p className={styles.pointExchangeText}>○ポイントと引き換えます</p>
+        <p className={styles.pointExchangeText}>{ userPoint = 0 }ポイントと引き換えます</p>
         <p className={styles.validityText}>※有効期限は引き換えてから</p>
-        <p className={styles.validityPeriodText}>○ヶ月後です</p>
+        <p className={styles.validityPeriodText}><span className={styles.highlightedText}>{ validityMonths = 0 }ヶ月後です</span></p>
       </div>
 
       {/* ボタンを縦に中央揃えで配置 */}
@@ -25,4 +25,4 @@ const GyozaCoupon = () => {
   );
 };
 
-export default GyozaCoupon;
+export default Coupon;
