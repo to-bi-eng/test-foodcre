@@ -2,11 +2,23 @@ import React from "react";
 import styles from "@/styles/Login.module.css";
 import { Button, Stack, TextField, Typography, Link } from "@mui/material";
 
+const commonTextFieldSx = {
+  '& .MuiFilledInput-root': {
+    backgroundColor: 'transparent',
+    borderBottom: 'none',
+  },
+  '& .MuiFilledInput-underline:before': {
+    borderBottom: 'none',
+  },
+  '& .MuiFilledInput-underline:after': {
+    borderBottom: 'none',
+  },
+};
+
 export default function LoginPage() {
   return (
     <div className={styles.wrapper}>
       <div className={styles.container}>
-        <Stack spacing={1} pt={8}></Stack>
         <Typography variant="h3" className={styles.title}>
           ログイン
         </Typography>
@@ -15,22 +27,11 @@ export default function LoginPage() {
           <div>
             <Typography className={styles.label}>メールアドレス</Typography>
             <TextField
-                variant="filled"
-                placeholder="mail"
-                fullWidth
-                className={styles.input}
-                sx={{
-                  '& .MuiFilledInput-root': {
-                    backgroundColor: 'transparent',
-                    borderBottom: 'none',
-                  },
-                  '& .MuiFilledInput-underline:before': {
-                    borderBottom: 'none',
-                  },
-                  '& .MuiFilledInput-underline:after': {
-                    borderBottom: 'none',
-                  },
-                }}
+            variant="filled"
+            placeholder="mail"
+            fullWidth
+            className={styles.input}
+            sx={commonTextFieldSx}
             />
 
           </div>
@@ -38,24 +39,13 @@ export default function LoginPage() {
           <div>
             <Typography className={styles.label}>パスワード</Typography>
             <TextField
-                type="password"
-                variant="filled"
-                placeholder="password"
-                fullWidth
-                className={styles.input}
-                sx={{
-                  '& .MuiFilledInput-root': {
-                    backgroundColor: 'transparent',
-                    borderBottom: 'none',
-                  },
-                  '& .MuiFilledInput-underline:before': {
-                    borderBottom: 'none',
-                  },
-                  '& .MuiFilledInput-underline:after': {
-                    borderBottom: 'none',
-                  },
-                }}
-              />
+              type="password"
+              variant="filled"
+              placeholder="password"
+              fullWidth
+              className={styles.input}
+              sx={commonTextFieldSx}
+            />
 
             <div className={styles.linkWrapper}>
               <Link href="#" underline="hover" color="blue" fontSize={14}>

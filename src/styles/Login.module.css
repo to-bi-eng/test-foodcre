@@ -1,15 +1,21 @@
+/* Login.module.css */
+
 .wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 50vh;
+  min-height: 100vh;       /* 高さを全画面に */
   background-color: white;
+  overflow: auto;          /* 高さが足りないときにスクロール可能に */
+  padding: 24px 12px;      /* スクロール時に端が切れないよう余白追加 */
+  box-sizing: border-box;
 }
 
 .container {
   width: 100%;
   max-width: 430px;
   padding: 24px;
+  box-sizing: border-box;
 }
 
 .title {
@@ -43,4 +49,3 @@
   padding: 15px 0 !important;
   flex: 1;
 }
-
