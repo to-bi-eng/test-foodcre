@@ -1,9 +1,9 @@
 .page{
     max-width:425px;
-    margin:20px auto 200px;
+    margin:20px auto 264px;
     overflow: auto;
     width: 100%;
-    margin-bottom: 300px;
+    padding-bottom: 20px;
 }
 
 .possession{
