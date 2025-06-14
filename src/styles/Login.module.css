@@ -4,13 +4,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;       /* 高さを全画面に */
+  min-height: 100vh;
   background-color: white;
-  overflow: auto;          /* 高さが足りないときにスクロール可能に */
-  padding: 24px 12px;      /* スクロール時に端が切れないよう余白追加 */
+  overflow: auto;
+  padding: 24px 12px;
   box-sizing: border-box;
-  padding-bottom: 425px;
+
+  /* フッターの高さ + 余白を下に追加（例：200pxに増やす） */
+  padding-bottom: 200px;
 }
+
 
 .container {
   width: 100%;

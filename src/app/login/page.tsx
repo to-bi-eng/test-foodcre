@@ -1,8 +1,18 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import styles from "@/styles/Login.module.css";
-import { Box, Button, Stack, TextField, Typography, Link } from "@mui/material";
+import {
+  Box,
+  Button,
+  Stack,
+  TextField,
+  Typography,
+  Link,
+  InputAdornment,
+  IconButton,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-// 共通TextFieldスタイル
 const commonTextFieldSx = {
   '& .MuiFilledInput-root': {
     backgroundColor: 'transparent',
@@ -17,6 +27,12 @@ const commonTextFieldSx = {
 };
 
 export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <Box className={styles.wrapper}>
       <Box className={styles.container}>
@@ -39,12 +55,21 @@ export default function LoginPage() {
           <Box>
             <Typography className={styles.label}>パスワード</Typography>
             <TextField
-              type="password"
+              type={showPassword ? "text" : "password"}
               variant="filled"
               placeholder="password"
               fullWidth
               className={styles.input}
               sx={commonTextFieldSx}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={handleTogglePassword} edge="end">
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
 
             <Box className={styles.linkWrapper}>
