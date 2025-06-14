@@ -50,8 +50,8 @@ const CouponCard: React.FC<CouponCardProps> = ({
       }}
     />
     <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <Link href={detailHref} passHref legacyBehavior>
-        <Button variant="contained" color="info" component="a" sx={{ textDecoration: "none" }}>
+      <Link href={detailHref} passHref>
+        <Button variant="contained" color="info" sx={{ textDecoration: "none" }}>
           詳細
         </Button>
       </Link>
