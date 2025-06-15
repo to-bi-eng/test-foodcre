@@ -65,7 +65,7 @@ export default function Home() {
                   color: 'primary.main',
                 },
               }}
-              onClick={() => window.location.href = `/news/${item.id}`}
+              onClick={() => window.location.href = `/individual_news/${item.id}`}
             >
               <Typography variant="subtitle1" sx={{ fontSize: '1rem', color: '#555' }}>
                 {item.created_at?.slice(0, 10)}
