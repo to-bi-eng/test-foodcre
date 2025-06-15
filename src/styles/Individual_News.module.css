@@ -1,0 +1,15 @@
+.newsContainer {
+  max-width: 425px;
+  margin: 0 auto 300px;
+  padding: 24px;
+  max-height: 80vh;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.linebreak {
+  white-space: pre-line;
+  word-break: break-word;
+}
