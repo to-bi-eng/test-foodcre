@@ -1,8 +1,7 @@
 .newsContainer {
   max-width: 425px;
-  margin: 0 auto 300px;
+  margin: 0 auto 20px;
   padding: 24px;
-  max-height: 80vh;
   overflow-y: auto;
   background: #fff;
   border-radius: 12px;

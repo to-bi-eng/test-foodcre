@@ -87,20 +87,18 @@ export default function Home() {
           ))}
         </Box>
       </Box>
-      <footer className={styles.footer}>
-        <Box display="flex" justifyContent="center" gap={3}>
-          <Link href="/register">
-            <Button variant="contained" color="info" sx={{ fontSize: '1.5rem', px: 4, borderRadius: 3 }}>
-              新規登録
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button variant="contained" color="info" sx={{ fontSize: '1.5rem', px: 4, borderRadius: 3 }}>
-              ログイン
-            </Button>
-          </Link>
-        </Box>
-      </footer>
+      <Box className={styles.fixedButtons}>
+        <Link href="/register">
+          <Button variant="contained" color="info" sx={{ fontSize: '1.5rem', px: 4, borderRadius: 3 }}>
+            新規登録
+          </Button>
+        </Link>
+        <Link href="/login">
+          <Button variant="contained" color="info" sx={{ fontSize: '1.5rem', px: 4, borderRadius: 3 }}>
+            ログイン
+          </Button>
+        </Link>
+      </Box>
     </div>
   );
 }
