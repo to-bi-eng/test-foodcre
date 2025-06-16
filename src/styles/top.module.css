@@ -1,10 +1,11 @@
 .page {
     max-width: 425px;
-    margin: 20px auto 345px;
+    margin: 20px auto 150px;
     background: #fff;
     position: relative;
     box-sizing: border-box;
     height: 100%;
+    padding-bottom: 150px;
 }
 
 .logo {
@@ -23,16 +24,15 @@
     width: 300px;
 }
 
-.footer {
+.fixedButtons {
   position: fixed;
-  bottom: 264px;
+  bottom: 170px;
   left: 50%;
   transform: translateX(-50%);
   width: 425px;
-  background: #fff;
-  z-index: 100;
-  padding-bottom: 8px;
-  padding-top: 8px;
   display: flex;
   justify-content: center;
+  gap: 24px;
+  background: #fff;
+  padding: 8px 0 20px;
 }

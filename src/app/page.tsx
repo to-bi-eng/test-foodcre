@@ -65,7 +65,7 @@ export default function Home() {
                   color: 'primary.main',
                 },
               }}
-              onClick={() => window.location.href = `/news/${item.id}`}
+              onClick={() => window.location.href = `/individual_news/${item.id}`}
             >
               <Typography variant="subtitle1" sx={{ fontSize: '1rem', color: '#555' }}>
                 {item.created_at?.slice(0, 10)}
@@ -87,20 +87,18 @@ export default function Home() {
           ))}
         </Box>
       </Box>
-      <footer className={styles.footer}>
-        <Box display="flex" justifyContent="center" gap={3}>
-          <Link href="/register">
-            <Button variant="contained" color="info" sx={{ fontSize: '1.5rem', px: 4, borderRadius: 3 }}>
-              新規登録
-            </Button>
-          </Link>
-          <Link href="/login">
-            <Button variant="contained" color="info" sx={{ fontSize: '1.5rem', px: 4, borderRadius: 3 }}>
-              ログイン
-            </Button>
-          </Link>
-        </Box>
-      </footer>
+      <Box className={styles.fixedButtons}>
+        <Link href="/register">
+          <Button variant="contained" color="info" sx={{ fontSize: '1.5rem', px: 4, borderRadius: 3 }}>
+            新規登録
+          </Button>
+        </Link>
+        <Link href="/login">
+          <Button variant="contained" color="info" sx={{ fontSize: '1.5rem', px: 4, borderRadius: 3 }}>
+            ログイン
+          </Button>
+        </Link>
+      </Box>
     </div>
   );
 }
