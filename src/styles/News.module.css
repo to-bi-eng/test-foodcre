@@ -59,3 +59,10 @@
     display: flex;
     justify-content: center;
 }
+
+.news_pagenation_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+}
