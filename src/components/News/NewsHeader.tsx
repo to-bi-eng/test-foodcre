@@ -11,6 +11,7 @@ export default function NewsHeader() {
                     <Image
                         src={hachiko_icon}
                         alt="Hachiko Icon"
+                        height={50}
                     />
                     <h1 className={news_styles.news_title}>お知らせ</h1>
                 </div>
