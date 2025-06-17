@@ -6,8 +6,6 @@
   padding-top: 20px;
   padding-bottom: 200px;
   overflow-y: auto;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .linebreak {
