@@ -11,9 +11,9 @@ const Coupon = ({ validityMonths = 0 , userPoint = 0 }) => {
       </div>
 
       <div className={styles.infoContainer}>
-        <p className={styles.pointExchangeText}>{ userPoint = 0 }ポイントと引き換えます</p>
+        <p className={styles.pointExchangeText}>{userPoint}ポイントと引き換えます</p>
         <p className={styles.validityText}>※有効期限は引き換えてから</p>
-        <p className={styles.validityPeriodText}><span className={styles.highlightedText}>{ validityMonths = 0 }ヶ月後です</span></p>
+        <p className={styles.validityPeriodText}><span className={styles.highlightedText}>{validityMonths}ヶ月後です</span></p>
       </div>
 
       {/* ボタンを縦に中央揃えで配置 */}
