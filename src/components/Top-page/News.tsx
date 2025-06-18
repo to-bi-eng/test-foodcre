@@ -28,7 +28,7 @@ export default function News() {
             </Typography>
           </Box>
         )}
-        {news && news.length > 0 && news.map((item: any, idx: number) => (
+        {news && news.length > 0 && news.slice(0, 10).map((item: any, idx: number) => (
           <Button
             key={item.id}
             variant="text"
