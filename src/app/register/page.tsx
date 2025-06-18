@@ -1,14 +1,8 @@
 "use client"
 import React from 'react';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { Button, TextField, OutlinedInput, InputAdornment, IconButton, InputLabel } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import styles from '@/styles/Register.module.css';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import InputLabel from '@mui/material/InputLabel';
 
 export default function Register () {
     const [showPassword,setShowPassword] = React.useState(false);
@@ -30,10 +24,6 @@ export default function Register () {
     
     <div className={styles.title}>登録</div>
     <div className={styles.form}>
-        <div className={styles.TextField_name}>
-            <div className={styles.name}>名前：</div>
-            <TextField id="outlined-basic" variant="outlined" sx={{ width: '300px' }}></TextField>
-        </div>
         <div className={styles.TextField_mail}>
             <div className={styles.mail}>メールアドレス：</div>
             <TextField id="outlined-basic" variant="outlined" sx={{ width: '300px' }}></TextField>

@@ -9,11 +9,9 @@
     text-align: left;
 }
 
-.TextField_name {
-    margin-bottom: 30px;
-}
 .TextField_mail {
     margin-bottom: 30px;
+    margin-top: 60px;
 }
 
 .TextField_password {
@@ -24,9 +22,6 @@
     display: flex;
     justify-content: space-between;
     width: 300px;
-}
-.name {
-    margin: 0%;
 }
 .mail {
     margin: 0%;
