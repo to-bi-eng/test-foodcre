@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "WATCHPACK_POLLING=true next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -16,7 +16,7 @@
     "@mui/icons-material": "^6.3.0",
     "@mui/material": "^6.2.1",
     "@mui/material-nextjs": "^6.2.1",
-    "next": "15.3.3",
+    "next": "15.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
