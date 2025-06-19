@@ -42,7 +42,9 @@ const News = () => {
                     {/* ローディング中の表示 */}
                     <div className={news_styles.news_loading}>
                         <CircularProgress color="primary" size="3rem" />
+                        <p>最新のお知らせを読み込み中...</p>
                     </div>
+
                     {/* 戻るボタン */}
                     <div className={news_styles.news_button_wrapper}>
                         <Button
@@ -60,7 +62,29 @@ const News = () => {
     }
 
     if (!news || news.length === 0) {
-        return <p>新しいお知らせはありません。</p>;
+        return (
+            <div className={news_styles.news_list_wrapper}>
+                <div className={news_styles.news_list}>
+
+                    {/* お知らせがないときのメッセージ */}
+                    <div className={news_styles.news_loading}>
+                        <p>お知らせはありません。</p>
+                    </div>
+
+                    {/* 戻るボタン */}
+                    <div className={news_styles.news_button_wrapper}>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            disableElevation
+                            href="/home"
+                        >
+                            戻る
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     const totalPages = Math.ceil(news.length / pageSize);
