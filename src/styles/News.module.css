@@ -67,3 +67,11 @@
     justify-content: center;
     margin-top: 2rem;
 }
+
+.news_loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 4rem 0;
+}

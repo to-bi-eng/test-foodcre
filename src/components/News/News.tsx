@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import news_styles from "@/styles/News.module.css";
 import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
+import { CircularProgress } from "@mui/material";
 
 type NewsItem = {
     id: number;
@@ -34,7 +35,28 @@ const News = () => {
     }, []);
 
     if (loading) {
-        return <p>読み込み中...</p>;
+        return (
+            <div className={news_styles.news_list_wrapper}>
+                <div className={news_styles.news_list}>
+
+                    {/* ローディング中の表示 */}
+                    <div className={news_styles.news_loading}>
+                        <CircularProgress color="primary" size="3rem" />
+                    </div>
+                    {/* 戻るボタン */}
+                    <div className={news_styles.news_button_wrapper}>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            disableElevation
+                            href="/home"
+                        >
+                            戻る
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     if (!news || news.length === 0) {
