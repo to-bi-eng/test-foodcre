@@ -1,47 +1,32 @@
 import React from 'react';
+import { Typography, Container, Box } from '@mui/material';
 import styles from '@/styles/Add_point.module.css';
-import { Typography, Container } from '@mui/material';
 
-export default function Add_point () {
+export default function Add_point() {
     return (
-    <div className='register' style={{ 
-    fontFamily: 'Arial, sans-serif', 
-    textAlign: 'center', 
-    padding: '0px',
-    maxWidth: '600px',  // 最大幅を広げる
-    margin: '0 auto'  // 中央配置
-}}>
-    <Container maxWidth="sm" sx={{ textAlign: 'center', py: 2 }}>
+        <Container maxWidth="sm" className={styles.container}>
         <Typography variant="h4" gutterBottom>
             ポイント付与
         </Typography>
-    </Container>
-    <div className={styles.form}>
-        <div className={styles.QR}></div>
-        <div className={styles.TextField_name}>
-            <div className={styles.Text1}>
-                {"店内に設置されている\nQRコードを会計時に\n読み取ってください"
-                .split('\n')
-                .map((line, index) => (
-                    <React.Fragment key={index}>
-                    {line}
-                    <br />
-                    </React.Fragment>
-                ))}
-            </div>
-            </div>
-            <div className={styles.Text2}>
-            {"※一日に一度のみポイントが\n加算されます"
-                .split('\n')
-                .map((line, index) => (
-                <React.Fragment key={index}>
-                    {line}
-                    <br />
-                </React.Fragment>
-                ))}
-            </div>
 
-    </div>
-</div>
+        <Box className={styles.qr}>
+            <Typography variant="caption" color="textSecondary">
+            QRコード
+            </Typography>
+        </Box>
+
+        <Box className={styles.textBox}>
+            <Typography variant="body1" style={{ whiteSpace: 'pre-line' }}>
+            店内に設置されている
+            {'\n'}QRコードを会計時に
+            {'\n'}読み取ってください
+            </Typography>
+        </Box>
+
+        <Typography className={styles.note}>
+            ※一日に一度のみポイントが
+            {'\n'}加算されます
+        </Typography>
+        </Container>
     );
-};
+    }
