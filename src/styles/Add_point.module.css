@@ -1,9 +1,15 @@
-/* Add_point.module.css */
 .container {
     text-align: center;
     margin: 0 auto;
     padding: 32px 16px;
+    padding-bottom: 250px; /* フッター分の余白を追加 */
     max-width: 600px;
+    min-height: 100vh; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto; 
 }
 
 .qr {
