@@ -1,27 +1,67 @@
+'use client';
+
 import React from 'react';
 import styles from '@/styles/Individual_Point_Usage.module.css';
+import {
+  Box,
+  Typography,
+  Button,
+  Container,
+} from '@mui/material';
 
-const Coupon = ({ validityMonths = 0 , userPoint = 0 }) => {
+interface CouponProps {
+  validityMonths?: number;
+  userPoint?: number;
+  itemName?: string;
+  itemAmount?: number;
+  discountPercent?: number;
+}
+
+const Coupon: React.FC<CouponProps> = ({
+  validityMonths = 0,
+  userPoint = 0,
+  itemName = 'y',
+  itemAmount = '6',
+  discountPercent = 5,
+}) => {
   return (
-    <div className={styles.couponContainer}>
-      <div className={styles.imageContainer}>
-        <img src="/Ramen.png" alt="ラーメン画像" className={styles.couponImage} />
-        <p className={styles.discountText}>餃子6個</p>
-        <p className={styles.discountPercent}>5%off</p>
-      </div>
+    <Container maxWidth="sm" className={styles.couponContainer}>
+      <Box className={styles.a}>
+        <Box className={styles.imageContainer}>
+          <img src="/Ramen.png" alt="ラーメン画像" className={styles.couponImage} />
+          <Typography className={styles.discountText}>
+            {itemName}{itemAmount}個
+          </Typography>
 
-      <div className={styles.infoContainer}>
-        <p className={styles.pointExchangeText}>{userPoint}ポイントと引き換えます</p>
-        <p className={styles.validityText}>※有効期限は引き換えてから</p>
-        <p className={styles.validityPeriodText}><span className={styles.highlightedText}>{validityMonths}ヶ月後です</span></p>
-      </div>
+          <Typography className={styles.discountPercent} variant="inherit" component="div">
+            {discountPercent}% OFF
+          </Typography>
+        </Box>
 
-      {/* ボタンを縦に中央揃えで配置 */}
-      <div className={styles.buttonContainer}>
-        <button className={styles.redeemButton}>クーポンに引き換える</button>
-        <button className={styles.backButton}>戻る</button>
-      </div>
-    </div>
+        <Box className={styles.infoContainer}>
+          <Typography className={styles.pointExchangeText} variant='h5'>
+            {userPoint}ポイントと引き換えます
+          </Typography>
+          <Typography className={styles.validityText} variant='h5'>
+            ※有効期限は引き換えてから
+          </Typography>
+          <Typography className={styles.validityPeriodText} variant='h5'>
+            <span className={styles.highlightedText}>
+              {validityMonths}ヶ月後
+            </span>です
+          </Typography>
+        </Box>
+
+        <Box className={styles.buttonContainer}>
+          <Button variant="contained" disableElevation className={styles.redeemButton}>
+            クーポンに引き換える
+          </Button>
+          <Button variant="outlined" className={styles.backButton}>
+            戻る
+          </Button>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 
