@@ -1,12 +1,19 @@
+"use client"
 import React from 'react';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
-import Button from '@mui/material/Button';
+import { Button, TextField, OutlinedInput, InputAdornment, IconButton, InputLabel } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import styles from '@/styles/Register.module.css';
 
-export default function Login () {
+export default function Register () {
+    const [showPassword,setShowPassword] = React.useState(false);
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    };
+    const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    };
     return (
-    <div>
-    <Header></Header>
     <div className='register' style={{ 
     fontFamily: 'Arial, sans-serif', 
     textAlign: 'center', 
@@ -14,61 +21,47 @@ export default function Login () {
     maxWidth: '600px',  // 最大幅を広げる
     margin: '0 auto'  // 中央配置
 }}>
-    <h1 style={{ color: '#4b3f2e', fontSize: '2.5rem' }}>登録</h1>
-    <form style={{ display: 'inline-block', textAlign: 'left', marginTop: '0px' }}>
-        <div style={{ marginBottom: '15px' }}>
-            <label htmlFor="name" style={{ display: 'block', marginBottom: '8px', fontSize: '1.2rem' }}>名前</label>
-            <input
-                type="text"
-                id="name"
-                placeholder="name"
-                style={{
-                    width: '300px',  // 入力欄の幅を大きく
-                    padding: '12px',
-                    fontSize: '16px',
-                    border: '1px solid #ccc',
-                    borderRadius: '6px'
-                }}
+    
+    <div className={styles.title}>登録</div>
+    <div className={styles.form}>
+        <div className={styles.TextField_mail}>
+            <div className={styles.mail}>メールアドレス：</div>
+            <TextField id="outlined-basic" variant="outlined" sx={{ width: '300px' }}></TextField>
+        </div>
+        <div className={styles.TextField_password}>
+            <InputLabel htmlFor="outlined-adornment-password">パスワード:</InputLabel>
+            <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? 'text' : 'password'}
+                endAdornment={
+                <InputAdornment position="end">
+                    <IconButton
+                    aria-label={
+                        showPassword ? 'hide the password' : 'display the password'
+                    }
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    onMouseUp={handleMouseUpPassword}
+                    edge="end"
+                    >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                </InputAdornment>
+                
+                }
+                label="Password"
+                sx={{
+                    width:'300px',
+                    "& input[type=password]::-ms-reveal": { display: "none", width: 0, height: 0 }, 
+                    "& input[type=password]::-ms-clear": { display: "none", width: 0, height: 0 }, 
+                    }}
             />
         </div>
-        <div style={{ marginBottom: '15px' }}>
-            <label htmlFor="email" style={{ display: 'block', marginBottom: '8px', fontSize: '1.2rem' }}>メールアドレス</label>
-            <input
-                type="email"
-                id="email"
-                placeholder="mail"
-                style={{
-                    width: '300px',
-                    padding: '12px',
-                    fontSize: '16px',
-                    border: '1px solid #ccc',
-                    borderRadius: '6px'
-                }}
-            />
-        </div>
-        <div style={{ marginBottom: '30px' }}>
-            <label htmlFor="password" style={{ display: 'block', marginBottom: '8px', fontSize: '1.2rem' }}>パスワード</label>
-            <input
-                type="password"
-                id="password"
-                placeholder="password"
-                style={{
-                    width: '300px',
-                    padding: '12px',
-                    fontSize: '16px',
-                    border: '1px solid #ccc',
-                    borderRadius: '6px'
-                }}
-            />
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', width: '300px' }}>
+        <div className={styles.Button}style={{ display: 'flex', justifyContent: 'space-between', width: '300px' }}>
             <Button variant="contained" size="large">戻る</Button>
             <Button variant="contained" size="large">次へ</Button>
         </div>
-    </form>
-</div>
-
-    <Footer></Footer>
     </div>
+</div>
     );
 };
