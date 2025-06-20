@@ -1,31 +1,29 @@
+.main {
+    display: flex;
+    color: #333333;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding-top: 3rem;
+    gap: 3rem;
+}
+
 .title {
-    color:#4b3f2e;
-    font-size:2.5rem;
-    margin-top: 30px;
+    font-size: 2.5rem;
 }
 
 .form {
-    display: inline-block;
-    text-align: left;
-}
-
-.TextField_mail {
-    margin-bottom: 30px;
-    margin-top: 60px;
-}
-
-.TextField_password {
-    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 2rem;
 }
 
 .Button {
     display: flex;
     justify-content: space-between;
     width: 300px;
-}
-.mail {
-    margin: 0%;
-}
-.password {
-    margin: 0%;
 }
