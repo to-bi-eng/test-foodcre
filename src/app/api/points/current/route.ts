@@ -1,7 +1,7 @@
-import { NextResponse, NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     // 認証チェックなし、id=1のユーザーのポイントとメールアドレスを返す
     const userId = 1;
