@@ -149,12 +149,13 @@ export default function Passwordedit() {
             </FormControl>
           </div>
 
-          <div className={styles.button}>
+          
             {error && (
-              <Typography color="error" fontSize="0.9rem" sx={{ mt: 2, mb: 2 }}>
+              <Typography color="error" fontSize="0.9rem"  className={styles.error}>
                 {error}
               </Typography>
             )}
+            <div className={styles.button}>
             <Button
               variant="contained"
               size="large"
