@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '@/styles/Add_point.module.css';
+import { Typography, Container } from '@mui/material';
 
 export default function Add_point () {
     return (
@@ -10,7 +11,11 @@ export default function Add_point () {
     maxWidth: '600px',  // 最大幅を広げる
     margin: '0 auto'  // 中央配置
 }}>
-    <div className={styles.title}>ポイント付与</div>
+    <Container maxWidth="sm" sx={{ textAlign: 'center', py: 2 }}>
+        <Typography variant="h4" gutterBottom>
+            ポイント付与
+        </Typography>
+    </Container>
     <div className={styles.form}>
         <div className={styles.QR}></div>
         <div className={styles.TextField_name}>

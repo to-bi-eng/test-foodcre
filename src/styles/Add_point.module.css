@@ -1,7 +1,6 @@
 .title {
     color:#4b3f2e;
     font-size:2.5rem;
-    margin-top: 30px;
 }
 
 .form {
@@ -12,10 +11,9 @@
     width: 200px;
     height: 200px;
     background-color: #D9D9D9;
-    margin-bottom: 20px;
-    margin-top: 10px;
     text-align: center;
-    margin: 20px;
+    margin-left: 5px;
+    margin-bottom: 10px;
 }
 .Text1 {
     border: 3px solid red; /* 赤枠を追加 */
