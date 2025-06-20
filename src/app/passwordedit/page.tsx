@@ -1,7 +1,6 @@
 "use client";
 import { Button, Stack, Typography } from "@mui/material";
 import React from "react";
-import Link from "next/link";
 import { useState , useEffect } from 'react';
 import { useRouter } from "next/navigation";
 import FormControl from '@mui/material/FormControl';
@@ -29,31 +28,29 @@ export default function Passwordedit() {
     event.preventDefault();
   };
     const [passwordedit, setpasswordedit] = useState('');
-    const [passwordconfirm, setpasswordconfirm] = useState('');
+const [passwordconfirm, setpasswordconfirm] = useState('');
     const [isFormValid, setIsFormValid] = useState(false);
     const router = useRouter();
-    
-    useEffect(() => {
-        const savedData = sessionStorage.getItem('contactData');
-        if (savedData) {
-            const { } = JSON.parse(savedData);
-            setpasswordedit(passwordedit);
-            setpasswordconfirm(passwordconfirm);
-        }
-    }, [passwordconfirm, passwordedit]);
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        setIsFormValid(!!passwordedit && !!passwordconfirm);
-    }, [ passwordedit, passwordconfirm]);
-    const handleSave = (e: React.FormEvent) => {
-        e.preventDefault(); 
-        if (!isFormValid) {
-            alert("すべてのフィールドを正しく入力してください。");
-        } else {
-            sessionStorage.setItem('contactData', JSON.stringify({ passwordedit, passwordconfirm }));
-            router.push('/contact_confirm');
-        }
-    };
+    setIsFormValid(!!passwordedit && !!passwordconfirm);
+  }, [passwordedit, passwordconfirm]);
+
+
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!isFormValid) {
+      setError("すべてのフィールドを入力してください。");
+    } else if (passwordedit !== passwordconfirm) {
+      setError("パスワードが一致しません。");
+    } else {
+      setError('');
+      sessionStorage.setItem('contactData', JSON.stringify({ passwordedit }));
+      router.push('/');
+    }
+  };
 
     return (
     <>
@@ -75,7 +72,7 @@ export default function Passwordedit() {
                 <div className={styles.forms}>
                   <div className={styles.form}>
                   <Typography
-                    id="edit_heading" 
+                    id="edit_heading"
                     >
                     新しいパスワード
                 </Typography>
@@ -84,6 +81,7 @@ export default function Passwordedit() {
                 <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword ? 'text' : 'password'}
+                    onChange={(e) => setpasswordedit(e.target.value)}
                     endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -114,6 +112,7 @@ export default function Passwordedit() {
                 <OutlinedInput
                     id="outlined-adornment-password"
                     type={showPassword2 ? 'text' : 'password'}
+                    onChange={(e) => setpasswordconfirm(e.target.value)}
                     endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -133,10 +132,13 @@ export default function Passwordedit() {
             className="edit"
           />
         </FormControl></div>
+        
                 <div className={styles.button}>
-                <Link href="/" passHref>
-                    <Button variant="contained" size="large" disabled={ !isFormValid } onClick={ handleSave } color="info">登録</Button>
-                </Link>
+                  {error && (
+          <Typography color="error" fontSize="0.9rem" sx={{ mt: 2, mb: 2 }}>{error}</Typography>
+        )}
+                    <Button variant="contained" size="large" disabled={!isFormValid}
+            onClick={handleSave} color="info" >登録</Button>
                 </div>
             </Stack>
         </div>
