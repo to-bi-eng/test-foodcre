@@ -15,13 +15,17 @@ import styles from '@/styles/passwordedit.module.css';
 
 export default function Passwordedit() {      
     const [showPassword, setShowPassword] = React.useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const [showPassword2, setShowPassword2] = React.useState(false);
+   const handleClickShowPassword = () => setShowPassword((prev) => !prev);
+  const handleClickShowPassword2 = () => setShowPassword2((prev) => !prev);
 
-  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-  };
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault();
+  const handleMouseDownPassword2 = (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault();
 
   const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+  const handleMouseUpPassword2 = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
     const [passwordedit, setpasswordedit] = useState('');
@@ -109,19 +113,19 @@ export default function Passwordedit() {
                 <InputLabel htmlFor="outlined-adornment-password" color="primary">新しいパスワード（確認）</InputLabel>
                 <OutlinedInput
                     id="outlined-adornment-password"
-                    type={showPassword ? 'text' : 'password'}
+                    type={showPassword2 ? 'text' : 'password'}
                     endAdornment={
               <InputAdornment position="end">
                 <IconButton
                   aria-label={
-                    showPassword ? 'hide the password' : 'display the password'
+                    showPassword2 ? 'hide the password' : 'display the password'
                   }
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  onMouseUp={handleMouseUpPassword}
+                    onClick={handleClickShowPassword2}
+                    onMouseDown={handleMouseDownPassword2}  
+                  onMouseUp={handleMouseUpPassword2}
                   edge="end"
                 >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                  {showPassword2 ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
             }
