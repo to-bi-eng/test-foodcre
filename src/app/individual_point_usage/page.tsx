@@ -2,12 +2,8 @@
 
 import React from 'react';
 import styles from '@/styles/Individual_Point_Usage.module.css';
-import {
-  Box,
-  Typography,
-  Button,
-  Container,
-} from '@mui/material';
+import { Box, Typography, Button, Container } from '@mui/material';
+import Link from 'next/link';
 
 interface CouponProps {
   validityMonths?: number;
@@ -39,26 +35,25 @@ const Coupon: React.FC<CouponProps> = ({
         </Box>
 
         <Box className={styles.infoContainer}>
-          <Typography className={styles.pointExchangeText} variant='h5'>
-            {userPoint}ポイントと引き換えます
-          </Typography>
-          <Typography className={styles.validityText} variant='h5'>
-            ※有効期限は引き換えてから
-          </Typography>
-          <Typography className={styles.validityPeriodText} variant='h5'>
+          <Typography className={styles.attention} variant='h6'>
+            {userPoint}ポイントと引き換えます<br />
+            ※有効期限は引き換えてから<br />
             <span className={styles.highlightedText}>
               {validityMonths}ヶ月後
             </span>です
           </Typography>
         </Box>
-
         <Box className={styles.buttonContainer}>
-          <Button variant="contained" disableElevation className={styles.redeemButton}>
-            クーポンに引き換える
-          </Button>
+          <Link href="/points_to_coupons" passHref>
+            <Button variant="contained" disableElevation className={styles.redeemButton}>
+              クーポンに引き換える
+            </Button>
+          </Link>
+          <Link href="/points_to_coupons" passHref>
           <Button variant="outlined" className={styles.backButton}>
             戻る
           </Button>
+          </Link>
         </Box>
       </Box>
     </Container>

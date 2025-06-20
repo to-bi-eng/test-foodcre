@@ -4,7 +4,7 @@
   align-items: center;
   width: 100%;
   max-width: 425px;
-  padding: 40px 20px 120px;          
+  padding: 40px 20px 200px;          
   box-sizing: border-box;
   font-family: "Arial", sans-serif;
   overflow-y: auto;
@@ -12,7 +12,7 @@
 
 .imageContainer {
   position: relative;
-  margin-bottom: 60px;                
+  margin-bottom: 15px;                
 }
 
 .imageContainer img {
@@ -47,20 +47,17 @@
 }
 .infoContainer {
   text-align: center;
-  margin-bottom: 50px;               /* ↓ 大幅に縮小 */
+  margin-bottom: 10px;               /* ↓ 大幅に縮小 */
   color: #333;
   width: 100%;
 }
 
-.pointExchangeText,
-.validityText,
-.validityPeriodText {
+.attention {
   margin: 10px 0;         /* 隙間を広げる */
   line-height: 1.8;       /* 行間も少しゆとりを持たせる */
 }
 
 .buttonContainer {
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,46 +69,32 @@
 
 .redeemButton {
   background-color: #ffcc00;
-  color: #333;
   border: none;
-  padding: 18px 36px !important;              /* パディングを大きく */
-  font-size: 1.4em !important;                /* フォントサイズ拡大 */
+  padding: 10px 20px !important;      /* パディングを小さく */
+  font-size: 1em !important;          /* フォントサイズを小さく */
   font-weight: bold;
-  border-radius: 30px !important;            /* 角も少し丸く */
+  border-radius: 20px !important;     /* 角も少し小さく */
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.10);
   width: 100%;
-  max-width: 350px !important;               /* 幅拡大 */
+  max-width: 300px !important;        /* 幅を小さく */
   text-align: center;
-}
-
-.redeemButton:hover {
-  background-color: #e6b800;
-  transform: translateY(-2px);
 }
 
 .backButton {
-  background-color: #9b9b9b !important;                    /* 濃い背景 */
-  color: #000 !important;                    /* 白文字に変更 */
-  border: none !important;  
-  padding: 16px 32px !important;
-  font-size: 1.2em !important;
-  border-radius: 30px;
+  background-color: #9b9b9b !important;
+  color: #000 !important;
+  border: none !important;
+  padding: 8px 16px !important;       /* パディングを小さく */
+  font-size: 0.9em !important;        /* フォントサイズを小さく */
+  border-radius: 20px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
   width: 100%;
-  max-width: 250px !important;
+  max-width: 120px !important;        /* 幅を小さく */
   text-align: center;
-}
-
-
-.backButton:hover {
-  background-color: #e0e0e0;
 }
 
 .highlightedText {
   font-weight: bold;
-  font-size: 26px;
-  color: #000000;
+  font-size: 50px;
 }
