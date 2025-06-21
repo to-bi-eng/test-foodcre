@@ -58,32 +58,35 @@ export default function ConfirmRegistration() {
   }
 
   return (
-    <>
-      <Box className={styles.wrapper}>
-        <Container component="main" maxWidth="sm" className={styles.main}>
-          <Typography variant="h5" className={styles.heading}>
-            登録内容確認
+    <Container component="main" maxWidth="sm" className={styles.main}>
+      <Typography variant="h3">登録内容確認</Typography>
+      {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+
+      <Paper elevation={0} className={styles.infoBox}>
+        <span>
+          <h6 className={styles.field}>
+            メールアドレス：
+          </h6>
+          <Typography>
+            {email}
           </Typography>
+        </span>
+        <span>
+          <h6 className={styles.field}>
+            パスワード：
+          </h6>
+          <Typography>
+            *********
+          </Typography>
+        </span>
+      </Paper>
 
-          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-
-          <Paper elevation={3} className={styles.infoBox}>
-            <Typography className={styles.field}><strong>メールアドレス:</strong><br />{email}</Typography>
-            <Typography className={styles.field}><strong>パスワード:</strong><br />********************</Typography>
-          </Paper>
-
-          <Box className={styles.buttonGroup}>
-            <Button variant="contained" className={styles.button} onClick={handleBack}>
-              戻る
-            </Button>
-            <Button variant="contained" className={styles.button} onClick={handleRegister} disabled={!!error}>
-              登録
-            </Button>
-          </Box>
-
-          <Box className={styles.footerSpacer}></Box>
-        </Container>
+      <Box className={styles.button_wrapper}>
+        <Button variant="contained" className={styles.button} color='info' onClick={handleBack}>戻る</Button>
+        <Button variant="contained" className={styles.button} color='info' onClick={handleRegister} disabled={!!error}>登録</Button>
       </Box>
-    </>
+
+      <Box className={styles.footerSpacer}></Box>
+    </Container>
   );
 }
