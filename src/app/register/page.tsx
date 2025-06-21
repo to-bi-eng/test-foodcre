@@ -20,6 +20,31 @@ export default function Register() {
     };
 
     const handleNext = () => {
+        if (!email || !password) {
+            alert('メールアドレスとパスワードは必須です。');
+            return;
+        }
+        if ( //大学発行のメールアドレスかどうかのチェック
+            !email.endsWith('@neptune.kanazawa-it.ac.jp') &&
+            !email.endsWith('@his.kanazawa-it.ac.jp') &&
+            !email.endsWith('@infor.kanazawa-it.ac.jp') &&
+            !email.endsWith('@tok.kanazawa-it.ac.jp') &&
+            !email.endsWith('@ael.kanazawa-it.ac.jp') &&
+            !email.endsWith('@trc.kanazawa-it.ac.jp') &&
+            !email.endsWith('@ict-.kanazawa-it.ac.jp') &&
+            !email.endsWith('@eagle.ict-.kanazawa-it.ac.jp') &&
+            !email.endsWith('@pt.kanazawa-it.ac.jp') &&
+            !email.endsWith('@planet.kanazawa-it.ac.jp') &&
+            !email.endsWith('@jupiter.kanazawa-it.ac.jp') &&
+            !email.endsWith('@st.kanazawa-it.ac.jp')
+        ) {
+            alert('メールアドレスは大学から発行されたものを使用してください。');
+            return;
+        }
+        if (password.length < 8) {
+            alert('パスワードは8文字以上で入力してください。');
+            return;
+        }
         router.push(`/signup_confirmation?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
     };
 
