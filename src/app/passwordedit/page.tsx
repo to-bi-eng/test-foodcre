@@ -10,7 +10,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputLabel from "@mui/material/InputLabel";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import styles from "@/styles/passwordedit.module.css";
+import styles from "@/styles/passwordEdit.module.css";
 
 export default function Passwordedit() {
   const [showPassword, setShowPassword] = React.useState(false);

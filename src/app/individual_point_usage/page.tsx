@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import styles from '@/styles/Individual_Point_Usage.module.css';
+import styles from '@/styles/individualPointUsage.module.css';
 import {
   Box,
   Typography,

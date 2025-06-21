@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '@/styles/Point_Usage.module.css';
+import styles from '@/styles/pointUsage.module.css';
 import { Box, Typography, Divider, Button } from '@mui/material';
 import Image from 'next/image';
 import Link from "next/link";
