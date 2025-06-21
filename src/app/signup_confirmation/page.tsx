@@ -39,14 +39,13 @@ export default function ConfirmRegistration() {
 
       if (response.ok) {
         alert('登録が完了しました。');
-        router.push('/');
+        router.push('/'); //現状トップページにリダイレクトするようにしています。適宜修正してください。
       } else {
         const errorData = await response.json();
-        setError(`登録に失敗しました: ${errorData.message}入力画面に戻ってやり直してください。`);
+        setError(`登録に失敗しました: ${errorData.message}`);
       }
-    } catch (error) {
-      console.error('登録処理中にエラーが発生しました:', error);
-      setError('登録処理中にエラーが発生しました。');
+    } catch {
+      setError('登録処理中にエラーが発生しました。お手数ですが、アプリ管理者への連絡をお願いします。');
     }
   };
 

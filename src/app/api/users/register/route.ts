@@ -38,7 +38,7 @@ export async function POST(request: Request) {
             return NextResponse.json({ message: 'このメールアドレスは既に使用されています。' }, { status: 409 });
         }
 
-        return NextResponse.json({ message: 'サーバーエラーが発生しました。' }, { status: 500 });
+        return NextResponse.json({ message: 'サーバーエラーが発生しました。お手数ですが、アプリ管理者への連絡をお願いします。' }, { status: 500 });
     } finally {
         if (connection) {
             await connection.end();
