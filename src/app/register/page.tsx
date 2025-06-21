@@ -1,13 +1,14 @@
 "use client"
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button, TextField, OutlinedInput, InputAdornment, IconButton, InputLabel, FormControl } from '@mui/material';
+import { Button, TextField, OutlinedInput, InputAdornment, IconButton, InputLabel, FormControl, Alert } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import styles from '@/styles/Register.module.css';
 
 export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const [showPassword, setShowPassword] = React.useState(false);
     const router = useRouter();
 
@@ -20,8 +21,9 @@ export default function Register() {
     };
 
     const handleNext = () => {
+        setError('');
         if (!email || !password) {
-            alert('メールアドレスとパスワードは必須です。');
+            setError('メールアドレスとパスワードは必須です。');
             return;
         }
         if ( //大学発行のメールアドレスかどうかのチェック
@@ -38,11 +40,11 @@ export default function Register() {
             !email.endsWith('@jupiter.kanazawa-it.ac.jp') &&
             !email.endsWith('@st.kanazawa-it.ac.jp')
         ) {
-            alert('メールアドレスは大学から発行されたものを使用してください。');
+            setError('メールアドレスは大学から発行されたものを使用してください。');
             return;
         }
         if (password.length < 8) {
-            alert('パスワードは8文字以上で入力してください。');
+            setError('パスワードは8文字以上で入力してください。');
             return;
         }
         router.push(`/signup_confirmation?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
@@ -56,6 +58,7 @@ export default function Register() {
         <div className={styles.main}>
             <div className={styles.title}>登録</div>
             <div className={styles.form}>
+                {error && <Alert severity="error" sx={{ mb: 2, width: '350px' }}>{error}</Alert>}
                 <div className={styles.TextField_mail}>
                     <TextField
                         id="outlined-basic"
