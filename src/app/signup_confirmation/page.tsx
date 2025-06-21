@@ -1,16 +1,18 @@
 "use client";
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import styles from '@/styles/ConfirmRegistration.module.css';
-import { Box, Button, Typography, Paper, Container } from '@mui/material';
+import { Box, Button, Typography, Paper, Container, Alert } from '@mui/material';
 
 export default function ConfirmRegistration() {
+  const [error, setError] = useState('');
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get('email') || '';
   const password = searchParams.get('password') || '';
 
   const handleRegister = async () => {
+    setError('');
     try {
       const response = await fetch('/api/users/register', {
         method: 'POST',
@@ -25,11 +27,11 @@ export default function ConfirmRegistration() {
         router.push('/');
       } else {
         const errorData = await response.json();
-        alert(`登録に失敗しました: ${errorData.message}`);
+        setError(`登録に失敗しました: ${errorData.message}`);
       }
     } catch (error) {
       console.error('登録処理中にエラーが発生しました:', error);
-      alert('登録処理中にエラーが発生しました。');
+      setError('登録処理中にエラーが発生しました。');
     }
   };
 
@@ -44,6 +46,8 @@ export default function ConfirmRegistration() {
           <Typography variant="h5" className={styles.heading}>
             登録内容確認
           </Typography>
+
+          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
           <Paper elevation={3} className={styles.infoBox}>
             <Typography className={styles.field}><strong>メールアドレス:</strong><br />{email}</Typography>
