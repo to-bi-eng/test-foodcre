@@ -1,8 +1,42 @@
+"use client";
 import React from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import styles from '@/styles/ConfirmRegistration.module.css';
 import { Box, Button, Typography, Paper, Container } from '@mui/material';
 
 export default function ConfirmRegistration() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const email = searchParams.get('email') || '';
+  const password = searchParams.get('password') || '';
+
+  const handleRegister = async () => {
+    try {
+      const response = await fetch('/api/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        alert('登録が完了しました。');
+        router.push('/');
+      } else {
+        const errorData = await response.json();
+        alert(`登録に失敗しました: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error('登録処理中にエラーが発生しました:', error);
+      alert('登録処理中にエラーが発生しました。');
+    }
+  };
+
+  const handleBack = () => {
+    router.back();
+  };
+
   return (
     <>
       <Box className={styles.wrapper}>
@@ -12,16 +46,15 @@ export default function ConfirmRegistration() {
           </Typography>
 
           <Paper elevation={3} className={styles.infoBox}>
-            <Typography><strong>名前:</strong><br />工大太郎</Typography>
-            <Typography className={styles.field}><strong>メールアドレス:</strong><br />c1234567@st.kanazawa-it.ac.jp</Typography>
+            <Typography className={styles.field}><strong>メールアドレス:</strong><br />{email}</Typography>
             <Typography className={styles.field}><strong>パスワード:</strong><br />********************</Typography>
           </Paper>
 
           <Box className={styles.buttonGroup}>
-            <Button variant="contained" className={styles.button}>
+            <Button variant="contained" className={styles.button} onClick={handleBack}>
               戻る
             </Button>
-            <Button variant="contained" className={styles.button}>
+            <Button variant="contained" className={styles.button} onClick={handleRegister}>
               登録
             </Button>
           </Box>
