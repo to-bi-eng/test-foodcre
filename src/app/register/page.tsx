@@ -47,7 +47,13 @@ export default function Register() {
             setError('パスワードは8文字以上で入力してください。');
             return;
         }
-        router.push(`/signup_confirmation?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`);
+        try {
+            sessionStorage.setItem('registrationEmail', email);
+            sessionStorage.setItem('registrationPassword', password);
+            router.push('/signup_confirmation');
+        } catch {
+            setError('ブラウザのストレージにアクセスできません。設定を確認してください。');
+        }
     };
 
     const handleBack = () => {
