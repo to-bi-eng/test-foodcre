@@ -13,12 +13,16 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/kosugi-maru": "^5.1.1",
-    "@mui/icons-material": "^6.3.0",
+    "@mui/icons-material": "^6.4.11",
     "@mui/material": "^6.2.1",
     "@mui/material-nextjs": "^6.2.1",
+    "jose": "^6.0.11",
+    "mysql2": "^3.14.1",
     "next": "15.3.3",
+    "promise-mysql": "^5.2.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "swr": "^2.3.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
