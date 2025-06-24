@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  justify-content: space-around; /* 各アイテムを均等に配置 */
+  align-items: flex-start; /* アイテムの上端を揃える */
+  padding: 24px 16px;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #ffffff; /* 背景色（必要に応じて変更） */
+}
+
+.actionItem {
+  display: flex;
+  flex-direction: column; /* アイコンとラベルを縦に並べる */
+  align-items: center;    /* 中央揃え */
+  text-align: center;
+  cursor: pointer;        /* クリック可能なことを示すカーソル */
+  flex: 1;                /* 横幅を均等に分ける */
+}
+
+/* 中央の「ポイント付与」アイテムの特別なスタイル */
+.highlightedItem {
+  border: 2px solid #a9a9a9; /* 画像に合わせたグレーの枠線 */
+  border-radius: 8px;        /* 角を丸める */
+  padding: 12px 8px;         /* 内側の余白 */
+  margin-top: -12px;         /* 上下の余白を調整して高さを揃える */
+  margin-bottom: -12px;
+}
+
+.icon {
+  width: 48px;     /* アイコンの幅 */
+  height: 48px;    /* アイコンの高さ */
+  object-fit: contain; /* アスペクト比を保つ */
+  margin-bottom: 8px;  /* アイコンとラベルの間の余白 */
+}
+
+.label {
+  font-size: 12px;         /* 文字サイズ */
+  color: #333333;         /* 文字色 */
+  font-weight: 500;
+}
