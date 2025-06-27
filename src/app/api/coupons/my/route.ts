@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import mysql from 'mysql2/promise';
+import mysql, { RowDataPacket } from 'mysql2/promise';
 
 type Coupon = {
   id: string;
@@ -8,8 +8,11 @@ type Coupon = {
   expiresAt: string;
 };
 
+type CouponRow = Coupon & RowDataPacket;
+
+// DB接続プールを作成
 const pool = mysql.createPool({
-  host: 'db',
+  host: 'localhost', // 必要に応じて変更
   user: 'root',
   password: 'password',
   database: 'foocre_development',
@@ -36,7 +39,8 @@ export async function GET(req: NextRequest) {
       WHERE user_id = ? AND expires_at >= CURDATE()
       ORDER BY expires_at ASC
     `;
-    const [rows] = await pool.execute<Coupon[]>(query, [userId]);
+
+    const [rows] = await pool.execute<CouponRow[]>(query, [userId]);
     return NextResponse.json(rows);
   } catch (error: any) {
     console.error('[API ERROR]', error);
