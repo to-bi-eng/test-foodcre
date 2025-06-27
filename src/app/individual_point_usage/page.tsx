@@ -4,43 +4,37 @@ import React from 'react';
 import styles from '@/styles/Individual_Point_Usage.module.css';
 import { Box, Typography, Button, Container } from '@mui/material';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface CouponProps {
-  validityMonths?: number;
-  userPoint?: number;
-  itemName?: string;
-  itemAmount?: number;
-  discountPercent?: number;
+  point_cost: number;
+  menu_name: string;
+  quantity: number;
+  discount: number;
 }
 
-const Coupon: React.FC<CouponProps> = ({
-  validityMonths = 0,
-  userPoint = 0,
-  itemName = 'y',
-  itemAmount = '6',
-  discountPercent = 5,
-}) => {
+export default function Coupon({ point_cost, menu_name, quantity, discount }: CouponProps) {
   return (
     <Container maxWidth="sm" className={styles.couponContainer}>
-      <Box className={styles.a}>
+      <Box>
         <Box className={styles.imageContainer}>
-          <img src="/Ramen.png" alt="ラーメン画像" className={styles.couponImage} />
+          <Image src="/Ramen.png"
+            alt="ラーメン画像"
+            width={300}           // 画像の実際の幅や希望サイズを指定
+            height={200}          // 画像の実際の高さや希望サイズを指定
+            style={{ width: '100%', height: 'auto' }} />
           <Typography className={styles.discountText}>
-            {itemName}{itemAmount}個
+            {menu_name}{quantity}個
           </Typography>
 
-          <Typography className={styles.discountPercent} variant="inherit" component="div">
-            {discountPercent}% OFF
+          <Typography className={styles.discountText} variant="inherit" component="div">
+            {discount}% OFF
           </Typography>
         </Box>
 
         <Box className={styles.infoContainer}>
           <Typography className={styles.attention} variant='h6'>
-            {userPoint}ポイントと引き換えます<br />
-            ※有効期限は引き換えてから<br />
-            <span className={styles.highlightedText}>
-              {validityMonths}ヶ月後
-            </span>です
+            {point_cost}ポイントと引き換えます
           </Typography>
         </Box>
         <Box className={styles.buttonContainer}>
@@ -59,5 +53,3 @@ const Coupon: React.FC<CouponProps> = ({
     </Container>
   );
 };
-
-export default Coupon;

@@ -4,6 +4,9 @@ CREATE TABLE menus (
     menu_name VARCHAR(255) NOT NULL,
     menu_contact TEXT,
     point_cost INT,
+    image_url VARCHAR(255),
+    quantity INT,
+    discount INT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     is_enabled TINYINT(1) DEFAULT 1
 );

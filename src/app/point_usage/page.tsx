@@ -6,21 +6,21 @@ import Image from 'next/image';
 import Link from "next/link";
 
 type Coupon = {
-  id: number | string;
+  id: number;
   title: string;
   description: string;
   discount?: number;
-  points?: number;
-  detailHref?: string;
+  points: number;
+  detailHref: string;
 };
 
 type CouponCardProps = {
   imageSrc: string;
   imageAlt: string;
   title: string;
-  discount?: number;
-  points?: number;
-  detailHref?: string;
+  discount: number;
+  points: number;
+  detailHref: string;
 };
 
 const CouponCard: React.FC<CouponCardProps> = ({
@@ -73,7 +73,7 @@ const CouponCard: React.FC<CouponCardProps> = ({
       }}
     />
     <Box sx={{ display: "flex", justifyContent: "center", width: "100%" }}>
-      <Link href={detailHref || "/"} passHref>
+      <Link href={detailHref} passHref>
         <Button
           variant="contained"
           color="info"
@@ -194,7 +194,7 @@ export default function Usage() {
                 title={coupon.title}
                 discount={coupon.discount}
                 points={coupon.points}
-                detailHref={`/coupon/${coupon.id}`}
+                detailHref={`/individual_point_usage/${coupon.id}`}
               />
             ))}
           </Box>

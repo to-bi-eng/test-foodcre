@@ -11,8 +11,7 @@ type News = {
 
 export default async function NewsDetail(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params;
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const res = await fetch(`${baseUrl}/api/news/${id}`, { cache: "no-store" });
+  const res = await fetch(`http://localhost:3000/api/news/${id}`, { cache: "no-store" });
   if (!res.ok) return notFound();
 
   const news: News | null = await res.json();
