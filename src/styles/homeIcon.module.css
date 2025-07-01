@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+  margin-top: 48px;
+}
+
+.actionItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+  flex: 1;
+  border-right: 1px solid #aaa;
+}
+
+.icon {
+  object-fit: contain;
+  margin-bottom: 8px; 
+}
+
+
+.label {
+  font-size: 16px;     
+  color: #333333;    
+  font-weight: 500;
+}
+
+.news {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+}
