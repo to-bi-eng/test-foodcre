@@ -9,7 +9,7 @@ type Coupon = {
   id: number;
   title: string;
   description: string;
-  discount?: number;
+  discount: number;
   points: number;
   detailHref: string;
 };

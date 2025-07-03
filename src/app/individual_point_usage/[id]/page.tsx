@@ -1,8 +1,10 @@
-import { notFound } from "next/navigation";
+"use client";
+import { useEffect, useState } from "react";
 import styles from "@/styles/Individual_Point_Usage.module.css";
 import { Box, Typography, Button, Container } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter, useParams } from "next/navigation";
 
 type Menu = {
   id: number;
@@ -12,13 +14,60 @@ type Menu = {
   discount: number;
 };
 
-export default async function IndividualPointUsage(props: { params: Promise<{ id: string }> }) {
-  const { id } = await props.params;
-  const res = await fetch(`http://localhost:3000/api/menus/${id}`, { cache: "no-store" });
-  if (!res.ok) return notFound();
+export default function IndividualPointUsage() {
+  const router = useRouter();
+  const params = useParams();
+  const id = params?.id as string;
 
-  const menu: Menu | null = await res.json();
-  if (!menu) return notFound();
+  const [menu, setMenu] = useState<Menu | null>(null);
+  const [userPoints, setUserPoints] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  // メニュー情報取得
+  useEffect(() => {
+    fetch(`/api/menus/${id}`)
+      .then(res => res.json())
+      .then(setMenu);
+  }, [id]);
+
+  // ユーザー(id=1)のポイント取得
+  useEffect(() => {
+    fetch("/api/points/current")
+      .then(res => res.json())
+      .then(data => setUserPoints(data.points));
+  }, []);
+
+  if (!menu || userPoints === null)
+    return;
+
+  const handleExchange = async () => {
+    setLoading(true);
+    setError(null);
+    // ポイント比較
+    if (userPoints < menu.point_cost) {
+      setError("所持ポイントが足りません");
+      setLoading(false);
+      return;
+    }
+    try {
+      const res = await fetch("/api/points/exchange", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: 1, couponId: menu.id }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        router.push(`/points_to_coupons?remainingPoints=${data.remainingPoints}`);
+      } else {
+        setError(data.message || "引き換えに失敗しました");
+      }
+    } catch {
+      setError("通信エラーが発生しました");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <Container maxWidth="sm" className={styles.couponContainer}>
@@ -41,13 +90,22 @@ export default async function IndividualPointUsage(props: { params: Promise<{ id
             {menu.point_cost}ポイントと引き換えます
           </Typography>
         </Box>
+        {error && (
+          <Typography color="error" align="center" mb={2}>
+            {error}
+          </Typography>
+        )}
         <Box className={styles.buttonContainer}>
-          <Link href="/points_to_coupons" passHref>
-            <Button variant="contained" disableElevation className={styles.redeemButton}>
-              クーポンに引き換える
-            </Button>
-          </Link>
-          <Link href="/points_to_coupons" passHref>
+          <Button
+            variant="contained"
+            disableElevation
+            className={styles.redeemButton}
+            onClick={handleExchange}
+            disabled={loading}
+          >
+            {loading ? "処理中..." : "クーポンに引き換える"}
+          </Button>
+          <Link href="/point_usage" passHref>
             <Button variant="outlined" className={styles.backButton}>
               戻る
             </Button>

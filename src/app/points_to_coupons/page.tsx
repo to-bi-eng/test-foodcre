@@ -1,13 +1,13 @@
 "use client";
+import { useSearchParams } from "next/navigation";
 import { Box, Typography, Button } from "@mui/material";
 import Link from "next/link";
 import styles from "@/styles/PointsToCoupons.module.css";
 
-type Props = {
-  remainingPoints: number;
-};
+export default function PointsToCoupons() {
+  const searchParams = useSearchParams();
+  const remainingPoints = Number(searchParams.get("remainingPoints") ?? 0);
 
-export default function PointsToCoupons({ remainingPoints=0 }: Props) {
   return (
     <Box className={styles.container}>
       <Typography className={styles.title} variant="h4" align="center">
@@ -22,7 +22,7 @@ export default function PointsToCoupons({ remainingPoints=0 }: Props) {
         ご使用いただけます
       </Typography>
       <Box display="flex" justifyContent="center" mt={2}>
-        <Link href="/" passHref>
+        <Link href="/point_usage" passHref>
           <Button className={styles.couponButton} variant="contained" fullWidth>
             クーポン一覧
           </Button>

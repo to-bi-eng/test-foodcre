@@ -7,6 +7,7 @@ CREATE TABLE menus (
     image_url VARCHAR(255),
     quantity INT,
     discount INT,
+    unit VARCHAR(10),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     is_enabled TINYINT(1) DEFAULT 1
 );
