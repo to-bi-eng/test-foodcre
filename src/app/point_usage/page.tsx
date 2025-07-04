@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import styles from '@/styles/Point_Usage.module.css';
+import Link from "next/link";
 import { Box, Typography, Divider, Button, CircularProgress } from '@mui/material';
 import Image from 'next/image';
-import Link from "next/link";
 
 type Menu = {
   id: number;
@@ -73,27 +73,27 @@ const MenuCard: React.FC<MenuCardProps> = ({
       }}
     />
     <Box sx={{ display: "flex", justifyContent: "center", width: "100%" }}>
-      <Link href={detailHref} passHref>
-        <Button
-          variant="contained"
-          color="info"
-          sx={{ textDecoration: "none", width: "100%", fontSize: "0.9rem", p: 0.5 }}
-        >
-          詳細
-        </Button>
-      </Link>
+      <Button
+        variant="contained"
+        color="info"
+        sx={{ textDecoration: "none", width: "40px", fontSize: "0.9rem", p: 0.5 }}
+        component={Link}
+        href={detailHref}
+      >
+        詳細
+      </Button>
     </Box>
   </Box>
 );
 
 export default function Usage() {
-  const [coupons, setCoupons] = useState<Coupon[]>([]);
+  const [menus, setMenus] = useState<Menu[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch('/api/menus/list')
       .then(res => res.json())
-      .then(data => setCoupons(data.menus || []))
+      .then(data => setMenus(data.menus || []))
       .finally(() => setLoading(false));
   }, []);
 
@@ -186,7 +186,7 @@ export default function Usage() {
               justifyItems: "center",
             }}
           >
-            {coupons.map((menu) => (
+            {menus.map((menu) => (
               <MenuCard
                 key={menu.id}
                 imageSrc="/hachiko.png"

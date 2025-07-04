@@ -22,11 +22,15 @@ export default function PointsToCoupons() {
         ご使用いただけます
       </Typography>
       <Box display="flex" justifyContent="center" mt={2}>
-        <Link href="/point_usage" passHref>
-          <Button className={styles.couponButton} variant="contained" fullWidth>
-            クーポン一覧
-          </Button>
-        </Link>
+        <Button
+          className={styles.couponButton}
+          variant="contained"
+          fullWidth
+          component={Link}
+          href="/coupon_list"
+        >
+          クーポン一覧
+        </Button>
       </Box>
     </Box>
   );

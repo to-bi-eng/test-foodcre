@@ -105,11 +105,14 @@ export default function IndividualPointUsage() {
           >
             {loading ? "処理中..." : "クーポンに引き換える"}
           </Button>
-          <Link href="/point_usage" passHref>
-            <Button variant="outlined" className={styles.backButton}>
-              戻る
-            </Button>
-          </Link>
+          <Button
+            variant="outlined"
+            className={styles.backButton}
+            component={Link}
+            href="/point_usage"
+          >
+            戻る
+          </Button>
         </Box>
       </Box>
     </Container>
