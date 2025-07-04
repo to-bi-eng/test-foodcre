@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import styles from '@/styles/Teams_of_service.module.css';
+import styles from '@/styles/termsOfService.module.css';
 import { Button, Box } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
