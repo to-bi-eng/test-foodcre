@@ -5,7 +5,7 @@ import { Box, Typography, Divider, Button, CircularProgress } from '@mui/materia
 import Image from 'next/image';
 import Link from "next/link";
 
-type Coupon = {
+type Menu = {
   id: number;
   title: string;
   description: string;
@@ -14,7 +14,7 @@ type Coupon = {
   detailHref: string;
 };
 
-type CouponCardProps = {
+type MenuCardProps = {
   imageSrc: string;
   imageAlt: string;
   title: string;
@@ -23,7 +23,7 @@ type CouponCardProps = {
   detailHref: string;
 };
 
-const CouponCard: React.FC<CouponCardProps> = ({
+const MenuCard: React.FC<MenuCardProps> = ({
   imageSrc,
   imageAlt,
   title,
@@ -91,9 +91,9 @@ export default function Usage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/coupons/owned')
+    fetch('/api/menus/list')
       .then(res => res.json())
-      .then(data => setCoupons(data.coupons || []))
+      .then(data => setCoupons(data.menus || []))
       .finally(() => setLoading(false));
   }, []);
 
@@ -186,15 +186,15 @@ export default function Usage() {
               justifyItems: "center",
             }}
           >
-            {coupons.map((coupon) => (
-              <CouponCard
-                key={coupon.id}
+            {coupons.map((menu) => (
+              <MenuCard
+                key={menu.id}
                 imageSrc="/hachiko.png"
-                imageAlt={coupon.title}
-                title={coupon.title}
-                discount={coupon.discount}
-                points={coupon.points}
-                detailHref={`/individual_point_usage/${coupon.id}`}
+                imageAlt={menu.title}
+                title={menu.title}
+                discount={menu.discount}
+                points={menu.points}
+                detailHref={`/individual_point_usage/${menu.id}`}
               />
             ))}
           </Box>

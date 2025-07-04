@@ -38,8 +38,8 @@ export default function IndividualPointUsage() {
       .then(data => setUserPoints(data.points));
   }, []);
 
-  if (!menu || userPoints === null)
-    return;
+  if (!menu || userPoints === null) return null;
+
 
   const handleExchange = async () => {
     setLoading(true);
