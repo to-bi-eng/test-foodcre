@@ -1,7 +1,7 @@
 "use client";
 
 import styles from '@/styles/top.module.css';
-import News from '@/components/Top-page/News';
+import News from '@/app/(main)/components/Top-page/News';
 import { Box, Typography, Link, Button } from '@mui/material';
 import Image from 'next/image';
 

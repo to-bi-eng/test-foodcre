@@ -1,5 +1,5 @@
-import News from "@/components/News/News"
-import NewsHeader from "@/components/News/NewsHeader"
+import News from "@/app/(main)/components/News/News"
+import NewsHeader from "@/app/(main)/components/News/NewsHeader"
 export default function NewsScreen() {
     return (
         <>
