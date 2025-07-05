@@ -1,6 +1,6 @@
 import React from 'react';
-import UserStatusCard from '@/app/(main)/components/Top-page/UserStatusCard';
+import News from '@/app/(main)/components/Top-page/News';
 
 export default function Home() {
-  return <UserStatusCard />;
+  return <News />;
 }
