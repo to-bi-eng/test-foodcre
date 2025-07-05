@@ -20,6 +20,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
+import ContactMailIcon from '@mui/icons-material/ContactMail'; // ← 1. お問い合わせ用のアイコンをインポート
 
 const drawerWidth = 240;
 
@@ -28,6 +29,7 @@ const menuItems = [
   { text: 'お知らせ一覧', href: '/admin/news', icon: <CampaignIcon /> },
   { text: 'クーポン一覧', href: '/admin/coupons', icon: <ConfirmationNumberIcon /> },
   { text: '来店QRコード', href: '/admin/check-in-qr', icon: <QrCode2Icon /> },
+  { text: 'お問い合わせ一覧', href: '/admin/inquiries', icon: <ContactMailIcon /> }, // ← 2. 新しいメニュー項目を追加
 ];
 
 export default function AdminLayout({
@@ -71,28 +73,23 @@ export default function AdminLayout({
 
               return (
                 <ListItem key={item.text} disablePadding>
-                  {/* ★ ListItemButtonのスタイルをsx propで直接指定するように変更 */}
                   <ListItemButton
                     component={Link}
                     href={item.href}
                     sx={{
-                      // isActiveがtrueの時だけ、以下のスタイルを適用
                       ...(isActive && {
-                        backgroundColor: 'primary.main', // 背景色をメインの青色に
-                        color: 'common.white',          // 文字色を白に
+                        backgroundColor: 'primary.main',
+                        color: 'common.white',
                         '&:hover': {
-                          backgroundColor: 'primary.dark', // ホバー時の色も濃いめに
+                          backgroundColor: 'primary.dark',
                         },
-                        // アイコンの色も白にする
                         '& .MuiListItemIcon-root': {
                           color: 'common.white',
                         },
                       }),
                     }}
                   >
-                    <ListItemIcon>
-                      {item.icon}
-                    </ListItemIcon>
+                    <ListItemIcon>{item.icon}</ListItemIcon>
                     <ListItemText primary={item.text} />
                   </ListItemButton>
                 </ListItem>
