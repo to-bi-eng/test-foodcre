@@ -20,7 +20,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import CampaignIcon from '@mui/icons-material/Campaign';
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber';
 import QrCode2Icon from '@mui/icons-material/QrCode2';
-import ContactMailIcon from '@mui/icons-material/ContactMail'; // ← 1. お問い合わせ用のアイコンをインポート
+import ContactMailIcon from '@mui/icons-material/ContactMail'; 
 
 const drawerWidth = 240;
 
@@ -29,7 +29,7 @@ const menuItems = [
   { text: 'お知らせ一覧', href: '/admin/news', icon: <CampaignIcon /> },
   { text: 'クーポン一覧', href: '/admin/coupons', icon: <ConfirmationNumberIcon /> },
   { text: '来店QRコード', href: '/admin/check-in-qr', icon: <QrCode2Icon /> },
-  { text: 'お問い合わせ一覧', href: '/admin/inquiries', icon: <ContactMailIcon /> }, // ← 2. 新しいメニュー項目を追加
+  { text: 'お問い合わせ一覧', href: '/admin/inquiries', icon: <ContactMailIcon /> }, 
 ];
 
 export default function AdminLayout({

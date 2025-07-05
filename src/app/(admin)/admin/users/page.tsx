@@ -22,10 +22,8 @@ export default function UsersPage() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(30);
   const [searchTerm, setSearchTerm] = React.useState('');
-  // ★ ローディング状態を管理するstateを追加（初期値はtrueで、初回ロード時にスピナーを表示）
   const [loading, setLoading] = React.useState(true);
 
-  // データを取得する関数をasync/awaitに修正
   const fetchUsers = async (emailQuery = '') => {
     setLoading(true); // ★ データ取得開始前にローディング中にする
     try {
@@ -47,7 +45,6 @@ export default function UsersPage() {
   // 初回ロード時に全ユーザーを取得
   React.useEffect(() => {
     fetchUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // 検索ボタンのクリック処理

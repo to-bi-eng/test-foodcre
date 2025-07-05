@@ -49,7 +49,6 @@ export async function GET(request: NextRequest) {
 
     // もしErrorオブジェクトでなかった場合のフォールバック処理
     return NextResponse.json({ message: "Internal Server Error", error: "An unknown error occurred" }, { status: 500 });
-    // ★★★ ここまでが修正箇所です ★★★
   } finally {
     if (connection) await connection.end();
   }
