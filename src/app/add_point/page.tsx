@@ -1,8 +1,16 @@
+'use client'
 import React from 'react';
-import { Typography, Container, Box } from '@mui/material';
+import { Typography, Container, Box, Button } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import styles from '@/styles/Add_point.module.css';
 
 export default function Add_point() {
+    const router = useRouter();
+
+    const handleAddPoint = () => {
+        router.push('/pointend');
+    };
+
     return (
         <Container maxWidth="sm" className={styles.container}>
         <Typography variant="h4" gutterBottom>
@@ -22,6 +30,15 @@ export default function Add_point() {
             {'\n'}読み取ってください
             </Typography>
         </Box>
+
+        <Button
+            variant="contained"
+            color="primary"
+            onClick={handleAddPoint}
+            sx={{ mt: 3, mb: 2 }}
+        >
+            ポイント付与
+        </Button>
 
         <Typography className={styles.note}>
             ※一日に一度のみポイントが
