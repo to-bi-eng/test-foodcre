@@ -1,27 +1,15 @@
-'use client'; // テーブル操作などクライアント側での対話が必要なため
+'use client';
 
 import * as React from 'react';
 import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TablePagination,
-  IconButton,
-  Tooltip,
+  Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+  TablePagination, IconButton, Tooltip, Box, TextField, Button
 } from '@mui/material';
-
-// アイコンのインポート
-import VisibilityIcon from '@mui/icons-material/Visibility';
+import SearchIcon from '@mui/icons-material/Search';
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 
-// 表示用のダミーデータの型定義
 interface UserData {
-  user_id: number;
+  id: number;
   email: string;
   point: number;
   last_login_day: string | null;
@@ -29,28 +17,32 @@ interface UserData {
   created_at: string;
 }
 
-// ダミーデータ作成関数
-const createData = (
-  user_id: number,
-  email: string,
-  point: number,
-  last_login_day: string | null,
-  visit_at: string | null,
-  created_at: string
-): UserData => {
-  return { user_id, email, point, last_login_day, visit_at, created_at };
-};
-
-// ダミーデータの配列
-const rows: UserData[] = [
-  createData(1, 'user1@example.com', 1250, '2025-07-04 18:30:00', '2025-07-01 12:05:00', '2024-01-15 10:00:00'),
-  createData(2, 'user2@example.com', 300, '2025-06-28 09:15:00', '2025-06-28 09:15:00', '2024-03-22 14:20:00'),
-  createData(3, 'user3@example.com', 5800, '2025-07-05 01:15:00', '2025-07-05 01:15:00', '2024-05-10 21:00:00'),
-];
-
 export default function UsersPage() {
+  const [rows, setRows] = React.useState<UserData[]>([]);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  // ★ 1ページの表示件数の初期値を30に変更
+  const [rowsPerPage, setRowsPerPage] = React.useState(30);
+  // ★ 検索キーワードを保持するためのstateを追加
+  const [searchTerm, setSearchTerm] = React.useState('');
+
+  // データを取得する関数
+  const fetchUsers = (emailQuery = '') => {
+    // emailクエリがある場合はURLに追加
+    const url = `/api/admin/users?email=${encodeURIComponent(emailQuery)}`;
+    fetch(url)
+      .then(res => res.json())
+      .then(data => setRows(data.users ?? []));
+  };
+
+  // 初回ロード時に全ユーザーを取得
+  React.useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  // 検索ボタンのクリック処理
+  const handleSearch = () => {
+    fetchUsers(searchTerm);
+  };
 
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage);
@@ -63,7 +55,26 @@ export default function UsersPage() {
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 'calc(100vh - 220px)' }}> {/* ビューポートに応じた高さを設定 */}
+      {/* ★ 検索フォームを追加 */}
+      <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
+        <TextField
+          label="メールアドレスで検索"
+          variant="outlined"
+          size="small"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          sx={{ flexGrow: 1 }}
+        />
+        <Button
+          variant="contained"
+          startIcon={<SearchIcon />}
+          onClick={handleSearch}
+        >
+          検索
+        </Button>
+      </Box>
+
+      <TableContainer sx={{ maxHeight: 'calc(100vh - 280px)' }}>
         <Table stickyHeader aria-label="user table">
           <TableHead>
             <TableRow>
@@ -78,8 +89,8 @@ export default function UsersPage() {
           </TableHead>
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <TableRow hover key={row.user_id}>
-                <TableCell>{row.user_id}</TableCell>
+              <TableRow hover key={row.id}>
+                <TableCell>{row.id}</TableCell>
                 <TableCell>{row.email}</TableCell>
                 <TableCell align="right">{row.point.toLocaleString()} pt</TableCell>
                 <TableCell>{row.last_login_day}</TableCell>
@@ -97,7 +108,8 @@ export default function UsersPage() {
       </TableContainer>
 
       <TablePagination
-        rowsPerPageOptions={[10, 25, 50]}
+        // ★ ページネーションの選択肢に30を追加
+        rowsPerPageOptions={[10, 30, 50, 100]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}
