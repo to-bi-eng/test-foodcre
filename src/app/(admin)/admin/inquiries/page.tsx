@@ -5,7 +5,7 @@ import {
   Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
   TablePagination, IconButton, Tooltip, Box, Chip, Typography, CircularProgress,
   Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Select, MenuItem, FormControl,
-  Button // ★★★ Buttonコンポーネントをインポートリストに追加 ★★★
+  Button, Divider
 } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
