@@ -19,7 +19,7 @@ export default function News() {
           width: '100%',
           overflowY: news && news.length > 5 ? 'auto' : 'visible',
         }}>
-        {isLoading && <Typography>読み込み中...</Typography>}
+        {isLoading && null}
         {error && <Typography color="error">取得に失敗しました</Typography>}
         {news && news.length === 0 && (
           <Box display="flex" justifyContent="center" alignItems="center" minHeight="100px">
