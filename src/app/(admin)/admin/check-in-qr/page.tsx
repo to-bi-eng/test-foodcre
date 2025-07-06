@@ -1,8 +1,15 @@
-import * as React from 'react';
-import { Box, Paper, Typography } from '@mui/material';
+'use client';
 
-// このページは静的な表示のみなので、'use client'は不要です。
+import * as React from 'react';
+import { Box, Paper, Typography, Button } from '@mui/material';
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
+
 export default function CheckInQrPage() {
+  
+  const handleStartDisplay = () => {
+    window.open('/qr-display', '_blank');
+  };
+
   return (
     <Paper
       sx={{
@@ -10,39 +17,35 @@ export default function CheckInQrPage() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        gap: 3,
+        textAlign: 'center',
+        gap: 2,
       }}
     >
-      <Typography variant="h4" component="h1">
-        来店ポイント用QRコード
+      <QrCodeScannerIcon sx={{ fontSize: 60, color: 'primary.main' }} />
+      <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+        来店ポイントQRコード表示
       </Typography>
-      <Typography variant="body1" color="text.secondary">
-        お客様のポイントアプリでこのQRコードをスキャンしてください。
-      </Typography>
-      
-      {/* QRコードのプレースホルダー部分 */}
-      <Box
-        sx={{
-          p: 2,
-          bgcolor: 'white',
-          borderRadius: 2,
-          boxShadow: 1,
-          display: 'inline-block', // 内側のBoxを収めるため
-        }}
-      >
-        {/* 真っ黒な四角形 */}
-        <Box
-          sx={{
-            width: 256,
-            height: 256,
-            backgroundColor: 'common.black', // 黒色を指定
-          }}
-        />
+      <Box sx={{ maxWidth: '600px', textAlign: 'left', mb: 3 }}>
+        {/* ★ ここからが修正箇所です ★ */}
+        <Typography variant="body1" component="p" sx={{ mb: 2 }}>
+          このページは、お客様に来店ポイントを付与するためのQRコードを、新しいタブで表示します。
+        </Typography>
+        <Typography variant="body1" component="p" sx={{ mb: 2 }}>
+          下の「表示を開始」ボタンを押すと、新しいタブが開き、QRコードが表示されます。そのタブを、お客様が見やすい場所に設置したタブレット端末で全画面表示にしてください。
+        </Typography>
+        {/* ★ ここまでが修正箇所です ★ */}
+        <Typography variant="body2" color="text.secondary">
+          <strong>注意：</strong>一度表示を開始すると、このページを閉じるまでQRコードが表示され続けます。終了する際はブラウザのタブを閉じてください。
+        </Typography>
       </Box>
-      
-      <Typography variant="caption" color="text.secondary">
-        （このQRコードは一定時間で自動的に更新されます）
-      </Typography>
+      <Button
+        variant="contained"
+        size="large"
+        onClick={handleStartDisplay}
+        sx={{ minWidth: 250, p: 2, fontSize: '1.2rem' }}
+      >
+        表示を開始
+      </Button>
     </Paper>
   );
 }
