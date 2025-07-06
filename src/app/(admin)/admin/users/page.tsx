@@ -3,7 +3,8 @@
 import * as React from 'react';
 import {
   Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
-  TablePagination, IconButton, Tooltip, Box, TextField, Button, CircularProgress // ★ CircularProgress をインポート
+  TablePagination, IconButton, Tooltip, Box, TextField, Button, CircularProgress,
+  Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, Divider, Typography
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import EditIcon from '@mui/icons-material/Edit';
@@ -19,44 +20,90 @@ interface UserData {
 
 export default function UsersPage() {
   const [rows, setRows] = React.useState<UserData[]>([]);
+  const [loading, setLoading] = React.useState(true);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(30);
   const [searchTerm, setSearchTerm] = React.useState('');
-  const [loading, setLoading] = React.useState(true);
+
+  const [editOpen, setEditOpen] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState<UserData | null>(null);
+  const [newPointValue, setNewPointValue] = React.useState('');
+
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = React.useState(false);
 
   const fetchUsers = async (emailQuery = '') => {
-    setLoading(true); // ★ データ取得開始前にローディング中にする
+    setLoading(true);
     try {
       const url = `/api/admin/users?email=${encodeURIComponent(emailQuery)}`;
       const res = await fetch(url);
-      if (!res.ok) {
-        throw new Error('Failed to fetch data');
-      }
+      if (!res.ok) throw new Error('Failed to fetch data');
       const data = await res.json();
       setRows(data.users ?? []);
     } catch (error) {
       console.error("Failed to fetch users:", error);
-      setRows([]); // エラー時はデータを空にする
+      setRows([]);
     } finally {
-      setLoading(false); // ★ 成功・失敗問わず、処理完了後にローディングを解除
+      setLoading(false);
     }
   };
 
-  // 初回ロード時に全ユーザーを取得
   React.useEffect(() => {
     fetchUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // 検索ボタンのクリック処理
   const handleSearch = () => {
-    setPage(0); // 検索時は1ページ目に戻す
+    setPage(0);
     fetchUsers(searchTerm);
   };
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
+  const handleEditOpen = (user: UserData) => {
+    setCurrentUser(user);
+    setNewPointValue(String(user.point));
+    setEditOpen(true);
+  };
+  const handleEditClose = () => {
+    setEditOpen(false);
+    setCurrentUser(null);
+  };
+  const handleEditSave = async () => {
+    if (!currentUser) return;
+    try {
+      const res = await fetch('/api/admin/users', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: currentUser.id, point: Number(newPointValue) }),
+      });
+      if (!res.ok) throw new Error('Failed to update user');
+      handleEditClose();
+      fetchUsers();
+    } catch (error) { console.error("Update failed:", error); }
   };
 
+  const handleDeleteClick = () => {
+    setEditOpen(false);
+    setConfirmDeleteOpen(true);
+  };
+  const handleConfirmDeleteClose = () => {
+    setConfirmDeleteOpen(false);
+    setEditOpen(true);
+  };
+  const handleConfirmDelete = async () => {
+    if (!currentUser) return;
+    try {
+      const res = await fetch('/api/admin/users', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: currentUser.id }),
+      });
+      if (!res.ok) throw new Error('Failed to delete user');
+      setConfirmDeleteOpen(false);
+      setCurrentUser(null);
+      fetchUsers();
+    } catch (error) { console.error("Deletion failed:", error); }
+  };
+
+  const handleChangePage = (event: unknown, newPage: number) => setPage(newPage);
   const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -77,13 +124,12 @@ export default function UsersPage() {
           variant="contained"
           startIcon={<SearchIcon />}
           onClick={handleSearch}
-          disabled={loading} // ★ ローディング中はボタンを無効化
+          disabled={loading}
         >
           検索
         </Button>
       </Box>
 
-      {/* ★ ローディング状態に応じて表示を切り替え */}
       {loading ? (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 280px)' }}>
           <CircularProgress />
@@ -113,7 +159,10 @@ export default function UsersPage() {
                   <TableCell>{row.created_at}</TableCell>
                   <TableCell align="center">
                     <Tooltip title="編集">
-                      <IconButton size="small"><EditIcon /></IconButton>
+                      {/* ★★★ ここにonClickイベントを追加しました ★★★ */}
+                      <IconButton size="small" onClick={() => handleEditOpen(row)}>
+                        <EditIcon />
+                      </IconButton>
                     </Tooltip>
                   </TableCell>
                 </TableRow>
@@ -132,6 +181,54 @@ export default function UsersPage() {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
+
+      {/* 編集ダイアログ */}
+      <Dialog open={editOpen} onClose={handleEditClose}>
+        <DialogTitle>アカウント編集: {currentUser?.email}</DialogTitle>
+        <DialogContent>
+          <Box component="form" sx={{ mt: 1, minWidth: { xs: 300, md: 400 } }}>
+            <TextField
+              label="現在のポイント"
+              type="number"
+              value={newPointValue}
+              onChange={e => setNewPointValue(e.target.value)}
+              fullWidth
+              margin="normal"
+              required
+            />
+          </Box>
+          <Divider sx={{ my: 2 }} />
+          <Typography variant="subtitle1" color="error" gutterBottom>
+            危険な操作
+          </Typography>
+          <Button variant="outlined" color="error" onClick={handleDeleteClick}>
+            このアカウントを削除する
+          </Button>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleEditClose}>キャンセル</Button>
+          <Button onClick={handleEditSave} variant="contained" disabled={!newPointValue}>
+            保存
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* 削除確認ダイアログ */}
+      <Dialog open={confirmDeleteOpen} onClose={handleConfirmDeleteClose}>
+        <DialogTitle>アカウント削除の最終確認</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            本当に「{currentUser?.email}」を削除しますか？<br />
+            この操作は元に戻すことができず、関連するすべてのデータが失われます。
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleConfirmDeleteClose}>キャンセル</Button>
+          <Button onClick={handleConfirmDelete} color="error" variant="contained">
+            削除を実行する
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Paper>
   );
 }
