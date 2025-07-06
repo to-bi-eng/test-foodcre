@@ -152,7 +152,11 @@ export default function NewsPage() {
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
               <TableRow hover key={row.news_id}>
                 <TableCell>{row.news_id}</TableCell>
-                <TableCell>{row.title}</TableCell>
+                <TableCell>
+                  {row.title.length > 30
+                    ? row.title.slice(0, 30) + '…'
+                    : row.title}
+                </TableCell>
                 <TableCell>
                   <Chip
                     label={row.status}
