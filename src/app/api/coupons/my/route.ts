@@ -10,9 +10,8 @@ type Coupon = {
 
 type CouponRow = Coupon & RowDataPacket;
 
-// DB接続プールを作成
 const pool = mysql.createPool({
-  host: 'localhost', // 必要に応じて変更
+  host: 'localhost',
   user: 'root',
   password: 'password',
   database: 'foocre_development',
@@ -31,13 +30,14 @@ export async function GET(req: NextRequest) {
 
     const query = `
       SELECT 
-        CAST(id AS CHAR) AS id, 
-        title, 
-        description, 
-        DATE_FORMAT(expires_at, '%Y-%m-%d') AS expiresAt
+        CAST(coupons.id AS CHAR) AS id,
+        menus.menu_name AS title,
+        menus.menu_contact AS description,
+        DATE_FORMAT(coupons.experied_at, '%Y-%m-%d') AS expiresAt
       FROM coupons
-      WHERE user_id = ? AND expires_at >= CURDATE()
-      ORDER BY expires_at ASC
+      INNER JOIN menus ON coupons.menu_id = menus.id
+      WHERE coupons.user_id = ? AND coupons.experied_at >= CURDATE()
+      ORDER BY coupons.experied_at ASC
     `;
 
     const [rows] = await pool.execute<CouponRow[]>(query, [userId]);
