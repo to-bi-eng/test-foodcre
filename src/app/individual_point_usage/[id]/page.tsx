@@ -10,8 +10,6 @@ type Menu = {
   id: number;
   menu_name: string;
   point_cost: number;
-  quantity: number;
-  discount: number;
 };
 
 export default function IndividualPointUsage() {
@@ -78,12 +76,11 @@ export default function IndividualPointUsage() {
             width={300}
             height={200}
             style={{ width: '100%', height: 'auto' }} />
-          <Typography className={styles.discountText}>
-            {menu.menu_name}{menu.quantity}個
-          </Typography>
-          <Typography className={styles.discountPercent} variant="inherit" component="div">
-            {menu.discount}% OFF
-          </Typography>
+          <Box className={styles.centeredTextBox}>
+            <Typography className={styles.discountText}>
+              {menu.menu_name}
+            </Typography>
+          </Box>
         </Box>
         <Box className={styles.infoContainer}>
           <Typography className={styles.attention} variant='h6'>

@@ -16,7 +16,7 @@ export async function GET(
   });
 
   const [rows] = await connection.execute(
-    'SELECT id, menu_name, point_cost, quantity, discount FROM menus WHERE id = ?',
+    'SELECT id, menu_name, point_cost FROM menus WHERE id = ?',
     [id]
   );
   await connection.end();
