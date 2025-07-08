@@ -53,4 +53,14 @@ CREATE TABLE news (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-
+-- お問い合わせテーブル
+CREATE TABLE inquiry (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    status ENUM('pending', 'in_progress', 'done') DEFAULT 'pending',
+    received_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    responsed_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
