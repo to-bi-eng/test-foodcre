@@ -2,15 +2,21 @@
 .pageContainer {
   padding: 16px;
   background-color: #f7f7f7;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
 }
 
 /* メインコンテンツ */
 .mainTitle {
-  font-weight: bold;
+  font-weight: bold !important;
+  font-size: 2.8rem !important;
+  /* 必要に応じてサイズを調整してください */
 }
 
 .instructions {
-  margin-bottom: 16px;
+  margin-bottom: 0;
+  padding-bottom: 60px;
   text-align: center;
   color: rgba(0, 0, 0, 0.6);
 }
@@ -18,7 +24,8 @@
 /* クーポンリスト */
 .couponListStack {
   width: 100%;
-  max-width: 500px;
+  max-width: 2000px;
+  padding-bottom: 190px;
 }
 
 /* --- クーポンカードの青い外枠 --- */
@@ -28,6 +35,9 @@
   background-color: #fff;
   /* CardContentのデフォルトpaddingをなくすため上書き */
   /* MUI v5では CardActionArea > button > CardContent のような構造になることがあるため、より詳細に指定 */
+  min-height: 120px;
+  display: flex;
+  align-items: stretch;
 }
 .couponCard button > div {
   padding: 0 !important;
@@ -53,7 +63,7 @@
 /* --- 期限エリア（右側3割）--- */
 .expiryArea {
   /* ↓↓↓ ここで左側に青い点線を描画 ↓↓↓ */
-  border-left: 2px dashed #0d6efd;
+  border-left: 3px dashed #0d6efd;
 
   /* テキストを上下左右中央に配置 */
   display: flex;

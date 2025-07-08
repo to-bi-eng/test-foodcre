@@ -1,17 +1,15 @@
 'use client';
 
-import React from 'react';
+import * as React from 'react';
 import {
   Box,
   Stack,
   Typography,
   Card,
   CardActionArea,
-  CardContent,
   Grid,
 } from '@mui/material';
 import styles from './../../styles/couponList.module.css';
-
 // クーポンデータ
 const couponData = [
   {
@@ -46,7 +44,7 @@ export default function CouponList() {
   };
 
   return (
-    <Box className={styles.pageContainer}>
+    <Box className={styles.pageContainer} sx={{ minHeight: '100vh' }}>
       <Stack alignItems="center">
         <Typography variant="h5" component="h1" className={styles.mainTitle} gutterBottom>
           クーポン一覧
