@@ -25,11 +25,11 @@ import ContactMailIcon from '@mui/icons-material/ContactMail';
 const drawerWidth = 240;
 
 const menuItems = [
-  { text: 'アカウント一覧', href: '/admin/users', icon: <PeopleIcon /> },
-  { text: 'お知らせ一覧', href: '/admin/news', icon: <CampaignIcon /> },
-  { text: 'クーポン一覧', href: '/admin/coupons', icon: <ConfirmationNumberIcon /> },
+  { text: 'アカウント管理', href: '/admin/users', icon: <PeopleIcon /> },
+  { text: 'お知らせ', href: '/admin/news', icon: <CampaignIcon /> },
+  { text: 'クーポンメニュー', href: '/admin/coupons', icon: <ConfirmationNumberIcon /> },
   { text: '来店QRコード', href: '/admin/check-in-qr', icon: <QrCode2Icon /> },
-  { text: 'お問い合わせ一覧', href: '/admin/inquiries', icon: <ContactMailIcon /> }, 
+  { text: 'お問い合わせ', href: '/admin/inquiries', icon: <ContactMailIcon /> }, 
 ];
 
 export default function AdminLayout({

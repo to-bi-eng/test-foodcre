@@ -32,6 +32,7 @@ export default function CouponsPage() {
   const [newMenuName, setNewMenuName] = React.useState('');
   const [newMenuContact, setNewMenuContact] = React.useState('');
   const [newPointCost, setNewPointCost] = React.useState('');
+  const [newIsEnabled, setNewIsEnabled] = React.useState(true);
 
   // 編集ダイアログ用のstate
   const [openEditDialog, setOpenEditDialog] = React.useState(false);
@@ -66,6 +67,7 @@ export default function CouponsPage() {
     setNewMenuName('');
     setNewMenuContact('');
     setNewPointCost('');
+    setNewIsEnabled(true);
     setOpenCreateDialog(true);
   };
   const handleCreateClose = () => setOpenCreateDialog(false);
@@ -74,7 +76,7 @@ export default function CouponsPage() {
       menu_name: newMenuName,
       menu_contact: newMenuContact,
       point_cost: Number(newPointCost),
-      is_enabled: true, // 新規作成時は常に有効(true)としてデータを送信
+      is_enabled: newIsEnabled,
     };
     try {
       const res = await fetch('/api/admin/coupons', {
@@ -179,7 +181,11 @@ export default function CouponsPage() {
                   <TableCell>{row.menu_name}</TableCell>
                   <TableCell align="right">{row.point_cost.toLocaleString()} pt</TableCell>
                   <TableCell>
-                    <Chip label="有効" color="success" size="small" />
+                    <Chip
+                      label={row.is_enabled ? "有効" : "無効"}
+                      color={row.is_enabled ? "success" : "default"}
+                      size="small"
+                    />
                   </TableCell>
                   <TableCell>{row.created_at}</TableCell>
                   <TableCell align="center">
@@ -219,11 +225,26 @@ export default function CouponsPage() {
             <TextField label="メニュー名" value={newMenuName} onChange={e => setNewMenuName(e.target.value)} fullWidth margin="normal" required />
             <TextField label="説明文" value={newMenuContact} onChange={e => setNewMenuContact(e.target.value)} fullWidth margin="normal" multiline rows={3} />
             <TextField label="消費ポイント" type="number" value={newPointCost} onChange={e => setNewPointCost(e.target.value)} fullWidth margin="normal" required />
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={newIsEnabled}
+                  onChange={e => setNewIsEnabled(e.target.checked)}
+                  color="primary"
+                />
+              }
+              label={newIsEnabled ? "有効" : "無効"}
+            />
           </Box>
         </DialogContent>
         <DialogActions sx={{ p: 2 }}>
           <Button onClick={handleCreateClose}>キャンセル</Button>
-          <Button onClick={handleCreateConfirm} variant="contained" color="success" disabled={!newMenuName.trim() || !newPointCost.trim()}>
+          <Button
+            onClick={handleCreateConfirm}
+            variant="contained"
+            color="success"
+            disabled={!newMenuName.trim() || !newPointCost.trim()}
+          >
             登録
           </Button>
         </DialogActions>
@@ -260,6 +281,21 @@ export default function CouponsPage() {
                 fullWidth
                 margin="normal"
                 required
+              />
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={currentItem?.is_enabled ?? true}
+                    onChange={e =>
+                      setCurrentItem({
+                        ...currentItem!,
+                        is_enabled: e.target.checked,
+                      })
+                    }
+                    color="primary"
+                  />
+                }
+                label={currentItem?.is_enabled ? "有効" : "無効"}
               />
             </Box>
           )}
