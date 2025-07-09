@@ -9,61 +9,54 @@ const dbConfig = {
   port: 3306,
 };
 
-// GET: お問い合わせ一覧、または詳細を取得
+const statusFromDb = (status: string) => {
+  switch (status) {
+    case "pending": return "未対応";
+    case "in_progress": return "対応中";
+    case "done": return "完了";
+    default: return status;
+  }
+};
+
+const statusToDb = (status: string) => {
+  switch (status) {
+    case "未対応": return "pending";
+    case "対応中": return "in_progress";
+    case "完了": return "done";
+    default: return "pending";
+  }
+};
+
 export async function GET(request: NextRequest) {
-  const searchParams = request.nextUrl.searchParams;
-  const id = searchParams.get('id');
+  const connection = await mysql.createConnection(dbConfig);
+  const [rows] = await connection.execute(`
+    SELECT i.id, i.title, i.content, i.status, i.received_at, i.responsed_at, u.email
+    FROM inquiry i
+    LEFT JOIN users u ON i.user_id = u.id
+    ORDER BY i.received_at DESC
+  `);
+  await connection.end();
 
-  let connection;
-  try {
-    connection = await mysql.createConnection(dbConfig);
-
-    if (id) {
-      // IDが指定されている場合は、1件だけ取得
-      const sql = `SELECT * FROM inquiries WHERE id = ?`;
-      const [rows] = await connection.execute(sql, [id]);
-      const inquiry = (rows as any[])[0] || null;
-      return NextResponse.json({ inquiry });
-    } else {
-      // IDが指定されていない場合は、全件取得
-      const sql = `SELECT id, user_name, user_email, subject, status, received_at FROM inquiries ORDER BY received_at DESC`;
-      const [rows] = await connection.execute(sql);
-      const inquiries = (rows as any[]).map(row => ({
-        ...row,
-        received_at: row.received_at ? new Date(row.received_at).toISOString().slice(0, 19).replace('T', ' ') : null,
-      }));
-      return NextResponse.json({ inquiries });
-    }
-  } catch (error) {
-    console.error('API GET Inquiries Error:', error);
-    if (error instanceof Error) return NextResponse.json({ message: error.message }, { status: 500 });
-    return NextResponse.json({ message: "An unknown error occurred" }, { status: 500 });
-  } finally {
-    if (connection) await connection.end();
-  }
+  const inquiries = (rows as any[]).map(row => ({
+    id: row.id,
+    title: row.title,
+    content: row.content,
+    status: statusFromDb(row.status),
+    receivedAt: row.received_at ? new Date(row.received_at).toISOString().replace('T', ' ').slice(0, 19) : '',
+    responsedAt: row.responsed_at ? new Date(row.responsed_at).toISOString().replace('T', ' ').slice(0, 19) : '',
+    email: row.email,
+  }));
+  return NextResponse.json({ inquiries });
 }
 
-// PUT: お問い合わせのステータスを更新
 export async function PUT(request: NextRequest) {
-  let connection;
-  try {
-    const { inquiryId, status } = await request.json();
-
-    if (!inquiryId || !status) {
-      return NextResponse.json({ message: "Inquiry ID and status are required" }, { status: 400 });
-    }
-
-    connection = await mysql.createConnection(dbConfig);
-    const sql = `UPDATE inquiries SET status = ? WHERE id = ?`;
-    await connection.execute(sql, [status, inquiryId]);
-
-    return NextResponse.json({ message: "Status updated successfully" });
-
-  } catch (error) {
-    console.error('API PUT Inquiry Error:', error);
-    if (error instanceof Error) return NextResponse.json({ message: error.message }, { status: 500 });
-    return NextResponse.json({ message: "An unknown error occurred" }, { status: 500 });
-  } finally {
-    if (connection) await connection.end();
-  }
+  const { id, status } = await request.json();
+  const connection = await mysql.createConnection(dbConfig);
+  await connection.execute(
+    `UPDATE inquiry SET status = ? WHERE id = ?`,
+    [statusToDb(status), id]
+  );
+  await connection.end();
+  return NextResponse.json({ success: true });
 }
+
