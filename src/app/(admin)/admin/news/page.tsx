@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import {
-  Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead,
+  Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, Stack,
   TableRow, TablePagination, IconButton, Toolbar, Chip, Tooltip, Dialog, DialogTitle,
   DialogContent, DialogActions, TextField, FormControl, InputLabel, Select, MenuItem
 } from '@mui/material';
@@ -166,16 +166,18 @@ export default function NewsPage() {
                 </TableCell>
                 <TableCell>{row.updated_at}</TableCell>
                 <TableCell align="center">
-                  <Tooltip title="編集">
-                    <IconButton size="small" onClick={() => handleEditClick(row)}>
-                      <EditIcon />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title="削除">
-                    <IconButton size="small" onClick={() => handleDeleteClick(row.news_id)}>
-                      <DeleteIcon />
-                    </IconButton>
-                  </Tooltip>
+                  <Stack direction="row" spacing={1} justifyContent="center">
+                    <Tooltip title="編集">
+                      <IconButton size="small" onClick={() => handleEditClick(row)}>
+                        <EditIcon />
+                      </IconButton>
+                    </Tooltip>
+                    <Tooltip title="削除">
+                      <IconButton size="small" onClick={() => handleDeleteClick(row.news_id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </Stack>
                 </TableCell>
               </TableRow>
             ))}

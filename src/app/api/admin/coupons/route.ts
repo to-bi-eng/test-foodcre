@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   try {
     connection = await mysql.createConnection(dbConfig);
 
-    let sql = `SELECT id as menu_id, menu_name, point_cost, is_enabled, created_at FROM menus`;
+    let sql = `SELECT id as menu_id, menu_name, menu_contact, point_cost, is_enabled, created_at FROM menus`;
     const params: (string | number)[] = [];
 
     if (nameQuery) {
@@ -33,6 +33,7 @@ export async function GET(request: NextRequest) {
     const menus = (rows as any[]).map(menu => ({
       menu_id: menu.menu_id,
       menu_name: menu.menu_name,
+      menu_contact: menu.menu_contact,
       point_cost: menu.point_cost,
       is_enabled: menu.is_enabled === 1,
       created_at: menu.created_at ? new Date(menu.created_at).toISOString().split('T')[0] : null,
