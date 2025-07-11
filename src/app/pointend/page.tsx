@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
-import styles from '../../styles/pointEnd.module.css';
+import styles from '@/styles/pointEnd.module.css';
 
 interface PointAppProps {
   plusPoints: number;
