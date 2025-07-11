@@ -7,9 +7,9 @@ export default function CouponUsagePage() {
   return (
     <div className={styles.couponusage}>
       <Stack
-        component="form"
+        component="div"
         gap="26px"
-        aria-labelledby="contact_one"
+        aria-labelledby="contactreview_heading"
         className={styles.stack}
         sx={{
           backgroundImage: 'url("/gyoza.png")',
@@ -19,14 +19,14 @@ export default function CouponUsagePage() {
         }}
       >
         <Typography
-          id="contactreview_heading"
+          id="contactreview_heading_1"
           sx={{
             fontSize: "2.0rem",
             fontWeight: "bold",
             color: "black",
           }}
         >
-          餃子６個 5%oFF
+          餃子６個 5%OFF
         </Typography>
       </Stack>
 
@@ -34,7 +34,7 @@ export default function CouponUsagePage() {
         component="form"
         gap="26px"
         aria-labelledby="contact_one"
-        className={styles.stack2}
+        className={styles.actionStack}
       >
         <Link href="/" passHref>
           <Button
@@ -48,8 +48,8 @@ export default function CouponUsagePage() {
         </Link>
         <Typography
           id="contactreview_heading"
+          variant="h3"
           sx={{
-            variant: "h3",
             fontSize: "0.75rem",
             fontWeight: "semi-bold",
             color: "black",

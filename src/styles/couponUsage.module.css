@@ -4,7 +4,6 @@
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    margin-bottom: auto;
     padding-bottom: 200px;
 }
 .stack {
@@ -15,7 +14,7 @@
     padding-bottom: 40px;
 }
 
-.stack2 {
+.actionStack {
     margin-top: 100px;
     display: flex;
     justify-content: center;
