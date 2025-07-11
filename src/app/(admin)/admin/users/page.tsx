@@ -139,7 +139,6 @@ export default function UsersPage() {
           <Table stickyHeader aria-label="user table">
             <TableHead>
               <TableRow>
-                <TableCell>ID</TableCell>
                 <TableCell>Email</TableCell>
                 <TableCell align="right">現在のポイント</TableCell>
                 <TableCell>最終ログイン</TableCell>
@@ -151,7 +150,6 @@ export default function UsersPage() {
             <TableBody>
               {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                 <TableRow hover key={row.id}>
-                  <TableCell>{row.id}</TableCell>
                   <TableCell>{row.email}</TableCell>
                   <TableCell align="right">{row.point.toLocaleString()} pt</TableCell>
                   <TableCell>{row.last_login_day}</TableCell>

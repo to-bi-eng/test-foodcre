@@ -166,7 +166,6 @@ export default function CouponsPage() {
           <Table stickyHeader aria-label="coupons table">
             <TableHead>
               <TableRow>
-                <TableCell sx={{ width: '10%' }}>ID</TableCell>
                 <TableCell sx={{ width: '35%' }}>メニュー名</TableCell>
                 <TableCell sx={{ width: '15%' }} align="right">消費ポイント</TableCell>
                 <TableCell sx={{ width: '15%' }}>ステータス</TableCell>
@@ -177,7 +176,6 @@ export default function CouponsPage() {
             <TableBody>
               {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                 <TableRow hover key={row.menu_id}>
-                  <TableCell>{row.menu_id}</TableCell>
                   <TableCell>{row.menu_name}</TableCell>
                   <TableCell align="right">{row.point_cost.toLocaleString()} pt</TableCell>
                   <TableCell>

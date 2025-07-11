@@ -18,7 +18,7 @@ interface InquiryData {
   content: string;
   status: InquiryStatus;
   receivedAt: string;
-  responsedAt
+  responsedAt: string;
 }
 
 const getStatusChipColor = (status: InquiryStatus) => {
@@ -84,8 +84,6 @@ export default function InquiriesPage() {
         <Table stickyHeader>
           <TableHead>
             <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell>受信日時</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>件名</TableCell>
               <TableCell>ステータス</TableCell>
@@ -95,10 +93,12 @@ export default function InquiriesPage() {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
               <TableRow hover key={row.id}>
-                <TableCell>{row.id}</TableCell>
-                <TableCell>{row.receivedAt}</TableCell>
                 <TableCell>{row.email}</TableCell>
-                <TableCell>{row.title}</TableCell>
+                <TableCell>
+                  {row.title.length > 30
+                    ? row.title.slice(0, 30) + '…'
+                    : row.title}
+                </TableCell>
                 <TableCell>
                   <Chip
                     label={row.status}
@@ -141,7 +141,11 @@ export default function InquiriesPage() {
         <DialogContent dividers>
           {selected && (
             <>
-              <Typography><strong>件名:</strong> {selected.title}</Typography>
+              <Typography sx={{ mb: 2, wordBreak: 'break-word', whiteSpace: 'pre-line' }}>
+                <strong>件名:</strong>
+                <br />
+                {selected.title}
+              </Typography>
               <Typography><strong>Email:</strong> {selected.email}</Typography>
               <Typography><strong>受信日時:</strong> {selected.receivedAt}</Typography>
               <Typography>
@@ -151,8 +155,12 @@ export default function InquiriesPage() {
                   : selected.status}
               </Typography>
               <Box sx={{ mt: 2 }}>
-                <Typography><strong>本文:</strong></Typography>
-                <Typography sx={{ whiteSpace: 'pre-wrap' }}>{selected.content}</Typography>
+                <Typography>
+                  <strong>本文:</strong>
+                </Typography>
+                <Typography sx={{ whiteSpace: 'pre-line', wordBreak: 'break-word', mt: 1 }}>
+                  {selected.content}
+                </Typography>
               </Box>
             </>
           )}

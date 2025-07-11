@@ -141,7 +141,6 @@ export default function NewsPage() {
         <Table stickyHeader aria-label="news table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ width: '10%' }}>ID</TableCell>
               <TableCell sx={{ width: '60%' }}>タイトル</TableCell>
               <TableCell sx={{ width: '10%' }}>ステータス</TableCell>
               <TableCell sx={{ width: '15%' }}>最終更新日</TableCell>
@@ -151,7 +150,6 @@ export default function NewsPage() {
           <TableBody>
             {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
               <TableRow hover key={row.news_id}>
-                <TableCell>{row.news_id}</TableCell>
                 <TableCell>
                   {row.title.length > 30
                     ? row.title.slice(0, 30) + '…'
