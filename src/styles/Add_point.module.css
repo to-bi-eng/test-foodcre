@@ -27,6 +27,8 @@
     padding: 16px;
     display: inline-block;
     margin-bottom: 8px;
+    width: fit-content;
+    margin-left: 24%;
 }
 
 .note {
