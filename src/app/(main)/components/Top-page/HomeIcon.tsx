@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Link,  } from '@mui/material';
 import styles from '@/styles/homeIcon.module.css';
 import Image from 'next/image';
-import News from '@/app/(main)/components/Top-page/HomeIcon';
+import News from '@/app/(main)/components/Top-page/News';
 
 const pointicon = '/point_change.png';
 const qrcord = '/QR.png';
