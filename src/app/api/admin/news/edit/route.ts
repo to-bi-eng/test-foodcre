@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 
 export async function PUT(request: Request) {
+  let connection: mysql.Connection | undefined;
   try {
     // クエリパラメータからidを取得
     const { searchParams } = new URL(request.url);
@@ -11,7 +12,7 @@ export async function PUT(request: Request) {
     }
 
     const { title, content, status } = await request.json();
-    const connection = await mysql.createConnection({
+    connection = await mysql.createConnection({
       host: "db",
       user: "root",
       password: "password",
@@ -37,5 +38,7 @@ export async function PUT(request: Request) {
       return NextResponse.json({ message: "Internal Server Error", error: error.message }, { status: 500 });
     }
     return NextResponse.json({ message: "Internal Server Error", error: "An unknown error occurred" }, { status: 500 });
+  } finally {
+    if (connection) await connection.end();
   }
 }
