@@ -9,7 +9,7 @@ export default function Logout() {
   return (
     <div className={styles.page}>
       <Box marginLeft="5px">
-        <Image src="/hachiko.png" alt="8番らーめんロゴ" width="70" height="70" className={styles.logo} />
+        <Image src="/hachibanlogo.png" alt="8番らーめんロゴ" width="70" height="70" className={styles.logo} />
       </Box>
       <Box mb={6}>
         <Typography variant="h6" fontSize="1.4rem" align="center">
