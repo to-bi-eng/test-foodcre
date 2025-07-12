@@ -24,7 +24,6 @@ export async function PUT(request: Request) {
       'UPDATE news SET title = ?, content = ?, status = ? WHERE id = ?',
       [title, content, status, id]
     );
-    await connection.end();
 
     const a_result = result as mysql.ResultSetHeader;
     if (a_result.affectedRows > 0) {
