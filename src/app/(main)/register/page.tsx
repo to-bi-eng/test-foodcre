@@ -2,7 +2,7 @@
 import React from 'react';
 import { Button, TextField, OutlinedInput, InputAdornment, IconButton, InputLabel } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import styles from '@/styles/Register.module.css';
+import styles from '@/styles/register.module.css';
 
 export default function Register () {
     const [showPassword,setShowPassword] = React.useState(false);

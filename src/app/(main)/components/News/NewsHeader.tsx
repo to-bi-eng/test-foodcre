@@ -1,6 +1,6 @@
 import news_styles from "@/styles/News.module.css"
 import Image from "next/image";
-import hachiko_icon from "../../../public/hachiko.png";
+import hachiko_icon from "/public/hachiko.png";
 
 export default function NewsHeader() {
     return (

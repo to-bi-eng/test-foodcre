@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import Header from '@/components/Header/Header';
-import Footer from '@/components/Footer/Footer';
+import Header from '@/app/(main)/components/Header/Header';
+import Footer from '@/app/(main)/components/Footer/Footer';
 import styles from '@/styles/Teams_of_service.module.css'; // CSSモジュール名が正しいか注意
 import { Button, Box, Typography, Container, Paper } from '@mui/material';
 import { useRouter } from 'next/navigation';
