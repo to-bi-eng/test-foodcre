@@ -1,11 +1,12 @@
 "use client";
-import { Box, Typography, Divider, Button, CircularProgress } from "@mui/material"; // ★ CircularProgress をインポート
+import { Box, Typography, Divider, Button, CircularProgress } from "@mui/material";
 import useSWR from "swr";
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
 export default function News() {
   const { data: news, error, isLoading } = useSWR('/api/news', fetcher);
+  const newsSlice = Array.isArray(news) ? news.slice(0, 10) : [];
 
   return (
     <Box>
@@ -15,15 +16,14 @@ export default function News() {
       <Divider sx={{ width: '100%', height: 4, background: '#ff0000', margin: '8px auto', borderRadius: 2 }} />
       <Box
         sx={{
-          minHeight: 200, // ★ ローディング中などに高さが潰れないように最小の高さを設定
+          minHeight: 200,
           maxHeight: 400,
           width: '100%',
           overflowY: news && news.length > 5 ? 'auto' : 'visible',
-          display: 'flex', // ★ 中央揃えのために追加
-          flexDirection: 'column', // ★ 中央揃えのために追加
+          display: 'flex',
+          flexDirection: 'column',
         }}>
 
-        {/* ★ ローディング状態に応じた表示の切り替え */}
         {isLoading && (
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexGrow: 1 }}>
             <CircularProgress />
@@ -43,7 +43,7 @@ export default function News() {
                 </Typography>
               </Box>
             )}
-            {news && news.length > 0 && news.slice(0, 10).map((item: any, idx: number) => (
+            {newsSlice.length > 0 && newsSlice.map((item: any, idx: number) => (
               <Button
                 key={item.id}
                 variant="text"
@@ -75,7 +75,7 @@ export default function News() {
                 >
                   {item.title}
                 </Typography>
-                {idx !== news.slice(0, 10).length - 1 && <Divider sx={{ my: 2 }} />}
+                {idx !== newsSlice.length - 1 && <Divider sx={{ my: 2 }} />}
               </Button>
             ))}
           </>
