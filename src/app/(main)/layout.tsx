@@ -2,12 +2,12 @@ import * as React from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
-import theme from '@/theme';
+import theme from '@/app/theme';
 import { Metadata } from 'next';
 
-import Header from '@/components/Header/Header';
-import BG from '@/components/Background/Background';
-import Footer from '@/components/Footer/Footer';
+import Header from '@/app/(main)/components/Header/Header';
+import BG from '@/app/(main)/components/Background/Background';
+import Footer from '@/app/(main)/components/Footer/Footer';
 
 import styles from '@/styles/ContentBox.module.css'
 

@@ -22,7 +22,7 @@ const News = () => {
 
         // /app/api/news/route.tsにデータベースからニュースを取得する処理が書かれています
         // 本番環境にデプロイする際にエンドポイントがたぶん変わるので注意してください
-        fetch("http://localhost:3000/api/news")
+        fetch("/api/news")
             .then((response) => response.json())
             .then((data: NewsItem[]) => {
                 setNews(data);
