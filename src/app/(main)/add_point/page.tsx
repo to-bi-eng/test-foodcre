@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Container, Box } from '@mui/material';
-import styles from '@/styles/Add_point.module.css';
+import styles from '@/styles/addPoint.module.css';
 
 export default function Add_point() {
     return (
