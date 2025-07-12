@@ -11,7 +11,7 @@ type Coupon = {
 type CouponRow = Coupon & RowDataPacket;
 
 const pool = mysql.createPool({
-  host: 'localhost',
+  host: 'db',
   user: 'root',
   password: 'password',
   database: 'foocre_development',
@@ -28,17 +28,20 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'userId is required' }, { status: 400 });
     }
 
+    // ...existing code...
     const query = `
       SELECT 
         CAST(coupons.id AS CHAR) AS id,
         menus.menu_name AS title,
         menus.menu_contact AS description,
-        DATE_FORMAT(coupons.experied_at, '%Y-%m-%d') AS expiresAt
+        DATE_FORMAT(coupons.experied_at, '%Y-%m-%d') AS expiresAt,
+        menus.discount AS discount
       FROM coupons
       INNER JOIN menus ON coupons.menu_id = menus.id
       WHERE coupons.user_id = ? AND coupons.experied_at >= CURDATE()
       ORDER BY coupons.experied_at ASC
     `;
+// ...existing code...
 
     const [rows] = await pool.execute<CouponRow[]>(query, [userId]);
     return NextResponse.json(rows);
