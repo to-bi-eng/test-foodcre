@@ -9,7 +9,7 @@ import {
   CardActionArea,
   Grid,
 } from '@mui/material';
-import styles from './../../styles/couponList.module.css';
+import styles from '@/styles/couponList.module.css';
 // クーポンデータ
 const couponData = [
   {
