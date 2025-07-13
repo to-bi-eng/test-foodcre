@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import styles from "@/styles/Individual_Point_Usage.module.css";
+import styles from "@/styles/individualPointUsage.module.css";
 import { Box, Typography, Button, Container } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
