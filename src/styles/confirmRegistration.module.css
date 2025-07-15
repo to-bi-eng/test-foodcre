@@ -1,0 +1,69 @@
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+}
+
+.heading {
+  margin-bottom: 30px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.infoBox {
+  border: 2px solid red;
+  padding: 20px;
+  margin-bottom: 40px;
+  width: 100%;
+  max-width: 400px;
+  word-break: break-word; /* ここで折り返しを許可 */
+  background-color: #fff;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.button {
+  background-color: #4B4B4B !important;
+  color: white !important;
+  padding: 10px 16px;
+  border-radius: 5px;
+  font-weight: bold;
+  width: 100px;
+}
+
+.spacer {
+  height: 100px;
+}
+
+@media (max-width: 600px) {
+  .heading {
+    font-size: 20px;
+  }
+
+  .infoBox {
+    font-size: 14px;
+    padding: 16px;
+  }
+
+  .buttonGroup {
+    gap: 15px;
+  }
+
+  .button {
+    width: 45%;
+    min-width: 90px;
+  }
+}

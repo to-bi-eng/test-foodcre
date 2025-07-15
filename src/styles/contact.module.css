@@ -1,0 +1,21 @@
+.contact {
+    max-width:330px;
+    margin:20px auto 200px;
+    overflow: auto;
+    width: 100%;
+}
+
+.stack {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.text {
+    width: 100%;
+    margin:0 auto;
+    padding: 10px;
+    border-radius: 8px;
+}
