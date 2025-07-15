@@ -1,4 +1,4 @@
-import styles from '@/styles/privacypolicy.module.css';
+import styles from '@/styles/privacyPolicy.module.css';
 import { Typography, Button, Box } from '@mui/material';
 // import Link from "next/link";
 

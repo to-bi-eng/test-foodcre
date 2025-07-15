@@ -1,6 +1,6 @@
 "use client";
 import { Button, Stack, Typography, Box } from "@mui/material";
-import styles from '@/styles/Contact_confirm.module.css';
+import styles from '@/styles/contactConfirm.module.css';
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 

@@ -1,4 +1,4 @@
-import styles from '@/styles/Logout.module.css';
+import styles from '@/styles/logout.module.css';
 import { Typography, Button, Box } from '@mui/material';
 import Link from "next/link";
 import Image from 'next/image';

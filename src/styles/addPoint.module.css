@@ -1,0 +1,38 @@
+.container {
+    text-align: center;
+    margin: 0 auto;
+    padding: 32px 16px;
+    padding-bottom: 250px; /* フッター分の余白を追加 */
+    max-width: 600px;
+    min-height: 100vh; 
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow-y: auto; 
+}
+
+.qr {
+    width: 200px;
+    height: 200px;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px auto;
+}
+
+.textBox {
+    border: 2px solid red;
+    padding: 16px;
+    display: inline-block;
+    margin-bottom: 8px;
+    width: fit-content;
+    margin-left: 24%;
+}
+
+.note {
+    color: gray;
+    font-size: 0.875rem;
+    white-space: pre-line;
+    }

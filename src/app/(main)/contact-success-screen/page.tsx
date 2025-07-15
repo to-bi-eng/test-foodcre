@@ -2,7 +2,7 @@
 import { Button, Stack, Typography } from "@mui/material";
 import React from "react";
 import { useRouter } from "next/navigation";
-import styles from '../../styles/contact-success-screen.module.css';
+import styles from '@/styles/contactSuccessScreen.module.css';
 
 export default function SentConfirmation() {
   const router = useRouter();

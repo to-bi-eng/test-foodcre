@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { Box, Typography, Divider } from "@mui/material";
-import styles from "@/styles/Individual_News.module.css";
+import styles from "@/styles/individualNews.module.css";
 
 type News = {
   id: number;
