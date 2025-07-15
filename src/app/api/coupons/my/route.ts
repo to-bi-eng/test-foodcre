@@ -6,6 +6,7 @@ type Coupon = {
   title: string;
   description: string;
   expiresAt: string;
+  discount: number;
 };
 
 type CouponRow = Coupon & RowDataPacket;
