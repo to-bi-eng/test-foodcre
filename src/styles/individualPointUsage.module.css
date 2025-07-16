@@ -47,20 +47,6 @@
   flex-wrap: wrap;
 }
 
-.discountText {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  font-size: 30px !important;
-  width: 300px;
-  height: 200px;
-  position: absolute;
-  white-space: normal;
-  word-break: break-all;
-  text-align: center;
-  flex-wrap: wrap;
-}
-
 .infoContainer {
   text-align: center;
   margin-bottom: 10px;
