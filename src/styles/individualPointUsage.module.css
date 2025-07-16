@@ -34,15 +34,27 @@
   pointer-events: none;
 }
 
+.menuName {
+  display: grid;
+  place-items: center;
+  font-size: 30px !important;
+  width: 300px;
+  height: 200px;
+  position: absolute;
+  white-space: normal;
+  word-break: break-all;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
 .discountText {
   display: flex;
   justify-content: center;
-  font-size: 40px !important; /* フォントサイズを大きく */
+  align-items: flex-end;
+  font-size: 30px !important;
   width: 300px;
+  height: 200px;
   position: absolute;
-  top: 35%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   white-space: normal;
   word-break: break-all;
   text-align: center;
@@ -51,37 +63,37 @@
 
 .infoContainer {
   text-align: center;
-  margin-bottom: 10px;               /* ↓ 大幅に縮小 */
+  margin-bottom: 10px;
   color: #333;
   width: 100%;
 }
 
 .attention {
-  margin: 10px 0;         /* 隙間を広げる */
-  line-height: 1.8;       /* 行間も少しゆとりを持たせる */
+  margin: 10px 0;
+  line-height: 1.8;
 }
 
 .buttonContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;/* ボタン同士の間隔 */
+  gap: 24px;
   width: 100%;
-  margin-top: 6px;                   /* ↓ 縮める */
-  margin-bottom: 80px;              /* ← フッター対策 */
+  margin-top: 6px;
+  margin-bottom: 80px;
 }
 
 .redeemButton {
   background-color: #ffcc00;
   border: none;
-  padding: 10px 20px !important;      /* パディングを小さく */
-  font-size: 1em !important;          /* フォントサイズを小さく */
+  padding: 10px 20px !important;
+  font-size: 1em !important;
   font-weight: bold;
-  border-radius: 20px !important;     /* 角も少し小さく */
+  border-radius: 20px !important;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.10);
   width: 100%;
-  max-width: 300px !important;        /* 幅を小さく */
+  max-width: 300px !important;
   text-align: center;
 }
 
@@ -89,12 +101,12 @@
   background-color: #9b9b9b !important;
   color: #000 !important;
   border: none !important;
-  padding: 8px 16px !important;       /* パディングを小さく */
-  font-size: 0.9em !important;        /* フォントサイズを小さく */
+  padding: 8px 16px !important;
+  font-size: 0.9em !important;
   border-radius: 20px;
   cursor: pointer;
   width: 100%;
-  max-width: 120px !important;        /* 幅を小さく */
+  max-width: 120px !important;
   text-align: center;
 }
 

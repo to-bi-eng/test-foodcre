@@ -10,6 +10,7 @@ type Menu = {
   id: number;
   menu_name: string;
   point_cost: number;
+  discount: number;
 };
 
 export default function IndividualPointUsage() {
@@ -22,18 +23,24 @@ export default function IndividualPointUsage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // メニュー情報取得
   useEffect(() => {
     fetch(`/api/menus/${id}`)
-      .then(res => res.json())
-      .then(setMenu);
+      .then(res => {
+        if (!res.ok) throw new Error("メニュー情報の取得に失敗しました");
+        return res.json();
+      })
+      .then(setMenu)
+      .catch(() => setError("メニュー情報の取得に失敗しました"));
   }, [id]);
 
-  // ユーザー(id=1)のポイント取得
   useEffect(() => {
     fetch("/api/points/current")
-      .then(res => res.json())
-      .then(data => setUserPoints(data.points));
+      .then(res => {
+        if (!res.ok) throw new Error("ポイント情報の取得に失敗しました");
+        return res.json();
+      })
+      .then(data => setUserPoints(data.points))
+      .catch(() => setError("ポイント情報の取得に失敗しました"));
   }, []);
 
   if (!menu || userPoints === null) return null;
@@ -42,7 +49,6 @@ export default function IndividualPointUsage() {
   const handleExchange = async () => {
     setLoading(true);
     setError(null);
-    // ポイント比較
     if (userPoints < menu.point_cost) {
       setError("所持ポイントが足りません");
       setLoading(false);
@@ -69,48 +75,47 @@ export default function IndividualPointUsage() {
 
   return (
     <Container maxWidth="sm" className={styles.couponContainer}>
-      <Box className={styles.a}>
-        <Box className={styles.imageContainer}>
-          <Image src="/Ramen.png"
-            alt="ラーメン画像"
-            width={300}
-            height={200}
-            style={{ width: '100%', height: 'auto' }} />
-          <Box className={styles.centeredTextBox}>
-            <Typography className={styles.discountText}>
-              {menu.menu_name}
-            </Typography>
-          </Box>
-        </Box>
-        <Box className={styles.infoContainer}>
-          <Typography className={styles.attention} variant='h6'>
-            {menu.point_cost}ポイントと引き換えます
+      <Box className={styles.imageContainer}>
+        <Image src="/Ramen.png"
+          alt="ラーメン画像"
+          width={300}
+          height={200}
+          style={{ width: '100%', height: 'auto' }} />
+        <Box className={styles.centeredTextBox}>
+          <Typography className={styles.menuName}>
+            {menu.menu_name}<br /><br />
+            {menu.discount}円引き
           </Typography>
         </Box>
-        {error && (
-          <Typography color="error" align="center" mb={2}>
-            {error}
-          </Typography>
-        )}
-        <Box className={styles.buttonContainer}>
-          <Button
-            variant="contained"
-            disableElevation
-            className={styles.redeemButton}
-            onClick={handleExchange}
-            disabled={loading}
-          >
-            {loading ? "処理中..." : "クーポンに引き換える"}
-          </Button>
-          <Button
-            variant="outlined"
-            className={styles.backButton}
-            component={Link}
-            href="/point_usage"
-          >
-            戻る
-          </Button>
-        </Box>
+      </Box>
+      <Box className={styles.infoContainer}>
+        <Typography className={styles.attention} variant='h6'>
+          {menu.point_cost}ポイントと引き換えます
+        </Typography>
+      </Box>
+      {error && (
+        <Typography color="error" align="center" mb={2}>
+          {error}
+        </Typography>
+      )}
+      <Box className={styles.buttonContainer}>
+        <Button
+          variant="contained"
+          disableElevation
+          className={styles.redeemButton}
+          onClick={handleExchange}
+          disabled={loading}
+        >
+          {loading ? "処理中..." : "クーポンに引き換える"}
+        </Button>
+        <Button
+          variant="outlined"
+          className={styles.backButton}
+          component={Link}
+          href="/point_usage"
+        >
+          戻る
+        </Button>
       </Box>
     </Container>
   );
