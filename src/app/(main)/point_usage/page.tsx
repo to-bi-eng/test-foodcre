@@ -89,11 +89,19 @@ const MenuCard: React.FC<MenuCardProps> = ({
 export default function Usage() {
   const [menus, setMenus] = useState<Menu[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/menus/list')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error("メニュー一覧の取得に失敗しました");
+        return res.json();
+      })
       .then(data => setMenus(data.menus || []))
+      .catch(() => {
+        setMenus([]);
+        setError("メニュー一覧の取得に失敗しました");
+      })
       .finally(() => setLoading(false));
   }, []);
 
