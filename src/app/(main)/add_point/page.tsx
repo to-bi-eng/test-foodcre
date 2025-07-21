@@ -1,60 +1,75 @@
-<<<<<<< HEAD:src/app/add_point/page.tsx
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Typography, Container, Box, Button, Alert } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import styles from '@/styles/Add_point.module.css';
-import { Html5QrcodeScanner, Html5QrcodeResult } from 'html5-qrcode';
-=======
-import React from 'react';
-import { Typography, Container, Box } from '@mui/material';
 import styles from '@/styles/addPoint.module.css';
->>>>>>> 81a5fb31d46b32f30c9242bfb40d6b5020d648c5:src/app/(main)/add_point/page.tsx
+import jsQR from 'jsqr';
 
 export default function Add_point() {
     const router = useRouter();
-    // ローディング状態とエラーメッセージを管理するためのstate
     const [errorMessage, setErrorMessage] = useState('');
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [scanning, setScanning] = useState(true);
 
     useEffect(() => {
+        let stream: MediaStream | null = null;
+        let scanInterval: NodeJS.Timeout;
 
-        const validCodes = ['food1', 'food2', 'food3', 'food4', 'food5'];
-
-        const scanner = new Html5QrcodeScanner(
-            'qr-reader-container',
-            {
-                fps: 10,
-                qrbox: {width: 250,height: 250},
-                videoConstraints: {facingMode: 'environment'}
-            },
-            false
-        );
-
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const onScanSuccess = async (decodedText: string, _decodedResult: Html5QrcodeResult) => {
-            scanner.clear().catch(error => console.error("Scanner clear failed.", error));
-
-            setErrorMessage(''); // 古いエラーメッセージをクリア
-
-           if (validCodes.some(code => decodedText.includes(code))) {
-                router.push('/pointend');
-            } else {
-                // 無効なQRコードの場合
-                setErrorMessage('無効なQRコードです。');
-                // 無効なQRコードをスキャンした場合、再度スキャンを試せるようにカメラを再起動します
-                scanner.render(onScanSuccess, onScanFailure);
+        const startCamera = async () => {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { 
+                      facingMode: 'environment',
+                      width: { ideal: 600 },
+                      height: { ideal: 600 }
+                    } 
+                });
+                if (videoRef.current) {
+                    videoRef.current.srcObject = stream;
+                    videoRef.current.play();
+                }
+                scanInterval = setInterval(scanQRCode, 500);
+            } catch {
+                setErrorMessage('カメラの起動に失敗しました');
             }
         };
 
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const onScanFailure = (_error: unknown) => {};
+        const validCodes = ['food1', 'food2', 'food3', 'food4', 'food5'];
 
-        scanner.render(onScanSuccess, onScanFailure);
+        const scanQRCode = () => {
+            if (!videoRef.current || !canvasRef.current || !scanning) return;
+            const video = videoRef.current;
+            const canvas = canvasRef.current;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const code = jsQR(imageData.data, imageData.width, imageData.height);
+
+            if (code && code.data) {
+                setScanning(false);
+                setErrorMessage('');
+                if (validCodes.some(c => code.data.includes(c))) {
+                    router.push('/pointend');
+                } else {
+                    setErrorMessage('無効なQRコードです。');
+                    setScanning(true);
+                }
+            }
+        };
+
+        startCamera();
 
         return () => {
-            scanner.clear().catch(error => {
-                console.error("スキャナーのクリアに失敗しました。", error);
-            });
+            setScanning(false);
+            if (scanInterval) clearInterval(scanInterval);
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
         };
     }, [router]);
 
@@ -69,7 +84,8 @@ export default function Add_point() {
             </Typography>
 
             <Box className={styles.qr}>
-                <div id="qr-reader-container" style={{ width: '100%' }}></div>
+                <video ref={videoRef} style={{ width: '100%', height: '300px' }} />
+                <canvas ref={canvasRef} style={{ display: 'none' }} />
             </Box>
 
             {errorMessage && <Alert severity="error" sx={{ mt: 2 }}>{errorMessage}</Alert>}
