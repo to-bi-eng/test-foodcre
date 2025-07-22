@@ -7,7 +7,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import XIcon from '@mui/icons-material/X';
-import styles from '@/styles/Footer.module.css'
+import styles from '@/styles/footer.module.css'
 
 export default function Footer() {
   return (
