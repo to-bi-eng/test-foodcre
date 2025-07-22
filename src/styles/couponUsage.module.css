@@ -1,0 +1,36 @@
+.couponusage {
+    max-width:330px;
+    margin:20px auto;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding-bottom: 200px;
+}
+.stack {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    cursor: pointer;
+    padding-bottom: 40px;
+}
+
+.actionStack {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    cursor: pointer;
+    margin-bottom: 50px;
+}
+
+.text {
+    width: 100%;
+    margin:0 auto;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.button {
+    font-size: 1.25rem;
+    border-radius: 16px;
+}
