@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import styles from '@/styles/PointUsage.module.css';
+import styles from '@/styles/pointUsage.module.css';
 import Link from "next/link";
 import { Box, Typography, Divider, Button, CircularProgress } from '@mui/material';
 import Image from 'next/image';
