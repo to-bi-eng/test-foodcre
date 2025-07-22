@@ -1,13 +1,13 @@
 import React from "react";
 import AppBar from '@mui/material/AppBar';
 import { Box, Typography, Link as MuiLink, IconButton } from "@mui/material";
-import Grid from '@mui/material/Grid2';
+import Grid from '@mui/material/Grid';
 import Link from "next/link";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import XIcon from '@mui/icons-material/X';
-import styles from '@/styles/Footer.module.css'
+import styles from '@/styles/footer.module.css'
 
 export default function Footer() {
   return (

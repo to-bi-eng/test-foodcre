@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-import styles from '@/styles/Header.module.css'
+import styles from '@/styles/header.module.css'
 
 export default function Header() {
     return (
