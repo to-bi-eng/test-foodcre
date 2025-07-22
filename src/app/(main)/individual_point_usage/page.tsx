@@ -2,28 +2,15 @@
 
 import React from 'react';
 import styles from '@/styles/individualPointUsage.module.css';
-import {
-  Box,
-  Typography,
-  Button,
-  Container,
-} from '@mui/material';
+import { Box, Typography, Button, Container } from '@mui/material';
 
-interface CouponProps {
-  validityMonths?: number;
-  userPoint?: number;
-  itemName?: string;
-  itemAmount?: number;
-  discountPercent?: number;
-}
+const Page = () => {
+  const validityMonths = 0;
+  const userPoint = 0;
+  const itemName = 'y';
+  const itemAmount = 6;
+  const discountPercent = 5;
 
-const Coupon: React.FC<CouponProps> = ({
-  validityMonths = 0,
-  userPoint = 0,
-  itemName = 'y',
-  itemAmount = '6',
-  discountPercent = 5,
-}) => {
   return (
     <Container maxWidth="sm" className={styles.couponContainer}>
       <Box className={styles.a}>
@@ -32,7 +19,6 @@ const Coupon: React.FC<CouponProps> = ({
           <Typography className={styles.discountText}>
             {itemName}{itemAmount}個
           </Typography>
-
           <Typography className={styles.discountPercent} variant="inherit" component="div">
             {discountPercent}% OFF
           </Typography>
@@ -65,4 +51,4 @@ const Coupon: React.FC<CouponProps> = ({
   );
 };
 
-export default Coupon;
+export default Page;
