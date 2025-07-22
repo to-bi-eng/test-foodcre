@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import news_styles from "@/styles/News.module.css";
+import news_styles from "@/styles/news.module.css";
 import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 import { CircularProgress } from "@mui/material";
