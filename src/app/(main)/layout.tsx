@@ -9,7 +9,7 @@ import Header from '@/app/(main)/components/Header/Header';
 import BG from '@/app/(main)/components/Background/Background';
 import Footer from '@/app/(main)/components/Footer/Footer';
 
-import styles from '@/styles/ContentBox.module.css'
+import styles from '@/styles/contentBox.module.css'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
