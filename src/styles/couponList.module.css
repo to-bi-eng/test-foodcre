@@ -1,0 +1,74 @@
+/* ページ全体のコンテナ */
+.pageContainer {
+  padding: 16px;
+  background-color: #f7f7f7;
+  height: 100vh;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+/* メインコンテンツ */
+.mainTitle {
+  font-weight: bold !important;
+  font-size: 2.8rem !important;
+  /* 必要に応じてサイズを調整してください */
+}
+
+.instructions {
+  margin-bottom: 0;
+  padding-bottom: 60px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* クーポンリスト */
+.couponListStack {
+  width: 100%;
+  max-width: 2000px;
+  padding-bottom: 190px;
+}
+
+/* --- クーポンカードの青い外枠 --- */
+.couponCard {
+  border: 3px solid #0d6efd;
+  border-radius: 8px;
+  background-color: #fff;
+  /* CardContentのデフォルトpaddingをなくすため上書き */
+  /* MUI v5では CardActionArea > button > CardContent のような構造になることがあるため、より詳細に指定 */
+  min-height: 120px;
+  display: flex;
+  align-items: stretch;
+}
+.couponCard button > div {
+  padding: 0 !important;
+}
+
+
+/* --- 内容エリア（左側7割） --- */
+.contentArea {
+  padding: 8px;
+}
+
+.imageContainer {
+  flex-shrink: 0; /* 画像コンテナが縮まないようにする */
+}
+.couponImage {
+  width: 100%;
+  max-width: 100px;
+  height: auto;
+  object-fit: contain;
+}
+
+
+/* --- 期限エリア（右側3割）--- */
+.expiryArea {
+  /* ↓↓↓ ここで左側に青い点線を描画 ↓↓↓ */
+  border-left: 3px dashed #0d6efd;
+
+  /* テキストを上下左右中央に配置 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
