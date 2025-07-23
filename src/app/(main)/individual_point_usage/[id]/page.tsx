@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "@/styles/individualPointUsage.module.css";
-import { Box, Typography, Button, Container } from "@mui/material";
+import { Box, Typography, Button, Container, CircularProgress } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useParams } from "next/navigation";
@@ -43,7 +43,13 @@ export default function IndividualPointUsage() {
       .catch(() => setError("ポイント情報の取得に失敗しました"));
   }, []);
 
-  if (!menu || userPoints === null) return null;
+  if (!menu || userPoints === null) {
+  return (
+    <Box display="flex" justifyContent="center" alignItems="center" minHeight="50vh">
+      <CircularProgress />
+    </Box>
+  );
+}
 
 
   const handleExchange = async () => {
