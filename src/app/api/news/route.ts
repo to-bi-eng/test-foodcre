@@ -9,7 +9,6 @@ const dbConfig = {
   database: process.env.TIDB_DATABASE,
   port: process.env.TIDB_PORT ? parseInt(process.env.TIDB_PORT, 10) : 4000,
   ssl: {
-    // クラウドDBへの接続にはSSLが必須です
     rejectUnauthorized: true,
   },
 };
