@@ -21,7 +21,7 @@ const Coupon: React.FC<CouponProps> = ({
   validityMonths = 0,
   userPoint = 0,
   itemName = 'y',
-  itemAmount = '6',
+  itemAmount = 6,
   discountPercent = 5,
 }) => {
   return (
@@ -65,4 +65,21 @@ const Coupon: React.FC<CouponProps> = ({
   );
 };
 
-export default Coupon;
+export default function IndividualPointUsagePage({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) {
+
+  const userPoint = Number(searchParams.userPoint) || 300;
+  const validityMonths = Number(searchParams.validityMonths) || 1;
+  const itemName = String(searchParams.itemName) || "トッピング";
+  const itemAmount = Number(searchParams.itemAmount) || 1;
+  const discountPercent = Number(searchParams.discountPercent) || 10;
+
+  return (
+    <Coupon
+      userPoint={userPoint}
+      validityMonths={validityMonths}
+      itemName={itemName}
+      itemAmount={itemAmount}
+      discountPercent={discountPercent}
+    />
+  );
+};
