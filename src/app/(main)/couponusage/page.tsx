@@ -1,6 +1,6 @@
 "use client";
 import { Button, Stack, Typography } from "@mui/material";
-import styles from "@/styles/CouponUsage.module.css";
+import styles from "@/styles/couponUsage.module.css";
 import Link from "next/link";
 
 export default function CouponUsagePage() {
