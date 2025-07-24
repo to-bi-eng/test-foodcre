@@ -84,7 +84,13 @@ export default function Add_point() {
             </Typography>
 
             <Box className={styles.qr}>
-                <video ref={videoRef} style={{ width: '100%', height: '300px' }} />
+                <video
+                    ref={videoRef}
+                    playsInline 
+                    muted
+                    autoPlay
+                    style={{ width: '100%', height: '300px' }}
+                />
                 <canvas ref={canvasRef} style={{ display: 'none' }} />
             </Box>
 
