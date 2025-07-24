@@ -3,12 +3,10 @@
 import React from 'react';
 import Header from '@/app/(main)/components/Header/Header';
 import Footer from '@/app/(main)/components/Footer/Footer';
-import styles from '@/styles/termsOfService.module.css'; // CSSモジュール名が正しいか注意
+import styles from '@/styles/termsOfService.module.css';
 import { Button, Box, Typography, Container, Paper } from '@mui/material';
-import { useRouter } from 'next/navigation';
 
 export default function LogoutScreen() {
-  const router = useRouter();
 
   return (
     <>

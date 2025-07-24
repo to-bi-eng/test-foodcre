@@ -32,7 +32,6 @@ const getStatusChipColor = (status: InquiryStatus) => {
 
 export default function InquiriesPage() {
   const [rows, setRows] = React.useState<InquiryData[]>([]);
-  const [loading, setLoading] = React.useState(true);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -45,11 +44,9 @@ export default function InquiriesPage() {
   const [editStatus, setEditStatus] = React.useState<InquiryStatus>('未対応');
 
   const fetchInquiries = async () => {
-    setLoading(true);
     const res = await fetch('/api/admin/inquiries');
     const data = await res.json();
     setRows(data.inquiries ?? []);
-    setLoading(false);
   };
 
   React.useEffect(() => { fetchInquiries(); }, []);
