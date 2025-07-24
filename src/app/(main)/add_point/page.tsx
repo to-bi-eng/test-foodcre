@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useRef, useState } from 'react';
-import { Typography, Container, Box, Button, Alert } from '@mui/material';
+import { Typography, Container, Box, Alert } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import styles from '@/styles/addPoint.module.css';
 import jsQR from 'jsqr';
@@ -73,10 +73,6 @@ export default function Add_point() {
         };
     }, [router]);
 
-    const handleAddPoint = () => {
-        router.push('/pointend');
-    };
-
     return (
         <Container maxWidth="sm" className={styles.container}>
             <Typography variant="h4" gutterBottom>
@@ -103,15 +99,6 @@ export default function Add_point() {
                     {'\n'}読み取ってください
                 </Typography>
             </Box>
-
-            <Button
-                variant="contained"
-                color="primary"
-                onClick={handleAddPoint}
-                sx={{ mt: 3, mb: 2 }}
-            >
-                ポイント付与
-            </Button>
 
             <Typography className={styles.note}>
                 ※一日に一度のみポイントが
