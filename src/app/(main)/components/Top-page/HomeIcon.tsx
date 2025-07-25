@@ -20,7 +20,7 @@ const HomeIcon: React.FC = () => {
                     <Image src={qrcord} alt="ポイント付与" width={60} height={60} className={styles.icon} />
                     <span className={styles.label}>ポイント付与</span>
                 </Link>
-                <Link href="/" className={styles.actionItem}>
+                <Link href="/point_usage" className={styles.actionItem}>
                     <Image src={coupon} alt="クーポン一覧" width={60} height={60} className={styles.icon} />
                     <span className={styles.label}>クーポン一覧</span>
                 </Link>
