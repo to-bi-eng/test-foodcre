@@ -10,38 +10,41 @@ import {
   Grid,
 } from '@mui/material';
 import styles from '@/styles/couponList.module.css';
-// クーポンデータ
-const couponData = [
-  {
-    id: 1,
-    name: '餃子6個',
-    offer: '5%off',
-    condition: '*本券1枚につき1個限り',
-    image: '/hachiko.png',
-    expiry: '2024.01.01',
-  },
-  {
-    id: 2,
-    name: 'ミニチャーハン',
-    offer: '無料',
-    condition: '*ラーメン1杯注文につき1皿限り',
-    image: '/hachiko.png',
-    expiry: '2024.01.01',
-  },
-  {
-    id: 3,
-    name: 'チャーハン',
-    offer: '50円引き',
-    condition: '*一回利用につき1皿限り',
-    image: '/hachiko.png',
-    expiry: '2024.01.01',
-  },
-];
+
+type Coupon = {
+  id: string;
+  title: string;
+  description: string;
+  expiresAt: string;
+  discount: number;
+};
 
 export default function CouponList() {
-  const handleUseCoupon = (couponName: string) => {
-    alert(`${couponName} のクーポンを利用します`);
+  const [coupons, setCoupons] = React.useState<Coupon[]>([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    fetch('/api/coupons/my?userId=123')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setCoupons(data);
+        } else {
+          setCoupons([]);
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        setCoupons([]);
+        setLoading(false);
+      });
+  }, []);
+
+  const handleUseCoupon = (couponTitle: string) => {
+    alert(`${couponTitle} のクーポンを利用します`);
   };
+
+  if (loading) return <div>Loading...</div>;
 
   return (
     <Box className={styles.pageContainer} sx={{ minHeight: '100vh' }}>
@@ -59,10 +62,9 @@ export default function CouponList() {
 
         {/* クーポンリスト */}
         <Stack spacing={2} className={styles.couponListStack}>
-          {couponData.map((coupon) => (
+          {coupons.map((coupon) => (
             <Card key={coupon.id} className={styles.couponCard}>
-              <CardActionArea onClick={() => handleUseCoupon(coupon.name)}>
-                {/* ↓↓↓ レイアウト構造を全面的に変更 ↓↓↓ */}
+              <CardActionArea onClick={() => handleUseCoupon(coupon.title)}>
                 <Grid container>
                   {/* --- 左側7割：内容エリア --- */}
                   <Grid item xs={8} className={styles.contentArea}>
@@ -72,26 +74,27 @@ export default function CouponList() {
                       alignItems="center"
                       sx={{ height: '100%' }}
                     >
+                      {/* 画像はAPIに含まれていないのでダミー画像 */}
                       <Box className={styles.imageContainer}>
                         <Box
                           component="img"
-                          src={coupon.image}
-                          alt={coupon.name}
+                          src="/hachiko.png"
+                          alt={coupon.title}
                           className={styles.couponImage}
                         />
                       </Box>
                       <Box sx={{ textAlign: 'center', flexGrow: 1 }}>
                         <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                          {coupon.name}
+                          {coupon.title}
                         </Typography>
                         <Typography
                           variant="h5"
                           sx={{ fontWeight: 'bold', color: 'error.main' }}
                         >
-                          {coupon.offer}
+                          {coupon.discount}円引き
                         </Typography>
                         <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
-                          {coupon.condition}
+                          {coupon.description}
                         </Typography>
                       </Box>
                     </Stack>
@@ -102,12 +105,11 @@ export default function CouponList() {
                     <Box sx={{ textAlign: 'center' }}>
                       <Typography variant="caption">有効期限</Typography>
                       <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                        {coupon.expiry}
+                        {coupon.expiresAt}
                       </Typography>
                     </Box>
                   </Grid>
                 </Grid>
-                {/* ↑↑↑ レイアウト構造を全面的に変更 ↑↑↑ */}
               </CardActionArea>
             </Card>
           ))}
@@ -116,8 +118,3 @@ export default function CouponList() {
     </Box>
   );
 }
-
-
-
-
-
