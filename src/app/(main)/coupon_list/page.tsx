@@ -102,13 +102,13 @@ export default function CouponList() {
 
                   {/* --- 右側3割：期限エリア --- */}
                   <Grid item xs={4} className={styles.expiryArea}>
-                    <Box sx={{ textAlign: 'center' }}>
-                      <Typography variant="caption">有効期限</Typography>
-                      <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                        {coupon.expiresAt}
-                      </Typography>
-                    </Box>
-                  </Grid>
+  <Box sx={{ textAlign: 'center' }}>
+    <Typography variant="caption">有効期限</Typography>
+    <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+      {coupon.expiresAt ? coupon.expiresAt : '期限なし'}
+    </Typography>
+  </Box>
+</Grid>
                 </Grid>
               </CardActionArea>
             </Card>
