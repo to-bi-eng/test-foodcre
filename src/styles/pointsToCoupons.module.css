@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.title {
+  padding-top: 50px;
+  color: red;
+  font-weight: bold;
+}
+
+.pointBox {
+  background: #332a10;
+  color: #fff;
+  border-radius: 16px;
+  padding: 16px 0;
+  max-width: 400px;
+  width: 90vw;
+  margin: 60px auto 48px auto;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.point {
+  font-size: 2.5rem;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.couponButton {
+  background: #e6e6e6;
+  color: #332a10;
+  font-size: 1.2rem;
+  border-radius: 16px;
+  box-shadow: none;
+  width: 90vw;
+}
+.couponButton:hover {
+  background: #d5d5d5;
+}
