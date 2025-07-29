@@ -8,6 +8,7 @@ import {
   Card,
   CardActionArea,
   Grid,
+  CircularProgress,
 } from '@mui/material';
 import styles from '@/styles/couponList.module.css';
 
@@ -44,7 +45,25 @@ export default function CouponList() {
     alert(`${couponTitle} のクーポンを利用します`);
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#f7f7f7',
+        }}
+      >
+        <CircularProgress color="primary" size={60} />
+        <Typography sx={{ mt: 3, color: '#666' }} variant="h6">
+          読み込み中...
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box className={styles.pageContainer} sx={{ minHeight: '100vh' }}>
@@ -105,7 +124,7 @@ export default function CouponList() {
                     <Box sx={{ textAlign: 'center' }}>
                       <Typography variant="caption">有効期限</Typography>
                       <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                       有効期限なし
+                        有効期限なし
                       </Typography>
                     </Box>
                   </Grid>
