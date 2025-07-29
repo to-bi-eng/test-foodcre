@@ -10,19 +10,21 @@ import {
   Grid,
   CircularProgress,
 } from '@mui/material';
+import { useRouter } from 'next/navigation';
 import styles from '@/styles/couponList.module.css';
 
 type Coupon = {
   id: string;
   title: string;
   description: string;
-  expiresAt: string;
+  expiresAt?: string;
   discount: number;
 };
 
 export default function CouponList() {
   const [coupons, setCoupons] = React.useState<Coupon[]>([]);
   const [loading, setLoading] = React.useState(true);
+  const router = useRouter();
 
   React.useEffect(() => {
     fetch('/api/coupons/my?userId=123')
@@ -41,8 +43,8 @@ export default function CouponList() {
       });
   }, []);
 
-  const handleUseCoupon = (couponTitle: string) => {
-    alert(`${couponTitle} のクーポンを利用します`);
+  const handleUseCoupon = (couponId: string) => {
+    router.push(`/terms_of_service?couponId=${couponId}`);
   };
 
   if (loading) {
@@ -83,7 +85,7 @@ export default function CouponList() {
         <Stack spacing={2} className={styles.couponListStack}>
           {coupons.map((coupon) => (
             <Card key={coupon.id} className={styles.couponCard}>
-              <CardActionArea onClick={() => handleUseCoupon(coupon.title)}>
+              <CardActionArea onClick={() => handleUseCoupon(coupon.id)}>
                 <Grid container>
                   {/* --- 左側7割：内容エリア --- */}
                   <Grid item xs={8} className={styles.contentArea}>
@@ -103,16 +105,16 @@ export default function CouponList() {
                         />
                       </Box>
                       <Box sx={{ textAlign: 'center', flexGrow: 1 }}>
-                        <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                        <Typography variant="body1" sx={{ fontWeight: 'bold', fontSize: '1.4rem' }}>
                           {coupon.title}
                         </Typography>
                         <Typography
                           variant="h5"
-                          sx={{ fontWeight: 'bold', color: 'error.main' }}
+                          sx={{ fontWeight: 'bold', color: 'error.main', fontSize: '2rem' }}
                         >
                           {coupon.discount}円引き
                         </Typography>
-                        <Typography variant="caption" sx={{ display: 'block', mt: 1 }}>
+                        <Typography variant="caption" sx={{ display: 'block', mt: 1, fontSize: '1.1rem' }}>
                           {coupon.description}
                         </Typography>
                       </Box>
@@ -124,7 +126,7 @@ export default function CouponList() {
                     <Box sx={{ textAlign: 'center' }}>
                       <Typography variant="caption">有効期限</Typography>
                       <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                        有効期限なし
+                        {coupon.expiresAt ? coupon.expiresAt : '有効期限なし'}
                       </Typography>
                     </Box>
                   </Grid>
