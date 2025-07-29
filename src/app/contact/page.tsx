@@ -20,28 +20,32 @@ export default function Contact() {
           aria-labelledby="contact_one"
           className={styles.stack}
           sx={{
-            alignItems: "cente",
+            alignItems: "center",
           }}
         >
           <Typography
-            id="contact_heading"
+            id="contact_one"
             variant="h1"
             fontSize="2.0rem"
             fontWeight="bold"
           >
             お問い合わせ
           </Typography>
-          <Typography id="contact_explanation" variant="h2" fontSize="1.25rem">
+          
+          <Typography id="contact_explanation_main" variant="h2" fontSize="1.25rem">
             下記のフォームに必要事項をご入力ください。
           </Typography>
-          <Typography id="contact_explanation" variant="h3" fontSize="1.00rem">
+          
+          <Typography id="contact_privacy_notice" variant="h3" fontSize="1.00rem">
             ご入力いただきました個人情報については、適切な管理を実施しております。詳しくは、
             <Link href="/privacypolicy">「プライバシーポリシー」</Link>
             をご覧ください。
           </Typography>
-          <Typography id="contact_explanation" variant="h3" fontSize="1.00rem">
+          
+          <Typography id="contact_disclaimer" variant="h3" fontSize="1.00rem">
             このアプリに関して8番らーめん公式様に問い合わせされるのは、ご遠慮ください
           </Typography>
+
           <TextField
             required
             id="contact-name"
