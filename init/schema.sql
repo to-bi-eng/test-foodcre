@@ -5,6 +5,7 @@ CREATE TABLE menus (
     menu_contact TEXT,
     point_cost INT,
     discount INT,
+    image_url VARCHAR(255),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     is_enabled TINYINT(1) DEFAULT 1
 );
@@ -29,7 +30,6 @@ CREATE TABLE coupons (
     menu_id INT,
     used_at DATETIME,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    experied_at DATETIME,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (menu_id) REFERENCES menus(id)
 );
