@@ -24,21 +24,28 @@ type Coupon = {
 export default function CouponList() {
   const [coupons, setCoupons] = React.useState<Coupon[]>([]);
   const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
   const router = useRouter();
 
   React.useEffect(() => {
     fetch('/api/coupons/my?userId=123')
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
       .then(data => {
         if (Array.isArray(data)) {
           setCoupons(data);
+          setError(null);
         } else {
           setCoupons([]);
+          setError('クーポンが取得できませんでした');
         }
         setLoading(false);
       })
       .catch(() => {
         setCoupons([]);
+        setError('クーポンが取得できませんでした');
         setLoading(false);
       });
   }, []);
@@ -81,8 +88,18 @@ export default function CouponList() {
           有効期限の閉店時間まで使用することが出来ます
         </Typography>
 
-        {/* クーポンリスト */}
+        {error && (
+          <Typography sx={{ color: 'error.main', mt: 2, mb: 2 }} variant="body1">
+            {error}
+          </Typography>
+        )}
+
         <Stack spacing={2} className={styles.couponListStack}>
+          {!error && coupons.length === 0 && (
+            <Typography sx={{ mt: 4 }} color="text.secondary">
+              クーポンはありません
+            </Typography>
+          )}
           {coupons.map((coupon) => (
             <Card key={coupon.id} className={styles.couponCard}>
               <CardActionArea onClick={() => handleUseCoupon(coupon.id)}>
