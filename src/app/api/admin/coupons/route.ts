@@ -3,13 +3,13 @@ import mysql, { RowDataPacket, ResultSetHeader } from 'mysql2/promise';
 
 // データベース接続情報は環境変数から取得するのが安全です
 const dbConfig = {
-  host: process.env.TIDB_HOST,
-  user: process.env.TIDB_USER,
-  password: process.env.TIDB_PASSWORD,
-  database: process.env.TIDB_DATABASE || 'foocre_development',
-  port: process.env.TIDB_PORT ? parseInt(process.env.TIDB_PORT, 10) : 4000,
+  host: 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com',
+  user: '2aoEqC8LhLTsFQ2.root',
+  password: 'oR04mhcWgKIFx97L',
+  database: 'test',
+  port: 4000,
   ssl: {
-    // TiDB Cloudなど、多くのクラウドDBではSSL接続が必須です
+    // TiDB Cloudへの接続にはSSLが必要です
     rejectUnauthorized: true,
   },
 };
