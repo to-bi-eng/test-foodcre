@@ -7,11 +7,11 @@ import {
   Stack,
   TextField,
   Typography,
-  Link,
   InputAdornment,
   IconButton,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import Link from 'next/link';
 
 const commonTextFieldSx = {
   '& .MuiFilledInput-root': {
@@ -73,17 +73,26 @@ export default function LoginPage() {
             />
 
             <Box className={styles.linkWrapper}>
-              <Link href="#" underline="hover" color="blue" fontSize={14}>
+              <Typography
+                component={Link}
+                href="/passwordedit"
+                sx={{
+                  color: 'blue',
+                  fontSize: 14,
+                  textDecoration: 'underline',
+                  cursor: 'pointer'
+                }}
+              >
                 パスワード変更
-              </Link>
+              </Typography>
             </Box>
           </Box>
 
           <Stack direction="row" spacing={1} justifyContent="center" pt={8}>
-            <Button variant="contained" className={styles.button}>
+            <Button variant="contained" className={styles.button} component={Link} href="/">
               戻る
             </Button>
-            <Button variant="contained" className={styles.button}>
+            <Button variant="contained" className={styles.button} component={Link} href="/">
               ログイン
             </Button>
           </Stack>

@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from '@/styles/confirmRegistration.module.css';
 import { Box, Button, Typography, Paper, Container } from '@mui/material';
+import Link from 'next/link';
 
 export default function ConfirmRegistration() {
   return (
@@ -18,10 +19,10 @@ export default function ConfirmRegistration() {
           </Paper>
 
           <Box className={styles.buttonGroup}>
-            <Button variant="contained" className={styles.button}>
+            <Button variant="contained" className={styles.button} component={Link} href="/register">
               戻る
             </Button>
-            <Button variant="contained" className={styles.button}>
+            <Button variant="contained" className={styles.button} component={Link} href="/login">
               登録
             </Button>
           </Box>
