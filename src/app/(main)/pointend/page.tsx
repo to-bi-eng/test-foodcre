@@ -1,20 +1,43 @@
 'use client'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Typography, Button } from '@mui/material';
 import styles from '@/styles/pointEnd.module.css';
 
 interface PointAppProps {
-  plusPoints: number;
+  addPoints: number;
   totalPoints: number;
 }
 
-const PointApp: React.FC<PointAppProps> = ({ plusPoints, totalPoints }) => {
+const PointEndPage = () => {
+  const [addPoints, setAddPoints] = useState<number>(0);
+  const [totalPoints, setTotalPoints] = useState<number>(0);
+
+   useEffect(() => {
+    // ここでユーザーIDなど必要な情報を取得してAPIに渡してください
+    const userId = '1'; 
+    fetch('/api/points/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('APIレスポンス:', data); 
+        setAddPoints(data.addPoints ?? 0);
+        setTotalPoints(data.totalPoints ?? 0);
+      });
+  }, []);
+
+  return <PointApp addPoints={addPoints} totalPoints={totalPoints} />;
+}
+
+const PointApp: React.FC<PointAppProps> = ({ addPoints, totalPoints }) => {
   return (
     <Box className={styles.container}>
       {/* ポイント付与メッセージ */}
       <Box className={styles.awardPoint}>
         <Typography variant="h4">
-          {plusPoints}ポイント付与
+          {addPoints}ポイント付与
           <br />
           されました！
         </Typography>
@@ -45,4 +68,4 @@ const PointApp: React.FC<PointAppProps> = ({ plusPoints, totalPoints }) => {
   );
 };
 
-export default PointApp;
+export default PointEndPage;
