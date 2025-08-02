@@ -4,7 +4,8 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Link from 'next/link'; // next/link からインポート
+import Link from 'next/link';
+import Stack from '@mui/material/Stack';
 
 import styles from '@/styles/header.module.css';
 
@@ -23,15 +24,26 @@ export default function Header() {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         はちぽ
                     </Typography>
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        disableElevation
-                        component={Link} // Linkコンポーネントとして動作
-                        href="/"         // to ではなく href を使用
-                    >
-                        ホーム
-                    </Button>
+                    <Stack direction="row" spacing={2}>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            disableElevation
+                            component={Link}
+                            href="/"
+                        >
+                            ホーム
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            disableElevation
+                            component={Link}
+                            href="/contact"
+                        >
+                            お問い合わせ
+                        </Button>
+                    </Stack>
                 </Toolbar>
             </AppBar>
         </Box>
