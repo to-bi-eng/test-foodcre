@@ -40,14 +40,16 @@ export default function Footer() {
                 <HelpOutline />
                 <Typography variant="caption" sx={{ fontSize: '0.6rem' }}>お問い合わせ</Typography>
               </IconButton>
-            </Link>
 
+            </Link>
+            <Link href="/logout" passHref>
             <IconButton sx={{ flexDirection: 'column', color: 'black' }}>
               <Logout />
               <Typography variant="caption" sx={{ fontSize: '0.6rem' }}>ログアウト</Typography>
             </IconButton>
+            </Link>
 
-            <Link href="/privacy" passHref>
+            <Link href="/privacypolicy" passHref>
               <IconButton sx={{ flexDirection: 'column', color: 'black' }}>
                 <PrivacyTip />
                 <Typography variant="caption" sx={{ fontSize: '0.6rem', lineHeight: 1.1 }}>プライバシー</Typography>
