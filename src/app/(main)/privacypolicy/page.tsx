@@ -1,10 +1,12 @@
 import styles from '@/styles/privacyPolicy.module.css';
-import { Typography, Button, Box } from '@mui/material';
-// import Link from "next/link";
+import { Typography, Box } from '@mui/material';
 
 export default function Privacypolicy() {
   return (
-    <div className={styles.privacypolicy}>
+    <Box
+      className={styles.privacypolicy}
+      sx={{ paddingBottom: '90px' }}
+    >
       <Box 
         className={styles.box}
       >
@@ -23,7 +25,6 @@ export default function Privacypolicy() {
           </Typography>
         </div>
 
-        {/* --- プライバシーポリシー本文 Start --- */}
         <Box sx={{ mt: 4, mb: 4, textAlign: 'left', width: '100%', maxWidth: '800px' }}>
           <Typography variant="body2" sx={{ mb: 2 }}>
             当サービスは、ユーザーの個人情報保護の重要性について認識し、個人情報の保護に関する法律（以下「個人情報保護法」といいます。）を遵守すると共に、以下のプライバシーポリシー（以下「本プライバシーポリシー」といいます。）に従い、適切な取扱い及び保護に努めます。
@@ -74,25 +75,8 @@ export default function Privacypolicy() {
             【2025年8月2日 制定】
           </Typography>
         </Box>
-        {/* --- プライバシーポリシー本文 End --- */}
 
-        <div className={styles.button}>
-          <Button 
-            variant="contained" 
-            size="large" 
-            color="info"
-          >
-            戻る
-          </Button>
-          <Button 
-            variant="contained" 
-            size="large" 
-            color="info"
-          >
-            次へ
-          </Button>
-        </div>
       </Box>
-    </div>
+    </Box>
   );
 }
