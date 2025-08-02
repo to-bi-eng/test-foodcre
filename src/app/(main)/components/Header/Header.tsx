@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
 import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
 
 import styles from '@/styles/header.module.css';
 
@@ -20,10 +21,15 @@ export default function Header() {
             zIndex: 1,
         }} className={styles.box}>
             <AppBar position="sticky" color="primary" className={styles.header}>
-                <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        はちぽ
-                    </Typography>
+                <Toolbar sx={{ paddingLeft: 1 }}>
+                    <Stack direction="row" alignItems="center" spacing={1} sx={{ flexGrow: 1 }}>
+                        <IconButton color="inherit" size="large">
+                           <img src="/logo.png" alt="ロゴ" style={{ height: '30px' }} />
+                        </IconButton>
+                        <Typography variant="h6" component="div">
+                            はちぽ
+                        </Typography>
+                    </Stack>
                     <Stack direction="row" spacing={2}>
                         <Button
                             variant="contained"
