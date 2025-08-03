@@ -58,7 +58,7 @@ export default function Contact_confirm() {
           <Link href="/contact" passHref>
             <Button variant="contained" size="large" color="info">戻る</Button>
           </Link>
-          <Link href="/contactok" passHref>
+          <Link href="/contact-success-screen" passHref>
             <Button variant="contained" size="large"  color="info">送信</Button>
           </Link>
         </Stack>
