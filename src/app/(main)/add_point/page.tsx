@@ -29,4 +29,4 @@ export default function Add_point() {
         </Typography>
         </Container>
     );
-    }
+}

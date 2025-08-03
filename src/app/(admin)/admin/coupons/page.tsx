@@ -10,10 +10,10 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-// フロントエンドで使うデータの型定義
 interface MenuData {
   menu_id: number;
   menu_name: string;
+  discount: number;
   point_cost: number;
   is_enabled: boolean;
   created_at: string;
@@ -30,6 +30,7 @@ export default function CouponsPage() {
   // 新規作成ダイアログ用のstate
   const [openCreateDialog, setOpenCreateDialog] = React.useState(false);
   const [newMenuName, setNewMenuName] = React.useState('');
+  const [newDiscount, setNewDiscount] = React.useState('');
   const [newMenuContact, setNewMenuContact] = React.useState('');
   const [newPointCost, setNewPointCost] = React.useState('');
   const [newIsEnabled, setNewIsEnabled] = React.useState(true);
@@ -42,7 +43,6 @@ export default function CouponsPage() {
   const [openDeleteDialog, setOpenDeleteDialog] = React.useState(false);
   const [itemToDelete, setItemToDelete] = React.useState<MenuData | null>(null);
 
-  // --- データ取得 ---
   const fetchMenus = async () => {
     setLoading(true);
     try {
@@ -65,6 +65,7 @@ export default function CouponsPage() {
   // 新規作成ダイアログの処理
   const handleCreateOpen = () => {
     setNewMenuName('');
+    setNewDiscount('');
     setNewMenuContact('');
     setNewPointCost('');
     setNewIsEnabled(true);
@@ -74,6 +75,7 @@ export default function CouponsPage() {
   const handleCreateConfirm = async () => {
     const newData = {
       menu_name: newMenuName,
+      discount: Number(newDiscount),
       menu_contact: newMenuContact,
       point_cost: Number(newPointCost),
       is_enabled: newIsEnabled,
@@ -166,19 +168,21 @@ export default function CouponsPage() {
           <Table stickyHeader aria-label="coupons table">
             <TableHead>
               <TableRow>
-                <TableCell sx={{ width: '35%' }}>メニュー名</TableCell>
+                <TableCell sx={{ width: '25%' }}>メニュー名</TableCell>
+                <TableCell sx={{ width: '15%' }} align="right">割引額</TableCell>
                 <TableCell sx={{ width: '15%' }} align="right">消費ポイント</TableCell>
-                <TableCell sx={{ width: '15%' }}>ステータス</TableCell>
+                <TableCell sx={{ width: '15%' }} align="center">ステータス</TableCell>
                 <TableCell sx={{ width: '15%' }}>作成日</TableCell>
-                <TableCell sx={{ width: '10%' }} align="center">Action</TableCell>
+                <TableCell sx={{ width: '15%' }} align="center">Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                 <TableRow hover key={row.menu_id}>
                   <TableCell>{row.menu_name}</TableCell>
+                  <TableCell align="right">{row.discount} 円</TableCell>
                   <TableCell align="right">{row.point_cost.toLocaleString()} pt</TableCell>
-                  <TableCell>
+                  <TableCell align="center">
                     <Chip
                       label={row.is_enabled ? "有効" : "無効"}
                       color={row.is_enabled ? "success" : "default"}
@@ -221,6 +225,7 @@ export default function CouponsPage() {
         <DialogContent>
           <Box component="form" sx={{ mt: 1, minWidth: { xs: 300, md: 500 } }}>
             <TextField label="メニュー名" value={newMenuName} onChange={e => setNewMenuName(e.target.value)} fullWidth margin="normal" required />
+            <TextField label="割引額（円）" type="number" value={newDiscount} onChange={e => setNewDiscount(e.target.value)} fullWidth margin="normal" required />
             <TextField label="説明文" value={newMenuContact} onChange={e => setNewMenuContact(e.target.value)} fullWidth margin="normal" multiline rows={3} />
             <TextField label="消費ポイント" type="number" value={newPointCost} onChange={e => setNewPointCost(e.target.value)} fullWidth margin="normal" required />
             <FormControlLabel
@@ -241,7 +246,7 @@ export default function CouponsPage() {
             onClick={handleCreateConfirm}
             variant="contained"
             color="success"
-            disabled={!newMenuName.trim() || !newPointCost.trim()}
+            disabled={!newMenuName.trim() || !newDiscount.trim() || !newPointCost.trim() || Number(newDiscount) < 1 || Number(newPointCost) < 1}
           >
             登録
           </Button>
@@ -258,6 +263,15 @@ export default function CouponsPage() {
                 label="メニュー名"
                 value={currentItem.menu_name}
                 onChange={e => setCurrentItem({ ...currentItem, menu_name: e.target.value })}
+                fullWidth
+                margin="normal"
+                required
+              />
+              <TextField
+                label="割引額（円）"
+                type="number"
+                value={currentItem?.discount ?? ''}
+                onChange={e => setCurrentItem({ ...currentItem!, discount: Number(e.target.value) })}
                 fullWidth
                 margin="normal"
                 required
@@ -304,7 +318,7 @@ export default function CouponsPage() {
             onClick={handleEditSave}
             variant="contained"
             color="primary"
-            disabled={!currentItem?.menu_name.trim() || currentItem?.point_cost === undefined}
+            disabled={!currentItem?.menu_name.trim() || currentItem?.discount === undefined || currentItem?.point_cost === undefined || Number(currentItem?.discount) < 1 || Number(currentItem?.point_cost) < 1}
           >
             保存
           </Button>
