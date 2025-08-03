@@ -2,6 +2,20 @@ import { NextResponse } from 'next/server';
 import { ResultSetHeader, RowDataPacket } from 'mysql2';
 import mysql from 'mysql2/promise';
 
+// --- ▼▼▼ ここからが変更点 ▼▼▼ ---
+// TiDB Cloudのデータベース接続情報
+const dbConfig = {
+    host: 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com',
+    user: '2aoEqC8LhLTsFQ2.root',
+    password: 'oR04mhcWgKIFx97L',
+    database: 'test',
+    port: 4000,
+    ssl: {
+        rejectUnauthorized: true,
+    },
+};
+// --- ▲▲▲ ここまでが変更点 ▲▲▲ ---
+
 // 付与ポイント数
 const addPoints = 1;
 
@@ -15,13 +29,10 @@ export async function POST(request: Request) {
 
     let connection;
     try {
-        connection = await mysql.createConnection({
-            host: "db",
-            user: "root",
-            password: "password",
-            database: "foocre_development",
-            port: 3306,
-        });
+        // --- ▼▼▼ ここからが変更点 ▼▼▼ ---
+        // 接続情報をTiDB Cloudのものに変更
+        connection = await mysql.createConnection(dbConfig);
+        // --- ▲▲▲ ここまでが変更点 ▲▲▲ ---
 
         // 1.日付チェックと更新を1つのアトミックなクエリで実行
         const [updateResult] = await connection.execute<ResultSetHeader>(
