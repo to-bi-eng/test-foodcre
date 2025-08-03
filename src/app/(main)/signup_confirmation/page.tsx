@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '@/styles/ConfirmRegistration.module.css';
 import { Box, Button, Typography, Paper, Container, Alert } from '@mui/material';
+import { signIn } from "next-auth/react";
 
 export default function ConfirmRegistration() {
   const [error, setError] = useState('');
@@ -24,30 +25,34 @@ export default function ConfirmRegistration() {
   }, [router]);
 
   const handleRegister = async () => {
-    setError('');
-    try {
-      const response = await fetch('/api/users/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
+  setError('');
+  try {
+    const response = await fetch('/api/users/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (response.ok) {
+      // 登録成功後に自動ログイン
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
       });
-
-      sessionStorage.removeItem('registrationEmail');
-      sessionStorage.removeItem('registrationPassword');
-
-      if (response.ok) {
-        alert('登録が完了しました。');
-        router.push('/'); //現状トップページにリダイレクトするようにしています。適宜修正してください。
+      if (result?.error) {
+        setError("自動ログインに失敗しました。ログイン画面から再度ログインしてください。");
       } else {
-        const errorData = await response.json();
-        setError(`登録に失敗しました: ${errorData.message}`);
+        window.location.replace("/"); // トップページへ
       }
-    } catch {
-      setError('登録処理中にエラーが発生しました。お手数ですが、アプリ管理者への連絡をお願いします。');
+    } else {
+      const errorData = await response.json();
+      setError(`登録に失敗しました: ${errorData.message}`);
     }
-  };
+  } catch {
+    setError('登録処理中にエラーが発生しました。お手数ですが、アプリ管理者へのお問い合わせをお願いします。');
+  }
+};
 
   const handleBack = () => {
     router.back();
