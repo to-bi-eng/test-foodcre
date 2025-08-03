@@ -42,7 +42,7 @@ export default function Footer() {
               </IconButton>
 
             </Link>
-            <Link href="/logout" passHref>
+            <Link href="/logoutConfirmation" passHref>
             <IconButton sx={{ flexDirection: 'column', color: 'black' }}>
               <Logout />
               <Typography variant="caption" sx={{ fontSize: '0.6rem' }}>ログアウト</Typography>
