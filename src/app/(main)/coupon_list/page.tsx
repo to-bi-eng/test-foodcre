@@ -28,7 +28,7 @@ export default function CouponList() {
   const router = useRouter();
 
   React.useEffect(() => {
-    fetch('/api/coupons/my?userId=123')
+    fetch('/api/coupons/my?userId=1')
       .then(res => {
         if (!res.ok) throw new Error();
         return res.json();
