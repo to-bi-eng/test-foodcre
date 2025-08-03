@@ -2,7 +2,7 @@
 import { useSearchParams } from "next/navigation";
 import { Box, Typography, Button } from "@mui/material";
 import Link from "next/link";
-import styles from "@/styles/PointsToCoupons.module.css";
+import styles from "@/styles/pointsToCoupons.module.css";
 
 export default function PointsToCoupons() {
   const searchParams = useSearchParams();
