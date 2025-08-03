@@ -1,16 +1,24 @@
+'use client';
+
 import React from 'react';
-
+import { useSession } from "next-auth/react";
 import UserStatusCard from '@/app/(main)/components/Top-page/UserStatusCard';
-
 import HomeIcon from '@/app/(main)/components/Top-page/HomeIcon';
-import News from '@/app/(main)/components/News/News';
 import Logout from '@/app/(main)/components/Top-page/Logout';
 
 export default function Home() {
-  return<>
-    <UserStatusCard />
-    <HomeIcon />
-    <News/>
-    <Logout/>
-  </>;
+  const { data: session, status } = useSession();
+
+  if (status === 'loading') {
+    return null; // ローディング中は何も表示しない
+  }
+
+  return session ? (
+    <>
+      <UserStatusCard />
+      <HomeIcon />
+    </>
+  ) : (
+    <Logout />
+  );
 }

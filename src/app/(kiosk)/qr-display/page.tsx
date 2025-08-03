@@ -1,67 +1,190 @@
-'use client'; // スムーズなアニメーションや将来的な動的処理のために指定
+"use client";
 
-import * as React from 'react';
-import { Box, Typography } from '@mui/material';
-import AutorenewIcon from '@mui/icons-material/Autorenew'; // ★ 更新アイコンをインポート
+import * as React from "react";
+import { Box, Typography, Button, CircularProgress } from "@mui/material";
+import FullscreenIcon from "@mui/icons-material/Fullscreen";
+import { QRCodeSVG } from "qrcode.react";
 
 export default function QrDisplayPage() {
+  const [qrUrl, setQrUrl] = React.useState<string | null>(null);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState<string | null>(null);
+
+  const fetchQrCode = React.useCallback(async () => {
+    try {
+      const response = await fetch("/api/admin/qr-codes");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "QRコードの取得に失敗しました");
+      }
+
+      setQrUrl(data.url);
+      setError(null);
+    } catch (err) {
+      console.error("QRコード取得エラー:", err);
+      setError(
+        err instanceof Error ? err.message : "QRコードの取得に失敗しました"
+      );
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    fetchQrCode();
+    const timer = setInterval(fetchQrCode, 60000);
+    return () => clearInterval(timer);
+  }, [fetchQrCode]);
+
+  const handleFullScreen = () => {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen();
+    } else if (
+      (
+        document.documentElement as unknown as {
+          webkitRequestFullscreen: () => void;
+        }
+      ).webkitRequestFullscreen
+    ) {
+      (
+        document.documentElement as unknown as {
+          webkitRequestFullscreen: () => void;
+        }
+      ).webkitRequestFullscreen();
+    } else if (
+      (
+        document.documentElement as unknown as {
+          mozRequestFullScreen: () => void;
+        }
+      ).mozRequestFullScreen
+    ) {
+      (
+        document.documentElement as unknown as {
+          mozRequestFullScreen: () => void;
+        }
+      ).mozRequestFullScreen();
+    } else if (
+      (
+        document.documentElement as unknown as {
+          msRequestFullscreen: () => void;
+        }
+      ).msRequestFullscreen
+    ) {
+      (
+        document.documentElement as unknown as {
+          msRequestFullscreen: () => void;
+        }
+      ).msRequestFullscreen();
+    }
+  };
   return (
-    // ★ 画面全体のコンテナをダークテーマに
     <Box
       sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100vw',
-        height: '100vh',
-        backgroundColor: '#1A2027', // ダークブルー系の背景色
-        color: 'common.white', // 基本の文字色を白に
-        textAlign: 'center',
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        width: "100vw",
+        height: "100vh",
+        backgroundColor: "#1A2027",
+        color: "common.white",
+        textAlign: "center",
       }}
     >
-      {/* コンテンツ全体をまとめるBox */}
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 4, // 各要素の間隔を広げる
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 4,
         }}
       >
-        {/* ★ メインのメッセージを大きく、分かりやすく */}
         <Typography variant="h2" component="h1" fontWeight="bold">
           来店ポイントをGET！
         </Typography>
-        <Typography variant="h5" sx={{ color: 'grey.400', maxWidth: '80%' }}>
+        <Typography variant="h5" sx={{ color: "grey.400", maxWidth: "80%" }}>
           アプリのカメラでQRコードをスキャンしてください
         </Typography>
-        
-        {/* ★ QRコード部分を大きく、目立たせる */}
+
         <Box
           sx={{
-            p: 3, // QRコード周りの余白を広げる
-            bgcolor: 'white',
+            p: 3,
+            bgcolor: "white",
             borderRadius: 4,
-            boxShadow: '0px 10px 30px rgba(0, 0, 0, 0.4)',
+            boxShadow: "0px 10px 30px rgba(0, 0, 0, 0.4)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            minHeight: { xs: 250, sm: 320 },
+            minWidth: { xs: 250, sm: 320 },
           }}
         >
-          {/* 真っ黒な四角形 (QRコードのプレースホルダー) */}
-          <Box
-            sx={{
-              width: { xs: 250, sm: 320 }, // 画面サイズに応じて少し変える
-              height: { xs: 250, sm: 320 },
-              backgroundColor: 'common.black',
-            }}
-          />
+          {loading ? (
+            <CircularProgress size={60} />
+          ) : error ? (
+            <Typography variant="h6" color="error" sx={{ textAlign: "center" }}>
+              エラー: {error}
+            </Typography>
+          ) : qrUrl ? (
+            <QRCodeSVG
+              value={qrUrl}
+              size={Math.min(window.innerWidth * 0.6, 300)}
+              level="H"
+              includeMargin={true}
+            />
+          ) : (
+            <Typography variant="h6" color="text.secondary">
+              QRコードを読み込み中...
+            </Typography>
+          )}
         </Box>
-        
-        {/* ★ 更新通知もアイコン付きで分かりやすく */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, color: 'grey.500' }}>
-          <AutorenewIcon />
+
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
+            color: "grey.500",
+          }}
+        >
           <Typography variant="body1">
-            このQRコードは自動的に更新されます
+            ポイントをGETできるのは1日1回のみです。
           </Typography>
         </Box>
+        <Button
+          variant="contained"
+          onClick={fetchQrCode}
+          sx={{
+            bgcolor: "info.main",
+            color: "white",
+            px: 4,
+            py: 1.5,
+            fontSize: "1.1rem",
+            "&:hover": {
+              bgcolor: "info.dark",
+            },
+            mt: 2,
+          }}
+        >
+          QRコード更新
+        </Button>
+        <Button
+          variant="contained"
+          onClick={handleFullScreen}
+          startIcon={<FullscreenIcon />}
+          sx={{
+            bgcolor: "success.main",
+            color: "white",
+            px: 4,
+            py: 1.5,
+            fontSize: "1.1rem",
+            "&:hover": {
+              bgcolor: "success.dark",
+            },
+          }}
+        >
+          全画面表示
+        </Button>
       </Box>
     </Box>
   );

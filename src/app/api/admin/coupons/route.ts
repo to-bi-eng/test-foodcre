@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
   try {
     connection = await mysql.createConnection(dbConfig);
 
-    let sql = `SELECT id as menu_id, menu_name, menu_contact, point_cost, is_enabled, created_at FROM menus`;
+    let sql = `SELECT id as menu_id, menu_name, discount, menu_contact, point_cost, is_enabled, created_at FROM menus`;
     const params: (string | number)[] = [];
 
     if (nameQuery) {
@@ -33,6 +33,7 @@ export async function GET(request: NextRequest) {
     const menus = (rows as any[]).map(menu => ({
       menu_id: menu.menu_id,
       menu_name: menu.menu_name,
+      discount: menu.discount,
       menu_contact: menu.menu_contact,
       point_cost: menu.point_cost,
       is_enabled: menu.is_enabled === 1,
@@ -58,7 +59,7 @@ export async function POST(request: NextRequest) {
   let connection;
   try {
     const body = await request.json();
-    const { menu_name, menu_contact, point_cost, is_enabled } = body;
+    const { menu_name, menu_contact, discount, point_cost, is_enabled } = body;
 
     if (!menu_name || point_cost === undefined) {
       return NextResponse.json({ message: "Menu name and point cost are required" }, { status: 400 });
@@ -66,10 +67,10 @@ export async function POST(request: NextRequest) {
 
     connection = await mysql.createConnection(dbConfig);
     const sql = `
-      INSERT INTO menus (menu_name, menu_contact, point_cost, is_enabled, created_at)
-      VALUES (?, ?, ?, ?, NOW())
+      INSERT INTO menus (menu_name, menu_contact, discount, point_cost, is_enabled, created_at)
+      VALUES (?, ?, ?, ?, ?, NOW())
     `;
-    const params = [menu_name, menu_contact, point_cost, is_enabled ? 1 : 0];
+    const params = [menu_name, menu_contact, discount, point_cost, is_enabled ? 1 : 0];
     const [result] = await connection.execute(sql, params);
     
     const insertResult = result as mysql.ResultSetHeader;
@@ -124,7 +125,7 @@ export async function PUT(request: NextRequest) {
   let connection;
   try {
     const body = await request.json();
-    const { menu_id, menu_name, point_cost, is_enabled } = body;
+    const { menu_id, menu_name, discount, point_cost, is_enabled } = body;
 
     // ★ undefinedの可能性がある値を安全に扱うために、nullに変換する
     const menu_contact = body.menu_contact ?? null;
@@ -139,11 +140,11 @@ export async function PUT(request: NextRequest) {
     // SQL UPDATE文を定義
     const sql = `
       UPDATE menus 
-      SET menu_name = ?, menu_contact = ?, point_cost = ?, is_enabled = ?
+      SET menu_name = ?, discount = ?, menu_contact = ?, point_cost = ?, is_enabled = ?
       WHERE id = ?
     `;
     // ★ 安全に変換した値を使ってパラメータを作成
-    const params = [menu_name, menu_contact, point_cost, is_enabled ? 1 : 0, menu_id];
+    const params = [menu_name, discount, menu_contact, point_cost, is_enabled ? 1 : 0, menu_id];
 
     const [result] = await connection.execute(sql, params);
     const updateResult = result as mysql.ResultSetHeader;

@@ -4,6 +4,8 @@ CREATE TABLE menus (
     menu_name VARCHAR(255) NOT NULL,
     menu_contact TEXT,
     point_cost INT,
+    discount INT,
+    image_url VARCHAR(255),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     is_enabled TINYINT(1) DEFAULT 1
 );
@@ -13,6 +15,7 @@ CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL DEFAULT 'user',
     reset_password VARCHAR(255),
     reset_password_send_at DATETIME,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -28,7 +31,6 @@ CREATE TABLE coupons (
     menu_id INT,
     used_at DATETIME,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    experied_at DATETIME,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (menu_id) REFERENCES menus(id)
 );
@@ -63,4 +65,13 @@ CREATE TABLE inquiry (
     received_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     responsed_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- QRコードテーブル
+CREATE TABLE qr_codes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    url VARCHAR(500) NOT NULL,
+    description VARCHAR(255),
+    is_active TINYINT(1) DEFAULT 1,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
