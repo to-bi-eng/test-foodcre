@@ -9,6 +9,8 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
     const [showPassword, setShowPassword] = React.useState(false);
     const router = useRouter();
 
@@ -26,13 +28,14 @@ export default function Register() {
         }
     };
 
-    const handleNext = () => {
+    const handleNext = async () => {
         setError('');
+        setSuccess(false);
         if (!email || !password) {
             setError('メールアドレスとパスワードを入力してください。');
             return;
         }
-        if ( //大学発行のメールアドレスかどうかのチェック
+        if (
             !email.endsWith('@neptune.kanazawa-it.ac.jp') &&
             !email.endsWith('@his.kanazawa-it.ac.jp') &&
             !email.endsWith('@infor.kanazawa-it.ac.jp') &&
@@ -53,18 +56,34 @@ export default function Register() {
             setError('パスワードは8文字以上で入力してください。');
             return;
         }
-        // パスワードの文字種チェック (半角英数字と記号のみ)
         const passwordRegex = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]+$/;
         if (!passwordRegex.test(password)) {
             setError('パスワードには平仮名、カタカナ、スペース、絵文字などの文字は使用できません。');
             return;
         }
+        setLoading(true);
         try {
+            // ここでAPIにリクエスト
+            const res = await fetch('/api/auth/send-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+            const data = await res.json();
+            if (!res.ok) {
+                setError(data.error || 'エラーが発生しました。');
+                setLoading(false);
+                return;
+            }
+            // 成功時はストレージに保存し、確認画面へ遷移
             sessionStorage.setItem('registrationEmail', email);
             sessionStorage.setItem('registrationPassword', password);
+            setSuccess(true);
             router.push('/signup_confirmation');
         } catch {
-            setError('ブラウザのストレージにアクセスできません。設定を確認してください。');
+            setError('サーバーに接続できませんでした。');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -77,6 +96,7 @@ export default function Register() {
             <Typography variant="h3">登録</Typography>
             <div className={styles.form} onKeyDown={handleKeyDown}>
                 {error && <Alert severity="error" sx={{ mb: 2, width: '350px' }}>{error}</Alert>}
+                {success && <Alert severity="success" sx={{ mb: 2, width: '350px' }}>確認メールを送信しました。</Alert>}
                 <TextField
                     id="outlined-basic"
                     variant="outlined"
@@ -116,7 +136,15 @@ export default function Register() {
                 </FormControl>
                 <Box className={styles.button_wrapper}>
                     <Button variant="contained" className={styles.button} onClick={handleBack} color='info'>戻る</Button>
-                    <Button variant="contained" className={styles.button} onClick={handleNext} color='info'>次へ</Button>
+                    <Button
+                        variant="contained"
+                        className={styles.button}
+                        onClick={handleNext}
+                        color='info'
+                        disabled={loading}
+                    >
+                        {loading ? '送信中...' : '次へ'}
+                    </Button>
                 </Box>
             </div>
         </Container>
