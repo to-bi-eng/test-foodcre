@@ -1,37 +1,20 @@
-"use client";
-import { useSearchParams } from "next/navigation";
-import { Box, Typography, Button } from "@mui/material";
-import Link from "next/link";
-import styles from "@/styles/pointsToCoupons.module.css";
+import React, { Suspense } from 'react';
+import PointsToCouponsContent from './PointsToCouponsContent';
+import { Box, CircularProgress } from '@mui/material';
 
-export default function PointsToCoupons() {
-  const searchParams = useSearchParams();
-  const remainingPoints = Number(searchParams.get("remainingPoints") ?? 0);
-
+// ローディング中に表示するUI
+function Loading() {
   return (
-    <Box className={styles.container}>
-      <Typography className={styles.title} variant="h4" align="center">
-        引き換えられました
-      </Typography>
-      <Box className={styles.pointBox}>
-        引き換え後のポイント：<br />
-        <span className={styles.point}>{remainingPoints}ポイント</span>
-      </Box>
-      <Typography variant="h5" align="center">
-        クーポン一覧から<br />
-        ご使用いただけます
-      </Typography>
-      <Box display="flex" justifyContent="center" mt={2}>
-        <Button
-          className={styles.couponButton}
-          variant="contained"
-          fullWidth
-          component={Link}
-          href="/coupon_list"
-        >
-          クーポン一覧
-        </Button>
-      </Box>
+    <Box display="flex" justifyContent="center" alignItems="center" height="80vh">
+      <CircularProgress />
     </Box>
+  );
+}
+
+export default function PointsToCouponsPage() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <PointsToCouponsContent />
+    </Suspense>
   );
 }
