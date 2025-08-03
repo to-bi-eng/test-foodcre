@@ -15,6 +15,7 @@ CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL DEFAULT 'user',
     reset_password VARCHAR(255),
     reset_password_send_at DATETIME,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
