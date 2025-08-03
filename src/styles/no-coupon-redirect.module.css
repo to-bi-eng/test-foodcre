@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: flex-start; /* 上寄せ */
   align-items: center;
-  background: #f7f7f7;
+  background: #ffffff;
   padding: 48px 16px 16px 16px; /* 上に余白を追加 */
 }
 
