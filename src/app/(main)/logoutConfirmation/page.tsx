@@ -23,7 +23,7 @@ export default function LogoutConfirmation() {
     <div className={styles.container}>
       <Box className={styles.content}>
         <div className={styles.imageContainer}>
-          <Image src="/Hachiko.png" alt="ハチコのイラスト" width={180} height={150} style={{ border: 'none' }}/>
+          <Image src="/hachiko.png" alt="ハチコのイラスト" width={180} height={150} style={{ border: 'none' }}/>
         </div>
         <Typography variant="h3" component="h2" gutterBottom className={styles.question} sx={{ fontSize: '1.8rem' }}>
           ログアウトしますか？
