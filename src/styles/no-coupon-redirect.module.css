@@ -2,15 +2,27 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* 上寄せ */
   align-items: center;
   background: #f7f7f7;
-  padding: 16px;
+  padding: 48px 16px 16px 16px; /* 上に余白を追加 */
+}
+
+/* 薄いグレーの囲いボックス */
+.box {
+  background-color: #e0e0e0; /* 薄いグレー */
+  border-radius: 12px;
+  padding: 24px 16px;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 軽い影 */
 }
 
 .message {
   font-weight: bold;
   color: #222;
+  white-space: pre-line;
 }
 
 .button {
