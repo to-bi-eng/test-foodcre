@@ -44,6 +44,7 @@ export async function GET(req: NextRequest) {
 
     const [rows] = await pool.execute<CouponRow[]>(query, [userId]);
     return NextResponse.json(rows);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error('[API ERROR]', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

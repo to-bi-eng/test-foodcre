@@ -89,6 +89,7 @@ const MenuCard: React.FC<MenuCardProps> = ({
 export default function Usage() {
   const [menus, setMenus] = useState<Menu[]>([]);
   const [loading, setLoading] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

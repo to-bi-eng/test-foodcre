@@ -18,6 +18,7 @@ export async function POST(request: Request) {
 
   try {
     // クーポンの必要ポイントを取得
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [couponRows]: any = await connection.execute(
       'SELECT point_cost FROM menus WHERE id = ?',
       [couponId]
@@ -28,6 +29,7 @@ export async function POST(request: Request) {
     const pointCost = couponRows[0].point_cost;
 
     // ユーザーの現在ポイントを取得
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [userRows]: any = await connection.execute(
       'SELECT point FROM users WHERE id = ?',
       [userId]
@@ -59,6 +61,7 @@ export async function POST(request: Request) {
       await connection.commit();
 
       // 残ポイント取得
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const [updatedUserRows]: any = await connection.execute(
         'SELECT point FROM users WHERE id = ?',
         [userId]
@@ -69,6 +72,7 @@ export async function POST(request: Request) {
         message: "ポイントと交換しました",
         remainingPoints
       });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       await connection.rollback();
       return NextResponse.json({ message: "交換処理に失敗しました" }, { status: 500 });

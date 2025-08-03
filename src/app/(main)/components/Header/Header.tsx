@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { AppBar, Box, Toolbar, Typography, Stack, IconButton } from '@mui/material';
-// import Link from 'next/link';
+import { AppBar, Box, Toolbar, Typography, Stack } from '@mui/material';
+import Link from 'next/link'; 
+import Image from 'next/image'; 
 import styles from '@/styles/header.module.css';
 
 export default function Header() {
@@ -15,14 +16,14 @@ export default function Header() {
         }} className={styles.box}>
             <AppBar position="sticky" color="primary" className={styles.header}>
                 <Toolbar sx={{ paddingLeft: 1 }}>
-                    <Stack direction="row" alignItems="center" spacing={1} sx={{ flexGrow: 1 }}>
-                        <IconButton color="inherit" size="large">
-                           <img src="/logo.png" alt="ロゴ" style={{ height: '30px' }} />
-                        </IconButton>
-                        <Typography variant="h6" component="div">
-                            はちぽ
-                        </Typography>
-                    </Stack>
+                    <Link href="/" passHref style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <Stack direction="row" alignItems="center" spacing={1} sx={{ flexGrow: 1 }}>
+                            <Image src="/logo.png" alt="ロゴ" width={30} height={30} />
+                            <Typography variant="h6" component="div">
+                                はちぽ
+                            </Typography>
+                        </Stack>
+                    </Link>
                 </Toolbar>
             </AppBar>
         </Box>

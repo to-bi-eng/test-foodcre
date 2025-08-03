@@ -51,6 +51,7 @@ const statusToDb = (status: PutBody['status']): InquiryFromDB['status'] => {
 };
 
 // GET: 問い合わせ一覧を取得
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(_request: NextRequest) { // 'request' を使わないので '_' を付ける
   let connection;
   try {

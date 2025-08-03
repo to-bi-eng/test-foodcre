@@ -15,7 +15,7 @@ export async function GET() {
     const [rows] = await connection.execute(
       'SELECT id, menu_name, menu_contact, point_cost FROM menus WHERE is_enabled = 1'
     );
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const menus = (rows as any[]).map(menu => ({
       id: menu.id,
       title: menu.menu_name,
