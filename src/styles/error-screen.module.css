@@ -26,8 +26,9 @@
 }
 
 .heading {
-  font-size: 24px;
+  font-size: 22px;
   margin-bottom: 16px;
+  white-space: pre-line; /* 改行文字で折り返し */
 }
 
 .message {
