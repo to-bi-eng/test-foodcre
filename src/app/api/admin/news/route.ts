@@ -10,7 +10,7 @@ export async function GET() {
         port: 3306,
     });
 
-    const [rows] = await connection.execute('SELECT * FROM news WHERE status = \'public\' ORDER BY created_at DESC');
+    const [rows] = await connection.execute('SELECT * FROM news ORDER BY created_at DESC');
     await connection.end();
 
     return NextResponse.json(rows);
