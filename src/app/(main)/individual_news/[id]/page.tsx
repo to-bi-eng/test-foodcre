@@ -16,7 +16,7 @@ export default async function NewsDetail({ params }: PageProps) {
   const news = await getNewsById(id);
 
   if (!news) {
-    return notFound();
+    notFound();
   }
 
   return (
