@@ -10,15 +10,11 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
     const [showPassword, setShowPassword] = React.useState(false);
     const router = useRouter();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-    const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
 
@@ -30,7 +26,7 @@ export default function Register() {
 
     const handleNext = async () => {
         setError('');
-        setSuccess(false);
+        // フロントエンドでのバリデーション
         if (!email || !password) {
             setError('メールアドレスとパスワードを入力してください。');
             return;
@@ -61,26 +57,27 @@ export default function Register() {
             setError('パスワードには平仮名、カタカナ、スペース、絵文字などの文字は使用できません。');
             return;
         }
+
         setLoading(true);
         try {
-            // ここでAPIにリクエスト
+            // APIにOTP送信リクエスト
             const res = await fetch('/api/auth/send-otp', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
+
             const data = await res.json();
             if (!res.ok) {
                 setError(data.error || 'エラーが発生しました。');
                 setLoading(false);
                 return;
             }
-            // 成功時はストレージに保存し、確認画面へ遷移
-            sessionStorage.setItem('registrationEmail', email);
-            sessionStorage.setItem('registrationPassword', password);
-            setSuccess(true);
-            router.push('/signup_confirmation');
-        } catch {
+
+            // ★ 変更点: OTP入力画面へメールアドレスを渡して遷移
+            router.push(`/one-time-password?email=${encodeURIComponent(email)}`);
+
+        } catch (err) {
             setError('サーバーに接続できませんでした。');
         } finally {
             setLoading(false);
@@ -96,7 +93,7 @@ export default function Register() {
             <Typography variant="h3">登録</Typography>
             <div className={styles.form} onKeyDown={handleKeyDown}>
                 {error && <Alert severity="error" sx={{ mb: 2, width: '350px' }}>{error}</Alert>}
-                {success && <Alert severity="success" sx={{ mb: 2, width: '350px' }}>確認メールを送信しました。</Alert>}
+                {/* 成功メッセージは不要になるため削除 */}
                 <TextField
                     id="outlined-basic"
                     variant="outlined"
@@ -124,7 +121,6 @@ export default function Register() {
                                     }
                                     onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword}
-                                    onMouseUp={handleMouseUpPassword}
                                     edge="end"
                                 >
                                     {showPassword ? <VisibilityOff /> : <Visibility />}
