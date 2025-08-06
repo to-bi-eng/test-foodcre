@@ -1,11 +1,7 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-
-import styles from '@/styles/header.module.css'
+import { AppBar, Box, Toolbar, Typography, Stack, IconButton } from '@mui/material';
+import Link from 'next/link';
+import styles from '@/styles/header.module.css';
 
 export default function Header() {
     return (
@@ -18,11 +14,15 @@ export default function Header() {
             zIndex: 1,
         }} className={styles.box}>
             <AppBar position="sticky" color="primary" className={styles.header}>
-                <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        ポイントアプリ
-                    </Typography>
-                    <Button variant="contained" color="secondary" disableElevation>ホーム</Button>
+                <Toolbar sx={{ paddingLeft: 1 }}>
+                    <Stack direction="row" alignItems="center" spacing={1} sx={{ flexGrow: 1 }}>
+                        <IconButton color="inherit" size="large">
+                           <img src="/logo.png" alt="ロゴ" style={{ height: '30px' }} />
+                        </IconButton>
+                        <Typography variant="h6" component="div">
+                            はちぽ
+                        </Typography>
+                    </Stack>
                 </Toolbar>
             </AppBar>
         </Box>

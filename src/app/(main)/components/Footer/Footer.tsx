@@ -1,140 +1,64 @@
-import React from "react";
-import AppBar from '@mui/material/AppBar';
-import { Box, Typography, Link as MuiLink, IconButton } from "@mui/material";
-import Grid from '@mui/material/Grid';
-import Link from "next/link";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import XIcon from '@mui/icons-material/X';
-import styles from '@/styles/footer.module.css'
+import * as React from 'react';
+import { AppBar, Box, Toolbar, IconButton, Typography, Stack } from '@mui/material';
+import { Home, HelpOutline, Logout, PrivacyTip } from '@mui/icons-material';
+import Link from 'next/link';
+import styles from '@/styles/header.module.css';
 
 export default function Footer() {
   return (
-    <Box
-      component="footer"
+    <Box 
       sx={{
         position: "fixed",
-        inset: 0,
-        top: 'auto',
         bottom: 0,
-        zIndex:1
+        left: 0,
+        right: 0,
+        zIndex: 1,
       }}
       className={styles.box}
     >
-      <AppBar
-        sx={{
-          padding: "16px",
-        }}
-        position="sticky"
+      <AppBar 
+        position="static"
         color="primary"
-        className={styles.footer}
+        className={styles.header}
       >
-        <Grid container spacing={2} justifyContent="space-between" alignItems="center">
-          <Grid
-            size={6}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem'
-            }}>
-            <MuiLink component={Link} href="/contact" underline="none">
-              <Typography
-                variant="body1"
-                component="div"
-                sx={{
-                  color: '#333333'
-                }}>
-                お問い合わせ
-              </Typography>
-            </MuiLink>
-            <MuiLink component={Link} href="https://www.hachiban.jp/" underline="none" target="blank">
-              <Typography
-                variant="body1"
-                component="div"
-                sx={{
-                  color: '#333333'
-                }}>
-                ８番らーめん公式HP
-              </Typography>
-            </MuiLink>
-            <MuiLink component={Link} href="https://foodcreation.github.io/" underline="none" target="blank">
-              <Typography
-                variant="body1"
-                component="div"
-                sx={{
-                  color: '#333333'
-                }}>
-                プロジェクト公式HP
-              </Typography>
-            </MuiLink>
-          </Grid>
-          <Grid
-            size={6}
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '1rem'
-            }}>
-            <Box component='div'>
-              <Box
-                component='div'
-                sx={{
-                  display: 'flex',
-                  justifyContent: "space-between",
-                  alignItems: "center"
-                }}>
-                <IconButton href="https://twitter.com/8ban_ramen" aria-label="Twitter" target="blank" color="info">
-                  <XIcon />
-                </IconButton>
-                <IconButton href="https://www.instagram.com/8ban_ramen/" aria-label="Instagram" target="blank" color="info">
-                  <InstagramIcon />
-                </IconButton>
-                <IconButton href="https://www.facebook.com/hachibanramen.jp/" aria-label="Facebook" target="blank" color="info">
-                  <FacebookIcon />
-                </IconButton>
-                <IconButton href="https://www.youtube.com/user/hachibanramen" aria-label="YouTube" target="blank" color="info">
-                  <YouTubeIcon />
-                </IconButton>
-              </Box>
-              <Typography
-                variant="body1"
-                component="div"
-                sx={{
-                  color: '#333333',
-                  textAlign: 'center'
-                }}>
-                ８番らーめん公式SNS
-              </Typography>
-            </Box>
-            <Box component='div'>
-              <Box
-                component='div'
-                sx={{
-                  display: 'flex',
-                  justifyContent: "center",
-                  alignItems: "center"
-                }}>
-                <IconButton href="https://twitter.com/foodc_8ban" aria-label="Twitter" target="blank" color="info">
-                  <XIcon />
-                </IconButton>
-                <IconButton href="https://www.instagram.com/8ban_foodc" aria-label="Instagram" target="blank" color="info">
-                  <InstagramIcon />
-                </IconButton>
+        <Toolbar>
+          <Stack 
+            direction="row" 
+            justifyContent="space-around"
+            alignItems="center"
+            sx={{ width: '100%' }}
+          >
+            <Link href="/" passHref>
+              <IconButton sx={{ flexDirection: 'column', color: 'black' }}>
+                <Home />
+                <Typography variant="caption" sx={{ fontSize: '0.6rem' }}>ホーム</Typography>
+              </IconButton>
+            </Link>
 
-              </Box>
-              <Typography
-                variant="body1"
-                component="div"
-                sx={{
-                  color: '#333333',
-                  textAlign: 'center'
-                }}>
-                プロジェクト公式SNS
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
+            <Link href="/contact" passHref>
+              <IconButton sx={{ flexDirection: 'column', color: 'black' }}>
+                <HelpOutline />
+                <Typography variant="caption" sx={{ fontSize: '0.6rem' }}>お問い合わせ</Typography>
+              </IconButton>
+
+            </Link>
+            <Link href="/logoutConfirmation" passHref>
+            <IconButton sx={{ flexDirection: 'column', color: 'black' }}>
+              <Logout />
+              <Typography variant="caption" sx={{ fontSize: '0.6rem' }}>ログアウト</Typography>
+            </IconButton>
+            </Link>
+
+            <Link href="/privacypolicy" passHref>
+              <IconButton sx={{ flexDirection: 'column', color: 'black' }}>
+                <PrivacyTip />
+                <Typography variant="caption" sx={{ fontSize: '0.6rem', lineHeight: 1.1 }}>プライバシー</Typography>
+                <Typography variant="caption" sx={{ fontSize: '0.6rem', lineHeight: 1.1 }}>ポリシー</Typography>
+              </IconButton>
+            </Link>
+            
+          </Stack>
+        </Toolbar>
       </AppBar>
     </Box>
   );

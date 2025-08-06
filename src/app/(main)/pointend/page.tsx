@@ -1,20 +1,24 @@
 'use client'
 import React from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Box, Typography, Button } from '@mui/material';
 import styles from '@/styles/pointEnd.module.css';
 
-interface PointAppProps {
-  plusPoints: number;
-  totalPoints: number;
-}
+const PointEndPage = () => {
+  // URLのクエリパラメータを取得するためのフック
+  const searchParams = useSearchParams();
 
-const PointApp: React.FC<PointAppProps> = ({ plusPoints, totalPoints }) => {
+  // URLから 'addPoints' と 'totalPoints' の値を取得
+  // 値が存在しない、または数値でない場合は 0 を使用する
+  const addPoints = Number(searchParams.get('addPoints')) || 0;
+  const totalPoints = Number(searchParams.get('totalPoints')) || 0;
+
   return (
     <Box className={styles.container}>
       {/* ポイント付与メッセージ */}
       <Box className={styles.awardPoint}>
         <Typography variant="h4">
-          {plusPoints}ポイント付与
+          {addPoints}ポイント付与
           <br />
           されました！
         </Typography>
@@ -37,12 +41,11 @@ const PointApp: React.FC<PointAppProps> = ({ plusPoints, totalPoints }) => {
       </Typography>
 
       {/* ポイント交換ボタン */}
-      <Button className={styles.button}
-        variant="contained">
+      <Button className={styles.button} variant="contained">
         ポイントを交換する
       </Button>
     </Box>
   );
 };
 
-export default PointApp;
+export default PointEndPage;

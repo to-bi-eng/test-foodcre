@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  padding: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.imageContainer {
+  margin-bottom: 20px;
+}
+
+.question {
+  margin-bottom: 30px;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 20px;
+}

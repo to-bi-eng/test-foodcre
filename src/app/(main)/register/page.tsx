@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Box, Button, TextField, OutlinedInput, InputAdornment, IconButton, InputLabel, FormControl, Alert, Typography, Container } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import styles from '@/styles/register.module.css';
+import Link from 'next/link';
 
 export default function Register() {
     const [email, setEmail] = useState('');
@@ -15,6 +16,7 @@ export default function Register() {
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         event.preventDefault();
     };
 
