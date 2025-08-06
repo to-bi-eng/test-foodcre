@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { Box, Button, TextField, OutlinedInput, InputAdornment, IconButton, InputLabel, FormControl, Alert, Typography, Container } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import styles from '@/styles/register.module.css';
-import Link from 'next/link';
 
 export default function Register() {
     const [email, setEmail] = useState('');
@@ -62,7 +61,6 @@ export default function Register() {
 
         setLoading(true);
         try {
-            // APIにOTP送信リクエスト
             const res = await fetch('/api/auth/send-otp', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -76,7 +74,6 @@ export default function Register() {
                 return;
             }
 
-            // ★ 変更点: OTP入力画面へメールアドレスを渡して遷移
             router.push(`/one-time-password?email=${encodeURIComponent(email)}`);
 
         } catch (err) {
@@ -95,7 +92,6 @@ export default function Register() {
             <Typography variant="h3">登録</Typography>
             <div className={styles.form} onKeyDown={handleKeyDown}>
                 {error && <Alert severity="error" sx={{ mb: 2, width: '350px' }}>{error}</Alert>}
-                {/* 成功メッセージは不要になるため削除 */}
                 <TextField
                     id="outlined-basic"
                     variant="outlined"

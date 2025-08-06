@@ -20,8 +20,23 @@ export async function POST(request: Request) {
       [email]
     );
 
-    if (!rows.length || rows[0].expires < Date.now() || rows[0].otp !== otp) {
-      return NextResponse.json({ error: '無効なOTPです。' }, { status: 400 });
+    if (!rows.length) {
+      return NextResponse.json({ error: '認証コードが発行されていません。再度登録してください。' }, { status: 400 });
+    }
+    if (rows[0].expires < Date.now()) {
+      return NextResponse.json({ error: '認証コードの有効期限が切れています。再度登録してください。' }, { status: 400 });
+    }
+    if (rows[0].otp !== otp) {
+      return NextResponse.json({ error: '認証コードが違います。' }, { status: 400 });
+    }
+
+    // 既に登録済みかチェック
+    const [userRows]: any = await connection.execute(
+      'SELECT id FROM users WHERE email = ?',
+      [email]
+    );
+    if (userRows.length > 0) {
+      return NextResponse.json({ error: 'このメールアドレスは既に登録されています。' }, { status: 400 });
     }
 
     // usersテーブルに登録
@@ -36,7 +51,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: 'アカウント登録が完了しました。' });
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: 'ユーザー登録に失敗しました。' }, { status: 500 });
+    return NextResponse.json({ error: '予期せぬエラーが発生しました。' }, { status: 500 });
   } finally {
     if (connection) await connection.end();
   }
