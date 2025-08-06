@@ -8,7 +8,7 @@ import {
 import React from "react";
 import Link from "next/link";
 
-import styles from "@/styles/Contact.module.css";
+import styles from "@/styles/contact.module.css";
 
 export default function Contact() {
   return (
@@ -81,7 +81,6 @@ export default function Contact() {
               variant="contained"
               size="large"
               color="info"
-              className={styles.botton}
             >
               確認
             </Button>
