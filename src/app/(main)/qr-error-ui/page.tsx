@@ -23,6 +23,9 @@ export default function ErrorScreen() {
         <Typography className={styles.message} color="text.secondary" gutterBottom>
           再度店舗のQRコードを読み取ってください
         </Typography>
+        <Typography className={styles.message} color="error" sx={{ mt: 1 }}>
+          ＊何度も失敗する場合は店員に申し出てください
+        </Typography>
         <Button
           className={styles['back-button']}
           variant="contained"
