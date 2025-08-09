@@ -51,7 +51,7 @@ const News = () => {
                             variant="contained"
                             color="secondary"
                             disableElevation
-                            href="/home"
+                            href="/"
                         >
                             戻る
                         </Button>
@@ -77,7 +77,7 @@ const News = () => {
                             variant="contained"
                             color="secondary"
                             disableElevation
-                            href="/home"
+                            href="/"
                         >
                             戻る
                         </Button>
@@ -132,7 +132,7 @@ const News = () => {
                         variant="contained"
                         color="secondary"
                         disableElevation
-                        href="/home"
+                        href="/"
                     >
                         戻る
                     </Button>

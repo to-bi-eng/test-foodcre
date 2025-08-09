@@ -1,4 +1,4 @@
-import news_styles from "@/styles/News.module.css"
+import news_styles from "@/styles/news.module.css"
 import Image from "next/image";
 import hachiko_icon from "/public/hachiko.png";
 

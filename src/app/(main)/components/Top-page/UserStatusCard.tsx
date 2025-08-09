@@ -2,10 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 
-// type UserCardProps = {
-//   // propsは不要ですが、将来の拡張用に残してもOK
-// };
-
 function CustomSpinner() {
   return (
     <Box
@@ -126,17 +122,6 @@ export default function UserStatusCard() {
             }}
           >
             {points}ポイント
-          </Typography>
-          <Typography variant="body1" sx={{ marginBottom: 1 }}>
-            所持クーポン枚数：
-          </Typography>
-          <Typography
-            variant="h5"
-            sx={{
-              textAlign: "right",
-            }}
-          >
-            0枚
           </Typography>
         </Box>
       </CardContent>
