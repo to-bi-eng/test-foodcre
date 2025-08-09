@@ -23,7 +23,7 @@
     "jsqr": "^1.4.0",
     "mysql2": "^3.14.1",
     "next": "15.3.3",
-    "next-auth": "^4.24.11",
+    "next-auth": "^5.0.0-beta.29",
     "nodemailer": "^6.10.1",
     "promise-mysql": "^5.2.0",
     "qrcode.react": "^4.2.0",
