@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
 import styles from "@/styles/oneTimePassword.module.css";
 import { Box, Button, Stack, TextField, Typography, Link, CircularProgress } from "@mui/material";
+import { signIn } from "next-auth/react";
 
 const commonTextFieldSx = {
   '& .MuiFilledInput-root': {
@@ -25,7 +26,6 @@ export default function OtpPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const email = searchParams.get('email');
-
   const [isResending, setIsResending] = useState(false);
   const [resendCooldown, setResendCooldown] = useState(0);
   const [resendStatus, setResendStatus] = useState({ message: "", error: false });
@@ -61,6 +61,23 @@ export default function OtpPage() {
 
       if (!response.ok) {
         throw new Error(data.error || '認証に失敗しました。');
+      }
+
+      // パスワードをsessionStorageから取得
+      const password = sessionStorage.getItem('registrationPassword');
+      if (!password) {
+        throw new Error("パスワード情報が見つかりません。最初からやり直してください。");
+      }
+
+      // 認証成功時に自動ログイン
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (result?.error) {
+        throw new Error("自動ログインに失敗しました。ログイン画面から再度ログインしてください。");
       }
 
       router.push('/');
