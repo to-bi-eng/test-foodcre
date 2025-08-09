@@ -57,11 +57,7 @@ export default function Add_point() {
                 }
                 requestAnimationFrame(scanLoop);
             } catch {
-                setMessage('カメラの起動に失敗しました。2秒後にホームに戻ります。');
-                setIsError(true);
-                setTimeout(() => {
-                    router.push('/');
-                }, 2000);
+                setMessage('カメラの起動に失敗しました。');
             }
         };
 
