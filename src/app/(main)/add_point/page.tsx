@@ -57,7 +57,8 @@ export default function Add_point() {
                 }
                 requestAnimationFrame(scanLoop);
             } catch {
-                setMessage('カメラの起動に失敗しました。');
+                router.push('/qr-ui-error');
+
             }
         };
 
