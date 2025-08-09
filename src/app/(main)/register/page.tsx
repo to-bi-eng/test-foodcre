@@ -16,7 +16,6 @@ export default function Register() {
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        event.preventDefault();
     };
 
     const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -25,9 +24,8 @@ export default function Register() {
         }
     };
 
-    const handleNext = async () => {
+    const handleNext = () => {
         setError('');
-        // フロントエンドでのバリデーション
         if (!email || !password) {
             setError('メールアドレスとパスワードを入力してください。');
             return;
@@ -59,37 +57,18 @@ export default function Register() {
             return;
         }
 
-        setLoading(true);
-        try {
-            const res = await fetch('/api/auth/send-otp', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password }),
-            });
-
-            const data = await res.json();
-            if (!res.ok) {
-                setError(data.error || 'エラーが発生しました。');
-                setLoading(false);
-                return;
-            }
-
-            router.push(`/one-time-password?email=${encodeURIComponent(email)}`);
-
-        } catch (err) {
-            setError('サーバーに接続できませんでした。');
-        } finally {
-            setLoading(false);
-        }
+        sessionStorage.setItem('registrationEmail', email);
+        sessionStorage.setItem('registrationPassword', password);
+        router.push('/signup_confirmation'); 
     };
 
     const handleBack = () => {
-        router.back();
+        router.push('/'); 
     };
 
     return (
         <Container component="main" maxWidth="sm" className={styles.main}>
-            <Typography variant="h3">登録</Typography>
+            <Typography variant="h3">アカウント登録</Typography>
             <div className={styles.form} onKeyDown={handleKeyDown}>
                 {error && <Alert severity="error" sx={{ mb: 2, width: '350px' }}>{error}</Alert>}
                 <TextField
@@ -137,10 +116,10 @@ export default function Register() {
                         color='info'
                         disabled={loading}
                     >
-                        {loading ? '送信中...' : '次へ'}
+                        登録確認
                     </Button>
                 </Box>
             </div>
         </Container>
     );
-};
+}

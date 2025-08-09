@@ -5,17 +5,17 @@ import styles from "@/styles/oneTimePassword.module.css";
 import { Box, Button, Stack, TextField, Typography, Link, CircularProgress } from "@mui/material";
 
 const commonTextFieldSx = {
-  '& .MuiFilledInput-root': {
-    backgroundColor: '#E6E6E6',
-    borderRadius: '10px',
-    '&:before, &:after, &:hover:not(.Mui-disabled):before': {
-      borderBottom: 'none',
-    },
-  },
-  '& .MuiFilledInput-input': {
-    padding: '12px 15px',
-    color: '#333',
-  },
+  '& .MuiFilledInput-root': {
+    backgroundColor: '#E6E6E6',
+    borderRadius: '10px',
+    '&:before, &:after, &:hover:not(.Mui-disabled):before': {
+      borderBottom: 'none',
+    },
+  },
+  '& .MuiFilledInput-input': {
+    padding: '12px 15px',
+    color: '#333',
+  },
 };
 
 export default function OtpPage() {
@@ -24,14 +24,21 @@ export default function OtpPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const email = searchParams.get('email'); 
+  const email = searchParams.get('email');
+
+  const [isResending, setIsResending] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(0);
+  const [resendStatus, setResendStatus] = useState({ message: "", error: false });
 
   useEffect(() => {
-    if (!email) {
-      alert("メールアドレスが指定されていません。登録ページに戻ります。");
-      router.push('/register'); 
+    let timer: NodeJS.Timeout;
+    if (resendCooldown > 0) {
+      timer = setInterval(() => {
+        setResendCooldown((prev) => prev - 1);
+      }, 1000);
     }
-  }, [email, router]);
+    return () => clearInterval(timer);
+  }, [resendCooldown]);
 
   const handleVerify = async () => {
     if (!otp || otp.length < 6) {
@@ -42,7 +49,7 @@ export default function OtpPage() {
     setError("");
 
     try {
-      const response = await fetch('/api/auth/verify-otp', { // APIのエンドポイントを指定
+      const response = await fetch('/api/auth/verify-otp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,8 +63,7 @@ export default function OtpPage() {
         throw new Error(data.error || '認証に失敗しました。');
       }
 
-      alert(data.message); 
-      router.push('/login'); 
+      router.push('/');
 
     } catch (err: any) {
       setError(err.message);
@@ -69,6 +75,35 @@ export default function OtpPage() {
   const handleBack = () => {
     router.back();
   }
+
+  const handleResendOtp = async () => {
+    if (isResending || resendCooldown > 0) return;
+
+    setIsResending(true);
+    setResendStatus({ message: "", error: false });
+
+    try {
+      const res = await fetch('/api/auth/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "再送に失敗しました。");
+      }
+
+      setResendStatus({ message: "認証コードを再送しました。", error: false });
+      setResendCooldown(60);
+
+    } catch (err: any) {
+      setResendStatus({ message: err.message, error: true });
+    } finally {
+      setIsResending(false);
+    }
+  };
 
   return (
     <Box className={styles.wrapper}>
@@ -91,17 +126,41 @@ export default function OtpPage() {
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
               sx={commonTextFieldSx}
-              inputProps={{ maxLength: 6, style: { textAlign: 'center', fontSize: '1.2rem', letterSpacing: '0.5em' } }}
-              error={!!error} 
+              inputProps={{
+                maxLength: 6,
+              }}
+              slotProps={{
+                input: {
+                  style: { textAlign: 'center', fontSize: '1.2rem', letterSpacing: '0.5em' }
+                }
+              }}
+              error={!!error}
             />
             {error && (
               <Typography color="error" variant="body2" mt={1}>
                 {error}
               </Typography>
             )}
+
             <Box className={styles.linkWrapper}>
-              <Link href="#" underline="hover" color="primary" fontSize={14}>
-                認証コードを再送
+               {resendStatus.message && (
+                <Typography color={resendStatus.error ? "error" : "primary"} variant="body2" sx={{ mb: 1 }}>
+                  {resendStatus.message}
+                </Typography>
+              )}
+              <Link
+                component="button"
+                variant="body2"
+                onClick={handleResendOtp}
+                disabled={isResending || resendCooldown > 0}
+                underline="hover"
+                sx={{ fontSize: 14, cursor: 'pointer', border: 'none', background: 'none', padding: 0 }}
+              >
+                {isResending
+                  ? "再送中..."
+                  : resendCooldown > 0
+                    ? `${resendCooldown}秒後に再送可能`
+                    : "認証コードを再送"}
               </Link>
             </Box>
           </Box>

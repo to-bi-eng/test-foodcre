@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '@/styles/ConfirmRegistration.module.css';
-import { Box, Button, Typography, Paper, Container, Alert } from '@mui/material';
-import { signIn } from "next-auth/react";
+import { Box, Button, Typography, Paper, Container, Alert, CircularProgress } from '@mui/material';
 
 export default function ConfirmRegistration() {
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
@@ -25,34 +25,28 @@ export default function ConfirmRegistration() {
   }, [router]);
 
   const handleRegister = async () => {
-  setError('');
-  try {
-    const response = await fetch('/api/users/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (response.ok) {
-      // 登録成功後に自動ログイン
-      const result = await signIn("credentials", {
-        redirect: false,
-        email,
-        password,
+    setError('');
+    setLoading(true);
+    try {
+      const res = await fetch('/api/auth/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
       });
-      if (result?.error) {
-        setError("自動ログインに失敗しました。ログイン画面から再度ログインしてください。");
-      } else {
-        window.location.replace("/"); // トップページへ
+
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || 'メールの送信に失敗しました。');
       }
-    } else {
-      const errorData = await response.json();
-      setError(`登録に失敗しました: ${errorData.message}`);
+
+      router.push(`/one-time-password?email=${encodeURIComponent(email)}`);
+
+    } catch (err: any) {
+      setError(err.message || 'サーバーに接続できませんでした。');
+    } finally {
+      setLoading(false);
     }
-  } catch {
-    setError('登録処理中にエラーが発生しました。お手数ですが、アプリ管理者へのお問い合わせをお願いします。');
-  }
-};
+  };
 
   const handleBack = () => {
     router.back();
@@ -65,7 +59,7 @@ export default function ConfirmRegistration() {
   return (
     <Container component="main" maxWidth="sm" className={styles.main}>
       <Typography variant="h3">登録内容確認</Typography>
-      {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+      {error && <Alert severity="error" sx={{ mt: 2, mb: 2 }}>{error}</Alert>}
 
       <Paper elevation={0} className={styles.infoBox}>
         <span>
@@ -81,14 +75,16 @@ export default function ConfirmRegistration() {
             パスワード：
           </h6>
           <Typography>
-            *********
+           {password.length > 0 && '*'.repeat(password.length)}
           </Typography>
         </span>
       </Paper>
 
       <Box className={styles.button_wrapper}>
-        <Button variant="contained" className={styles.button} color='info' onClick={handleBack}>戻る</Button>
-        <Button variant="contained" className={styles.button} color='info' onClick={handleRegister} disabled={!!error}>登録</Button>
+        <Button variant="contained" className={styles.button} color='info' onClick={handleBack} disabled={loading}>戻る</Button>
+        <Button variant="contained" className={styles.button} color='info' onClick={handleRegister} disabled={loading}>
+          {loading ? <CircularProgress size={24} color="inherit" /> : '登録'}
+        </Button>
       </Box>
 
       <Box className={styles.footerSpacer}></Box>
