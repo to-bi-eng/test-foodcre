@@ -165,7 +165,7 @@ export default function Add_point() {
             {message && <Alert severity={isError ? "error" : "info"} sx={{ mt: 2 }}>{message}</Alert>}
             
             {isError && !loading && (
-                <Button onClick={handleRetry} variant="contained" sx={{ mt: 2 }}>
+                <Button onClick={handleRetry} variant="contained" sx={{ mt: 2 , mb: 2 }}>
                     もう一度試す
                 </Button>
             )}
