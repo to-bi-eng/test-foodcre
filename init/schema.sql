@@ -75,3 +75,11 @@ CREATE TABLE qr_codes (
     is_active TINYINT(1) DEFAULT 1,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+-- OTP一時保存テーブル
+CREATE TABLE otp_temp (
+  email VARCHAR(255) PRIMARY KEY,
+  otp VARCHAR(10),
+  pass VARCHAR(255),
+  expires BIGINT
+);

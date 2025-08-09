@@ -1,4 +1,4 @@
-import background_styles from "@/styles/Background.module.css"
+import background_styles from "@/styles/background.module.css"
 
 export default function BG() {
     return (

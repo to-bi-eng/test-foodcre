@@ -9,14 +9,13 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = React.useState(false);
     const router = useRouter();
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-    };
-    const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
 
@@ -26,13 +25,14 @@ export default function Register() {
         }
     };
 
-    const handleNext = () => {
+    const handleNext = async () => {
         setError('');
+        // フロントエンドでのバリデーション
         if (!email || !password) {
             setError('メールアドレスとパスワードを入力してください。');
             return;
         }
-        if ( //大学発行のメールアドレスかどうかのチェック
+        if (
             !email.endsWith('@neptune.kanazawa-it.ac.jp') &&
             !email.endsWith('@his.kanazawa-it.ac.jp') &&
             !email.endsWith('@infor.kanazawa-it.ac.jp') &&
@@ -53,18 +53,33 @@ export default function Register() {
             setError('パスワードは8文字以上で入力してください。');
             return;
         }
-        // パスワードの文字種チェック (半角英数字と記号のみ)
         const passwordRegex = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]+$/;
         if (!passwordRegex.test(password)) {
             setError('パスワードには平仮名、カタカナ、スペース、絵文字などの文字は使用できません。');
             return;
         }
+
+        setLoading(true);
         try {
-            sessionStorage.setItem('registrationEmail', email);
-            sessionStorage.setItem('registrationPassword', password);
-            router.push('/signup_confirmation');
-        } catch {
-            setError('ブラウザのストレージにアクセスできません。設定を確認してください。');
+            const res = await fetch('/api/auth/send-otp', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await res.json();
+            if (!res.ok) {
+                setError(data.error || 'エラーが発生しました。');
+                setLoading(false);
+                return;
+            }
+
+            router.push(`/one-time-password?email=${encodeURIComponent(email)}`);
+
+        } catch (err) {
+            setError('サーバーに接続できませんでした。');
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -104,7 +119,6 @@ export default function Register() {
                                     }
                                     onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword}
-                                    onMouseUp={handleMouseUpPassword}
                                     edge="end"
                                 >
                                     {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -116,7 +130,15 @@ export default function Register() {
                 </FormControl>
                 <Box className={styles.button_wrapper}>
                     <Button variant="contained" className={styles.button} onClick={handleBack} color='info'>戻る</Button>
-                    <Button variant="contained" className={styles.button} onClick={handleNext} color='info'>次へ</Button>
+                    <Button
+                        variant="contained"
+                        className={styles.button}
+                        onClick={handleNext}
+                        color='info'
+                        disabled={loading}
+                    >
+                        {loading ? '送信中...' : '次へ'}
+                    </Button>
                 </Box>
             </div>
         </Container>
