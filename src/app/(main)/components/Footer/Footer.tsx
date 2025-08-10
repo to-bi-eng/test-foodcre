@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { AppBar, Box, Toolbar, IconButton, Typography, Stack } from '@mui/material';
 import Link from 'next/link';
-import Image from 'next/image'; // 画像を表示するためにインポート
-import { Home } from '@mui/icons-material'; // Homeアイコンをインポート
+import Image from 'next/image'; 
+import { Home } from '@mui/icons-material'; 
 import styles from '@/styles/header.module.css';
 
 export default function Footer() {
