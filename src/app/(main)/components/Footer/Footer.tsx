@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { AppBar, Box, Toolbar, IconButton, Typography, Stack } from '@mui/material';
-import { Home, HelpOutline, Logout, PrivacyTip } from '@mui/icons-material';
 import Link from 'next/link';
+import Image from 'next/image'; // 画像を表示するためにインポート
+import { Home } from '@mui/icons-material'; // Homeアイコンをインポート
 import styles from '@/styles/header.module.css';
 
 export default function Footer() {
@@ -28,6 +29,7 @@ export default function Footer() {
             alignItems="center"
             sx={{ width: '100%' }}
           >
+            {/* ホーム */}
             <Link href="/" passHref>
               <IconButton sx={{ flexDirection: 'column', color: 'black' }}>
                 <Home />
@@ -35,25 +37,27 @@ export default function Footer() {
               </IconButton>
             </Link>
 
-            <Link href="/contact" passHref>
+            {/* ポイント交換 */}
+            <Link href="/point_usage" passHref>
               <IconButton sx={{ flexDirection: 'column', color: 'black' }}>
-                <HelpOutline />
-                <Typography variant="caption" sx={{ fontSize: '0.6rem' }}>お問い合わせ</Typography>
+                <Image src="/point_change.png" alt="ポイント交換" width={24} height={24} />
+                <Typography variant="caption" sx={{ fontSize: '0.6rem', mt: 0.5 }}>ポイント交換</Typography>
               </IconButton>
-
-            </Link>
-            <Link href="/logoutConfirmation" passHref>
-            <IconButton sx={{ flexDirection: 'column', color: 'black' }}>
-              <Logout />
-              <Typography variant="caption" sx={{ fontSize: '0.6rem' }}>ログアウト</Typography>
-            </IconButton>
             </Link>
 
-            <Link href="/privacypolicy" passHref>
+            {/* ポイント付与 */}
+            <Link href="/add_point" passHref>
               <IconButton sx={{ flexDirection: 'column', color: 'black' }}>
-                <PrivacyTip />
-                <Typography variant="caption" sx={{ fontSize: '0.6rem', lineHeight: 1.1 }}>プライバシー</Typography>
-                <Typography variant="caption" sx={{ fontSize: '0.6rem', lineHeight: 1.1 }}>ポリシー</Typography>
+                <Image src="/QR.png" alt="ポイント付与" width={24} height={24} />
+                <Typography variant="caption" sx={{ fontSize: '0.6rem', mt: 0.5 }}>ポイント付与</Typography>
+              </IconButton>
+            </Link>
+
+            {/* クーポン一覧 */}
+            <Link href="/coupon_list" passHref>
+              <IconButton sx={{ flexDirection: 'column', color: 'black' }}>
+                <Image src="/coupon.png" alt="クーポン一覧" width={24} height={24} />
+                <Typography variant="caption" sx={{ fontSize: '0.6rem', mt: 0.5 }}>クーポン一覧</Typography>
               </IconButton>
             </Link>
             
