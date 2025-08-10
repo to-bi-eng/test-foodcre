@@ -2,7 +2,7 @@
 
 import styles from '@/styles/top.module.css';
 import News from '@/app/(main)/components/Top-page/News';
-import { Box, Typography, Link, Button } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Image from 'next/image';
 
 export default function Logout() {
@@ -28,18 +28,6 @@ export default function Logout() {
       </Box>
       <Box className={styles.news}>
         <News />
-      </Box>
-      <Box className={styles.fixedButtons}>
-        <Link href="/register">
-          <Button variant="contained" color="info" sx={{ fontSize: '1.5rem', px: 4, borderRadius: 3 }}>
-            新規登録
-          </Button>
-        </Link>
-        <Link href="/login">
-          <Button variant="contained" color="info" sx={{ fontSize: '1.5rem', px: 4, borderRadius: 3 }}>
-            ログイン
-          </Button>
-        </Link>
       </Box>
     </div>
   );

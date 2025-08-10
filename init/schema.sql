@@ -58,13 +58,15 @@ CREATE TABLE news (
 -- お問い合わせテーブル
 CREATE TABLE inquiry (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
+    user_id INT NULL,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     status ENUM('pending', 'in_progress', 'done') DEFAULT 'pending',
     received_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    responsed_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    responded_at DATETIME DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
 -- QRコードテーブル
