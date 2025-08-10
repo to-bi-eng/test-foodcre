@@ -20,9 +20,29 @@ export default function Contact() {
   const router = useRouter();
 
   const handleConfirm = (e: React.FormEvent) => {
-    e.preventDefault(); 
+    e.preventDefault();
+    setMessage("");
+
     if (!name || !mail || !about || !main) {
       setMessage("全ての項目を入力してください");
+      return;
+    }
+
+    if (
+      !mail.endsWith('@neptune.kanazawa-it.ac.jp') &&
+      !mail.endsWith('@his.kanazawa-it.ac.jp') &&
+      !mail.endsWith('@infor.kanazawa-it.ac.jp') &&
+      !mail.endsWith('@tok.kanazawa-it.ac.jp') &&
+      !mail.endsWith('@ael.kanazawa-it.ac.jp') &&
+      !mail.endsWith('@trc.kanazawa-it.ac.jp') &&
+      !mail.endsWith('@ict-.kanazawa-it.ac.jp') &&
+      !mail.endsWith('@eagle.ict-.kanazawa-it.ac.jp') &&
+      !mail.endsWith('@pt.kanazawa-it.ac.jp') &&
+      !mail.endsWith('@planet.kanazawa-it.ac.jp') &&
+      !mail.endsWith('@jupiter.kanazawa-it.ac.jp') &&
+      !mail.endsWith('@st.kanazawa-it.ac.jp')
+    ) {
+      setMessage("メールアドレスは大学から発行されたものを使用してください。");
       return;
     }
     
@@ -47,7 +67,7 @@ export default function Contact() {
         aria-labelledby="contact_one"
         className={styles.stack}
         sx={{ alignItems: "center" }}
-        onSubmit={handleConfirm} 
+        onSubmit={handleConfirm}
       >
         <Typography
           id="contact_one"
@@ -89,6 +109,7 @@ export default function Contact() {
           placeholder="例:c1234567@st.kanazawa-it.ac.jp"
           value={mail}
           onChange={e => setMail(e.target.value)}
+          error={!!message && message.includes("メールアドレス")}
         />
         <TextField
           required
@@ -114,7 +135,7 @@ export default function Contact() {
           variant="contained"
           size="large"
           color="info"
-          type="submit" 
+          type="submit"
         >
           入力内容を確認
         </Button>
