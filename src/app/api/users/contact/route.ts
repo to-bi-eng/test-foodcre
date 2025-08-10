@@ -33,7 +33,7 @@ export async function POST(request: Request) {
     });
 
     const mailOptions = {
-      from: process.env.GMAIL_USER,
+      from: `"【はちぽ】運営" <${process.env.GMAIL_USER}>`,
       to: email,
       subject: '【はちぽ】お問い合わせ送信完了のお知らせ',
       text: `
