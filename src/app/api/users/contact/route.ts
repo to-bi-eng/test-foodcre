@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
     await connection.execute(
       'INSERT INTO inquiry (user_id, name, email, title, content) VALUES (?, ?, ?, ?, ?)',
-      [null, name, email, subject, content] 
+      [null, name, email, subject, content]
     );
 
     const transporter = nodemailer.createTransport({
@@ -55,6 +55,24 @@ ${content}
     };
 
     await transporter.sendMail(mailOptions);
+
+    if (process.env.SLACK_WEBHOOK_URL) {
+      try {
+        const slackPayload = {
+          text: `新規のお問い合わせがありました！\n\n*お名前:*\n${name}\n\n*メールアドレス:*\n${email}\n\n*件名:*\n${subject}\n\n*内容:*\n${content}`,
+        };
+
+        await fetch(process.env.SLACK_WEBHOOK_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(slackPayload),
+        });
+      } catch (slackError) {
+        console.error('Slackへの通知に失敗しました:', slackError);
+      }
+    }
 
     return NextResponse.json({ message: 'お問い合わせを受け付けました。' });
 
