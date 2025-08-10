@@ -23,8 +23,8 @@ export default function SentConfirmation() {
         送信しました
       </Typography>
       <Typography variant="body1" className={styles.text}>
-        @food.comから始まるアドレスから<br />
-        返信をさせていただく場合がございます
+        hachipo888@gmail.comから<br />
+        確認メールを送信しています。
       </Typography>
       <Button
         variant="contained"

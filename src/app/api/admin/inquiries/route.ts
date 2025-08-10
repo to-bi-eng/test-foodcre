@@ -28,35 +28,50 @@ const statusToDb = (status: string) => {
 };
 
 export async function GET(request: NextRequest) {
-  const connection = await mysql.createConnection(dbConfig);
-  const [rows] = await connection.execute(`
-    SELECT i.id, i.title, i.content, i.status, i.received_at, i.responsed_at, u.email
-    FROM inquiry i
-    LEFT JOIN users u ON i.user_id = u.id
-    ORDER BY i.received_at DESC
-  `);
-  await connection.end();
+  let connection;
+  try {
+    connection = await mysql.createConnection(dbConfig);
+    const [rows] = await connection.execute(`
+      SELECT id, name, email, title, content, status, received_at, responded_at
+      FROM inquiry
+      ORDER BY received_at DESC
+    `);
+    
+    const inquiries = (rows as any[]).map(row => ({
+      id: row.id,
+      name: row.name, 
+      email: row.email, 
+      title: row.title,
+      content: row.content,
+      status: statusFromDb(row.status),
+      receivedAt: row.received_at ? new Date(row.received_at).toISOString().replace('T', ' ').slice(0, 19) : '',
+      respondedAt: row.responded_at ? new Date(row.responded_at).toISOString().replace('T', ' ').slice(0, 19) : '',
+    }));
+    
+    return NextResponse.json({ inquiries });
 
-  const inquiries = (rows as any[]).map(row => ({
-    id: row.id,
-    title: row.title,
-    content: row.content,
-    status: statusFromDb(row.status),
-    receivedAt: row.received_at ? new Date(row.received_at).toISOString().replace('T', ' ').slice(0, 19) : '',
-    responsedAt: row.responsed_at ? new Date(row.responsed_at).toISOString().replace('T', ' ').slice(0, 19) : '',
-    email: row.email,
-  }));
-  return NextResponse.json({ inquiries });
+  } catch (error) {
+    console.error("GET Error:", error);
+    return NextResponse.json({ error: "Failed to fetch inquiries" }, { status: 500 });
+  } finally {
+    if (connection) await connection.end();
+  }
 }
 
 export async function PUT(request: NextRequest) {
-  const { id, status } = await request.json();
-  const connection = await mysql.createConnection(dbConfig);
-  await connection.execute(
-    `UPDATE inquiry SET status = ? WHERE id = ?`,
-    [statusToDb(status), id]
-  );
-  await connection.end();
-  return NextResponse.json({ success: true });
+  let connection;
+  try {
+    const { id, status } = await request.json();
+    connection = await mysql.createConnection(dbConfig);
+    await connection.execute(
+      `UPDATE inquiry SET status = ? WHERE id = ?`,
+      [statusToDb(status), id]
+    );
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("PUT Error:", error);
+    return NextResponse.json({ error: "Failed to update status" }, { status: 500 });
+  } finally {
+    if (connection) await connection.end();
+  }
 }
-
