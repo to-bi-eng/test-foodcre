@@ -1,0 +1,63 @@
+.header {
+  background-color: #ffe066;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.home-button {
+  background-color: #f1f1f1;
+  border: none;
+  padding: 6px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.main {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.heading {
+  font-size: 22px;
+  margin-bottom: 16px;
+  white-space: pre-line; /* 改行文字で折り返し */
+}
+
+.message {
+  font-size: 14px;
+  color: #555;
+}
+
+.back-button {
+  margin-top: 40px;
+  background-color: #3a2f1a;
+  color: white;
+  padding: 12px 40px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.footer {
+  background-color: #ffe066;
+  padding: 20px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.sns-icons {
+  margin-top: 10px;
+  font-size: 18px;
+}
