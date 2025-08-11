@@ -18,6 +18,8 @@ const commonTextFieldSx = {
   },
 };
 
+export const dynamic = 'force-dynamic';
+
 export default function OtpPage() {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
