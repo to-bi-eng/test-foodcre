@@ -1,47 +1,24 @@
 import { NextResponse, NextRequest } from 'next/server';
-import mysql, { RowDataPacket } from 'mysql2/promise';
+import mysql from 'mysql2/promise';
 
-// データベース接続情報は環境変数から取得するのが安全です
 const dbConfig = {
-  host: process.env.TIDB_HOST,
-  user: process.env.TIDB_USER,
-  password: process.env.TIDB_PASSWORD,
-  database: process.env.TIDB_DATABASE || 'foocre_development',
-  port: process.env.TIDB_PORT ? parseInt(process.env.TIDB_PORT, 10) : 4000,
-  ssl: {
-    rejectUnauthorized: true,
-  },
+  host: "db",
+  user: "root",
+  password: "password",
+  database: "foocre_development",
+  port: 3306,
 };
 
-// --- 型定義 ---
-// DBから取得する問い合わせ情報の型
-interface InquiryFromDB extends RowDataPacket {
-  id: number;
-  title: string;
-  content: string;
-  status: 'pending' | 'in_progress' | 'done';
-  received_at: string;
-  responsed_at: string | null;
-  email: string | null;
-}
-
-// PUTリクエストボディの型
-interface PutBody {
-  id: number;
-  status: '未対応' | '対応中' | '完了';
-}
-
-// --- 補助関数 ---
-const statusFromDb = (status: string): PutBody['status'] => {
+const statusFromDb = (status: string) => {
   switch (status) {
     case "pending": return "未対応";
     case "in_progress": return "対応中";
     case "done": return "完了";
-    default: return "未対応";
+    default: return status;
   }
 };
 
-const statusToDb = (status: PutBody['status']): InquiryFromDB['status'] => {
+const statusToDb = (status: string) => {
   switch (status) {
     case "未対応": return "pending";
     case "対応中": return "in_progress";
@@ -50,53 +27,82 @@ const statusToDb = (status: PutBody['status']): InquiryFromDB['status'] => {
   }
 };
 
-// GET: 問い合わせ一覧を取得
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export async function GET(_request: NextRequest) { // 'request' を使わないので '_' を付ける
+export async function GET(request: NextRequest) {
   let connection;
   try {
     connection = await mysql.createConnection(dbConfig);
-    const [rows] = await connection.execute<InquiryFromDB[]>(`
-      SELECT i.id, i.title, i.content, i.status, i.received_at, i.responsed_at, u.email
-      FROM inquiry i
-      LEFT JOIN users u ON i.user_id = u.id
-      ORDER BY i.received_at DESC
+    const [rows] = await connection.execute(`
+      SELECT id, name, email, title, content, status, received_at, responded_at
+      FROM inquiry
+      ORDER BY received_at DESC
     `);
-
-    const inquiries = rows.map(row => ({
+    
+    const inquiries = (rows as any[]).map(row => ({
       id: row.id,
+      name: row.name, 
+      email: row.email, 
       title: row.title,
       content: row.content,
       status: statusFromDb(row.status),
-      receivedAt: new Date(row.received_at).toISOString().replace('T', ' ').slice(0, 19),
-      responsedAt: row.responsed_at ? new Date(row.responsed_at).toISOString().replace('T', ' ').slice(0, 19) : '',
-      email: row.email,
+      receivedAt: row.received_at ? new Date(row.received_at).toISOString().replace('T', ' ').slice(0, 19) : '',
+      respondedAt: row.responded_at ? new Date(row.responded_at).toISOString().replace('T', ' ').slice(0, 19) : '',
     }));
+    
     return NextResponse.json({ inquiries });
 
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+    console.error("GET Error:", error);
+    return NextResponse.json({ error: "Failed to fetch inquiries" }, { status: 500 });
   } finally {
     if (connection) await connection.end();
   }
 }
 
-// PUT: ステータスを更新
 export async function PUT(request: NextRequest) {
   let connection;
   try {
-    const { id, status }: PutBody = await request.json(); // 型を適用
+    const { id, status } = await request.json();
     connection = await mysql.createConnection(dbConfig);
-    await connection.execute(
-      `UPDATE inquiry SET status = ?, responsed_at = NOW() WHERE id = ?`,
+
+    // Slack通知用に、更新対象の情報を取得
+    const [inquiryRows] = await connection.execute('SELECT title FROM inquiry WHERE id = ?', [id]);
+    const inquiryItems = inquiryRows as any[];
+    if (inquiryItems.length === 0) {
+        return NextResponse.json({ message: "Inquiry not found" }, { status: 404 });
+    }
+    const inquiryTitle = inquiryItems[0].title;
+
+    // ステータスを更新
+    const [result] = await connection.execute(
+      `UPDATE inquiry SET status = ? WHERE id = ?`,
       [statusToDb(status), id]
     );
-    return NextResponse.json({ success: true });
+
+    const updateResult = result as mysql.ResultSetHeader;
+    if (updateResult.affectedRows > 0) {
+        // Slack通知を送信
+        if (process.env.SLACK_LOGS_WEBHOOK_URL) {
+            try {
+                const slackPayload = {
+                    text: `お問い合わせのステータスが更新されました！\n\n*お問い合わせID:*\n${id}\n\n*件名:*\n${inquiryTitle}\n\n*新しいステータス:*\n${status}`,
+                };
+                await fetch(process.env.SLACK_LOGS_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(slackPayload),
+                });
+            } catch (slackError) {
+                console.error('Slackへの通知に失敗しました:', slackError);
+            }
+        }
+        return NextResponse.json({ success: true });
+    } else {
+        return NextResponse.json({ message: "Inquiry not found or status not changed" }, { status: 404 });
+    }
 
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+    console.error("PUT Error:", error);
+    return NextResponse.json({ error: "Failed to update status" }, { status: 500 });
   } finally {
     if (connection) await connection.end();
   }

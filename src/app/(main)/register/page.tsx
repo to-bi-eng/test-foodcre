@@ -1,40 +1,95 @@
 "use client"
-import React from 'react';
-import { Button, TextField, OutlinedInput, InputAdornment, IconButton, InputLabel } from '@mui/material';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Box, Button, TextField, OutlinedInput, InputAdornment, IconButton, InputLabel, FormControl, Alert, Typography, Container } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import styles from '@/styles/register.module.css';
-import Link from 'next/link';
 
 export default function Register() {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = React.useState(false);
+    const router = useRouter();
+
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     };
-    const handleMouseUpPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
+
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+        if (event.key === 'Enter') {
+            handleNext();
+        }
+    };
+
+    const handleNext = () => {
+        setError('');
+        if (!email || !password) {
+            setError('メールアドレスとパスワードを入力してください。');
+            return;
+        }
+        if (
+            !email.endsWith('@neptune.kanazawa-it.ac.jp') &&
+            !email.endsWith('@his.kanazawa-it.ac.jp') &&
+            !email.endsWith('@infor.kanazawa-it.ac.jp') &&
+            !email.endsWith('@tok.kanazawa-it.ac.jp') &&
+            !email.endsWith('@ael.kanazawa-it.ac.jp') &&
+            !email.endsWith('@trc.kanazawa-it.ac.jp') &&
+            !email.endsWith('@ict-.kanazawa-it.ac.jp') &&
+            !email.endsWith('@eagle.ict-.kanazawa-it.ac.jp') &&
+            !email.endsWith('@pt.kanazawa-it.ac.jp') &&
+            !email.endsWith('@planet.kanazawa-it.ac.jp') &&
+            !email.endsWith('@jupiter.kanazawa-it.ac.jp') &&
+            !email.endsWith('@st.kanazawa-it.ac.jp')
+        ) {
+            setError('メールアドレスは大学から発行されたものを使用してください。');
+            return;
+        }
+        if (password.length < 8) {
+            setError('パスワードは8文字以上で入力してください。');
+            return;
+        }
+        const passwordRegex = /^[a-zA-Z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~`]+$/;
+        if (!passwordRegex.test(password)) {
+            setError('パスワードには平仮名、カタカナ、スペース、絵文字などの文字は使用できません。');
+            return;
+        }
+
+        sessionStorage.setItem('registrationEmail', email);
+        sessionStorage.setItem('registrationPassword', password);
+        router.push('/signup_confirmation'); 
+    };
+
+    const handleBack = () => {
+        router.push('/'); 
     };
 
     return (
-        <div className='register' style={{
-            fontFamily: 'Arial, sans-serif',
-            textAlign: 'center',
-            padding: '0px',
-            maxWidth: '600px',
-            margin: '0 auto'
-        }}>
-
-            <div className={styles.title}>登録</div>
-            <div className={styles.form}>
-                <div className={styles.TextField_mail}>
-                    <div className={styles.mail}>メールアドレス：</div>
-                    <TextField id="outlined-basic" variant="outlined" sx={{ width: '300px' }}></TextField>
-                </div>
-                <div className={styles.TextField_password}>
-                    <InputLabel htmlFor="outlined-adornment-password">パスワード:</InputLabel>
+        <Container component="main" maxWidth="sm" className={styles.main}>
+            <Typography variant="h3">アカウント登録</Typography>
+            <div className={styles.form} onKeyDown={handleKeyDown}>
+                {error && <Alert severity="error" sx={{ mb: 2, width: '350px' }}>{error}</Alert>}
+                <TextField
+                    id="outlined-basic"
+                    variant="outlined"
+                    label="メールアドレス"
+                    type="email"
+                    color='info'
+                    sx={{ width: '300px' }}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <FormControl sx={{ width: '300px' }} variant="outlined">
+                    <InputLabel htmlFor="outlined-adornment-password" color='info'>パスワード</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
                         type={showPassword ? 'text' : 'password'}
+                        value={password}
+                        required
+                        color='info'
+                        onChange={(e) => setPassword(e.target.value)}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -43,7 +98,6 @@ export default function Register() {
                                     }
                                     onClick={handleClickShowPassword}
                                     onMouseDown={handleMouseDownPassword}
-                                    onMouseUp={handleMouseUpPassword}
                                     edge="end"
                                 >
                                     {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -51,22 +105,21 @@ export default function Register() {
                             </InputAdornment>
                         }
                         label="Password"
-                        sx={{
-                            width: '300px',
-                            "& input[type=password]::-ms-reveal": { display: "none", width: 0, height: 0 },
-                            "& input[type=password]::-ms-clear": { display: "none", width: 0, height: 0 },
-                        }}
                     />
-                </div>
-                <div className={styles.Button} style={{ display: 'flex', justifyContent: 'space-between', width: '300px', marginTop: '20px' }}>
-                    <Button variant="contained" size="large" component={Link} href="/">
-                        戻る
+                </FormControl>
+                <Box className={styles.button_wrapper}>
+                    <Button variant="contained" className={styles.button} onClick={handleBack} color='info'>戻る</Button>
+                    <Button
+                        variant="contained"
+                        className={styles.button}
+                        onClick={handleNext}
+                        color='info'
+                        disabled={loading}
+                    >
+                        登録確認
                     </Button>
-                    <Button variant="contained" size="large" component={Link} href="/signup_confirmation">
-                        次へ
-                    </Button>
-                </div>
+                </Box>
             </div>
-        </div>
+        </Container>
     );
-};
+}

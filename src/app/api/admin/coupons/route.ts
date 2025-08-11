@@ -140,6 +140,7 @@ export async function DELETE(request: NextRequest) {
 }
 
 // PUT: クーポン・メニューを更新
+// PUT: クーポン・メニューを更新
 export async function PUT(request: NextRequest) {
     let connection;
     try {

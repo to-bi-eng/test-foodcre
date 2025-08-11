@@ -1,46 +1,48 @@
 import { NextResponse } from 'next/server';
 import mysql from 'mysql2/promise';
 
-// データベース接続情報を一元管理
-const dbConfig = {
-  host: 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com',
-  user: '2aoEqC8LhLTsFQ2.root',
-  password: 'oR04mhcWgKIFx97L',
-  database: 'test',
-  port: 4000,
-  ssl: {
-    // TiDB Cloudへの接続にはSSLが必要です
-    rejectUnauthorized: true,
-  },
-};
-
 export async function POST(request: Request) {
   let connection;
   try {
     const { title, content, status } = await request.json();
 
-    // 簡単なバリデーション
-    if (!title || !content || !status) {
-      return NextResponse.json({ message: 'Title, content, and status are required' }, { status: 400 });
-    }
+    connection = await mysql.createConnection({
+      host: 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com',
+      user: '2aoEqC8LhLTsFQ2.root',
+      password: 'oR04mhcWgKIFx97L',
+      database: 'test',
+      port: 4000,
+    });
 
-    connection = await mysql.createConnection(dbConfig);
-    
     await connection.execute(
       'INSERT INTO news (title, content, status) VALUES (?, ?, ?)',
       [title, content, status]
     );
 
-    // 成功した場合、201 Createdを返すのが一般的です
-    return NextResponse.json({ message: 'News created successfully' }, { status: 201 });
+    if (process.env.SLACK_LOGS_WEBHOOK_URL) {
+      try {
+        const slackPayload = {
+          text: `新しいお知らせが作成されました！\n\n*タイトル:*\n${title}\n\n*内容:*\n${content}`,
+        };
+
+        await fetch(process.env.SLACK_LOGS_WEBHOOK_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(slackPayload),
+        });
+      } catch (slackError) {
+        console.error('Slackへの通知に失敗しました:', slackError);
+      }
+    }
+
+    return NextResponse.json({ success: true });
 
   } catch (error) {
-    console.error('API POST Error:', error);
-    return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+    console.error('ニュース作成APIでエラーが発生しました:', error);
+    return NextResponse.json({ error: 'サーバー内部でエラーが発生しました。' }, { status: 500 });
   } finally {
-    // 接続が確立されていたら必ず閉じる
-    if (connection) {
-      await connection.end();
-    }
+    if (connection) await connection.end();
   }
 }
