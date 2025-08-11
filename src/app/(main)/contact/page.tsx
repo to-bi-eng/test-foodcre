@@ -81,7 +81,6 @@ export default function Contact() {
               variant="contained"
               size="large"
               color="info"
-              className={styles.botton}
             >
               確認
             </Button>

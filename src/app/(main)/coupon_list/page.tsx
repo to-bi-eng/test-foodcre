@@ -24,7 +24,7 @@ type Coupon = {
 export default function CouponList() {
   const [coupons, setCoupons] = React.useState<Coupon[]>([]);
   const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState<string | null>(null);
+  const [error, setError] = React.useState<string | undefined>(undefined);
   const router = useRouter();
 
   React.useEffect(() => {
@@ -36,7 +36,7 @@ export default function CouponList() {
       .then(data => {
         if (Array.isArray(data)) {
           setCoupons(data);
-          setError(null);
+          setError(undefined);
         } else {
           setCoupons([]);
           setError('クーポンが取得できませんでした');
@@ -49,6 +49,13 @@ export default function CouponList() {
         setLoading(false);
       });
   }, []);
+
+  // クーポンが0件かつエラーがない場合にリダイレクト
+  React.useEffect(() => {
+    if (!loading && error === undefined && coupons.length === 0) {
+      router.replace('/no-coupon-redirect');
+    }
+  }, [loading, error, coupons, router]);
 
   const handleUseCoupon = (couponId: string) => {
     router.push(`/terms_of_service?couponId=${couponId}`);
@@ -95,11 +102,6 @@ export default function CouponList() {
         )}
 
         <Stack spacing={2} className={styles.couponListStack}>
-          {!error && coupons.length === 0 && (
-            <Typography sx={{ mt: 4 }} color="text.secondary">
-              クーポンはありません
-            </Typography>
-          )}
           {coupons.map((coupon) => (
             <Card key={coupon.id} className={styles.couponCard}>
               <CardActionArea onClick={() => handleUseCoupon(coupon.id)}>

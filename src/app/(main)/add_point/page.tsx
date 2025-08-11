@@ -57,7 +57,8 @@ export default function Add_point() {
                 }
                 requestAnimationFrame(scanLoop);
             } catch {
-                setMessage('カメラの起動に失敗しました');
+                router.push('/qr-error-ui');
+
             }
         };
 
@@ -165,7 +166,7 @@ export default function Add_point() {
             {message && <Alert severity={isError ? "error" : "info"} sx={{ mt: 2 }}>{message}</Alert>}
             
             {isError && !loading && (
-                <Button onClick={handleRetry} variant="contained" sx={{ mt: 2 }}>
+                <Button onClick={handleRetry} variant="contained" className={styles.button} sx={{ mt: 2 , mb: 2 }}>
                     もう一度試す
                 </Button>
             )}
