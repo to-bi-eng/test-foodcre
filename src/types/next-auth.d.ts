@@ -5,6 +5,7 @@ declare module 'next-auth' {
   /**
    * authorizeから返されるUserオブジェクトと、session.userの型
    */
+
   interface User {
     role?: string;
   }
