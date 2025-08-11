@@ -15,6 +15,7 @@ export async function POST(request: Request) {
     });
 
     // otp_tempからデータ取得
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [rows]: any = await connection.execute(
       'SELECT otp, pass, expires FROM otp_temp WHERE email = ?',
       [email]
@@ -31,6 +32,7 @@ export async function POST(request: Request) {
     }
 
     // 既に登録済みかチェック
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [userRows]: any = await connection.execute(
       'SELECT id FROM users WHERE email = ?',
       [email]

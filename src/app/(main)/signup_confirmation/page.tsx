@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import styles from '@/styles/ConfirmRegistration.module.css';
+import styles from '@/styles/confirmRegistration.module.css';
 import { Box, Button, Typography, Paper, Container, Alert, CircularProgress } from '@mui/material';
 
 export default function ConfirmRegistration() {
@@ -40,7 +40,8 @@ export default function ConfirmRegistration() {
       }
 
       router.push(`/one-time-password?email=${encodeURIComponent(email)}`);
-
+    
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message || 'サーバーに接続できませんでした。');
     } finally {

@@ -64,7 +64,8 @@ export default function OtpPage() {
       }
 
       router.push('/');
-
+    
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -98,6 +99,7 @@ export default function OtpPage() {
       setResendStatus({ message: "認証コードを再送しました。", error: false });
       setResendCooldown(60);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setResendStatus({ message: err.message, error: true });
     } finally {
