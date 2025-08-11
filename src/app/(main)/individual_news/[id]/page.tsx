@@ -1,23 +1,21 @@
 import { notFound } from "next/navigation";
 import { Box, Typography, Divider } from "@mui/material";
 import styles from "@/styles/individualNews.module.css";
-import { getNewsById } from "@/app/services/news"; // データベース関数をインポート
 
-type PageProps = {
-  params: {
-    id: string;
-  };
+type News = {
+  id: number;
+  title: string;
+  content: string;
+  created_at: string;
 };
 
-export default async function NewsDetail({ params }: PageProps) {
-  const { id } = params;
-  
-  // fetchの代わりに、データベース関数を直接呼び出す
-  const news = await getNewsById(id);
+export default async function NewsDetail(props: { params: Promise<{ id: string }> }) {
+  const { id } = await props.params;
+  const res = await fetch(`http://localhost:3000/api/news/${id}`, { cache: "no-store" });
+  if (!res.ok) return notFound();
 
-  if (!news) {
-    notFound();
-  }
+  const news: News | null = await res.json();
+  if (!news) return notFound();
 
   return (
     <Box className={styles.newsContainer}>
@@ -25,8 +23,7 @@ export default async function NewsDetail({ params }: PageProps) {
         {news.title}
       </Typography>
       <Typography variant="subtitle2" color="text.secondary" mb={2}>
-        {/* Dateオブジェクトに変換してからフォーマットするとより安全です */}
-        {new Date(news.created_at).toLocaleDateString()}
+        {news.created_at?.slice(0, 10)}
       </Typography>
       <Divider sx={{ mb: 2 }} />
       <Typography variant="body1" className={styles.linebreak}>
