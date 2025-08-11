@@ -30,6 +30,7 @@ export async function GET(request: NextRequest) {
 
     const [rows] = await connection.execute(sql, params);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const users = (rows as any[]).map(user => ({
       id: user.id,
       email: user.email,
@@ -65,6 +66,7 @@ export async function PUT(request: NextRequest) {
 
     // Slack通知用に、更新対象のユーザー情報を取得
     const [userRows] = await connection.execute('SELECT email FROM users WHERE id = ?', [id]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const userItems = userRows as any[];
     if (userItems.length === 0) {
         return NextResponse.json({ message: "User not found" }, { status: 404 });
@@ -122,6 +124,7 @@ export async function DELETE(request: NextRequest) {
 
     // Slack通知用に、削除対象のユーザー情報を取得
     const [userRows] = await connection.execute('SELECT email FROM users WHERE id = ?', [id]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const userItems = userRows as any[];
     if (userItems.length === 0) {
         return NextResponse.json({ message: "User not found" }, { status: 404 });

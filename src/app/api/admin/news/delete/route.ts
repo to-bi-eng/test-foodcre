@@ -62,6 +62,7 @@ export async function DELETE(request: Request) {
 
     // Slack通知用に、削除するお知らせのタイトルを先に取得
     const [newsRows] = await connection.execute('SELECT title FROM news WHERE id = ?', [id]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const newsItems = newsRows as any[];
     if (newsItems.length === 0) {
       return NextResponse.json({ message: "News not found" }, { status: 404 });

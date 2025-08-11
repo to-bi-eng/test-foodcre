@@ -2,11 +2,11 @@ import { NextResponse, NextRequest } from 'next/server';
 import mysql from 'mysql2/promise';
 
 const dbConfig = {
-  host: "db",
-  user: "root",
-  password: "password",
-  database: "foocre_development",
-  port: 3306,
+  host: 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com',
+  user: '2aoEqC8LhLTsFQ2.root',
+  password: 'oR04mhcWgKIFx97L',
+  database: 'test',
+  port: 4000,
 };
 
 const statusFromDb = (status: string) => {
@@ -26,7 +26,7 @@ const statusToDb = (status: string) => {
     default: return "pending";
   }
 };
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(request: NextRequest) {
   let connection;
   try {
@@ -37,6 +37,7 @@ export async function GET(request: NextRequest) {
       ORDER BY received_at DESC
     `);
     
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const inquiries = (rows as any[]).map(row => ({
       id: row.id,
       name: row.name, 
@@ -66,6 +67,7 @@ export async function PUT(request: NextRequest) {
 
     // Slack通知用に、更新対象の情報を取得
     const [inquiryRows] = await connection.execute('SELECT title FROM inquiry WHERE id = ?', [id]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const inquiryItems = inquiryRows as any[];
     if (inquiryItems.length === 0) {
         return NextResponse.json({ message: "Inquiry not found" }, { status: 404 });
