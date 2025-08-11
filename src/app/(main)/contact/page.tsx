@@ -4,7 +4,6 @@ import {
   Stack,
   TextField,
   Typography,
-  Link as MuiLink,
 } from "@mui/material";
 import React, { useState } from "react";
 import Link from "next/link";

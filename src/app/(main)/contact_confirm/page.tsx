@@ -44,6 +44,7 @@ export default function Contact_confirm() {
       sessionStorage.removeItem("contactData");
       router.push("/contact-success-screen"); 
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       setMessage(error.message);
     } finally {

@@ -12,7 +12,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { signIn } from "next-auth/react";
+// import { signIn } from "next-auth/react";
 
 const commonTextFieldSx = {
   '& .MuiFilledInput-root': {
@@ -27,18 +27,18 @@ const commonTextFieldSx = {
   },
 };
 
-const handleLogin = async () => {
-  const result = await signIn("credentials", {
-    redirect: false,
-    email,
-    password,
-  });
-  if (result?.error) {
-    setError("メールアドレスまたはパスワードが間違っています");
-  } else {
-    router.push("/"); // ログイン後の遷移先
-  }
-};
+// const handleLogin = async () => {
+//   const result = await signIn("credentials", {
+//     redirect: false,
+//     email,
+//     password,
+//   });
+//   if (result?.error) {
+//     setError("メールアドレスまたはパスワードが間違っています");
+//   } else {
+//     router.push("/"); // ログイン後の遷移先
+//   }
+// };
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);

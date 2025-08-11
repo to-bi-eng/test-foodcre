@@ -9,6 +9,7 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = React.useState(false);
     const router = useRouter();

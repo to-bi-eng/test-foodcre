@@ -15,6 +15,7 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import PolicyOutlinedIcon from '@mui/icons-material/PolicyOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 
 export default function Header() {
@@ -93,7 +94,7 @@ export default function Header() {
                             component={Link}
                             href="/"
                         >
-                            <img src="/logo.png" alt="ロゴ" style={{ height: '30px' }} />
+                            <Image src="/logo.png" alt="logo" width={100} height={50} />
                         </IconButton>
                         <Typography variant="h6" component="div">
                             はちぽ
