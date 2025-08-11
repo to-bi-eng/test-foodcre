@@ -43,7 +43,7 @@ export async function POST(request: Request) {
             }
             const user = users[0];
             return NextResponse.json({
-                message: 'Already added today',
+                message: '本日のポイント付与は終了しました',
                 addPoints: 0,
                 totalPoints: user.point,
             }, { status: 400 });
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
 
     } catch (error) {
         console.error('Database Error:', error);
-        return NextResponse.json({ message: 'Internal Server Error' }, { status: 500 });
+        return NextResponse.json({ message: 'サーバーエラーです' }, { status: 500 });
     } finally {
         if (connection) {
             await connection.end();
