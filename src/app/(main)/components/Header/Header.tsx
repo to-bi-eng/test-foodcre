@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import styles from '@/styles/header.module.css';
+import { useSession, signOut } from "next-auth/react";
 
 // アイコンをインポート
 import MenuIcon from '@mui/icons-material/Menu';
@@ -19,6 +20,7 @@ import { useRouter } from 'next/navigation';
 
 export default function Header() {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
+    const { data: session, status } = useSession();
     const router = useRouter();
 
     const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -30,13 +32,6 @@ export default function Header() {
             return;
         }
         setDrawerOpen(open);
-    };
-
-    const handleLogout = () => {
-        // ここに実際のログアウト処理を記述しろ
-        console.log("ログアウト処理を実行");
-        setDrawerOpen(false);
-        router.push('/'); // 仮でトップに遷移
     };
 
     const menuItems = [
@@ -65,12 +60,31 @@ export default function Header() {
             </List>
             <Divider />
             <List>
-                <ListItem disablePadding>
-                    <ListItemButton onClick={handleLogout}>
-                        <ListItemIcon><LogoutIcon /></ListItemIcon>
-                        <ListItemText primary="ログアウト" />
-                    </ListItemButton>
-                </ListItem>
+                {session ? (
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            onClick={() => {
+                                signOut();
+                                setDrawerOpen(false);
+                            }}
+                        >
+                            <ListItemText primary="ログアウト" />
+                        </ListItemButton>
+                    </ListItem>
+                ) : (
+                    <>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} href="/register">
+                                <ListItemText primary="新規登録" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} href="/login">
+                                <ListItemText primary="ログイン" />
+                            </ListItemButton>
+                        </ListItem>
+                    </>
+                )}
             </List>
         </Box>
     );
