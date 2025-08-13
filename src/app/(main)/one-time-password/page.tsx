@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import OneTimePasswordContent from './OneTimePasswordContent';
+import OneTimePasswordContent from '../components/One-Time-Password/OneTimePasswordContent';
 import { Box, CircularProgress } from '@mui/material';
 
 // ローディング中に表示するUI
