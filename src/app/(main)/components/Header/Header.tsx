@@ -14,23 +14,13 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import PolicyOutlinedIcon from '@mui/icons-material/PolicyOutlined';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { useRouter } from 'next/navigation';
 
 
 export default function Header() {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const { data: session, status } = useSession();
-    const router = useRouter();
 
-    const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-        if (
-            event.type === 'keydown' &&
-            ((event as React.KeyboardEvent).key === 'Tab' ||
-             (event as React.KeyboardEvent).key === 'Shift')
-        ) {
-            return;
-        }
+    const toggleDrawer = (open: boolean) => () => {
         setDrawerOpen(open);
     };
 
@@ -64,7 +54,7 @@ export default function Header() {
                     <ListItem disablePadding>
                         <ListItemButton
                             onClick={() => {
-                                signOut();
+                                signOut({ callbackUrl: "/logout" });
                                 setDrawerOpen(false);
                             }}
                         >

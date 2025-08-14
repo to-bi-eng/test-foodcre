@@ -49,7 +49,7 @@ export default function LoginPage() {
     if (result?.error) {
       setError("メールアドレスまたはパスワードが間違っています");
     } else {
-      router.push("/"); // ログイン後の遷移先
+      router.push("/");
     }
   };
 

@@ -1,5 +1,5 @@
 import Credentials from "next-auth/providers/credentials";
-import type { NextAuthConfig } from "next-auth";
+import type { NextAuthOptions } from "next-auth";
 import bcrypt from "bcryptjs";
 import mysql from "mysql2/promise";
 import crypto from "crypto";
@@ -30,7 +30,7 @@ async function getUserByEmail(email: string): Promise<UserRow | null> {
   return null;
 }
 
-const config: NextAuthConfig = {
+const config: NextAuthOptions = {
   session: { strategy: "jwt" },
   providers: [
     Credentials({
