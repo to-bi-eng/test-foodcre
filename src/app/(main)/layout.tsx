@@ -4,12 +4,13 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import theme from '@/app/theme';
 import { Metadata } from 'next';
+import SessionRoot from '@/app/(main)/components/SessionRoot/SessionRoot';
 
 import Header from '@/app/(main)/components/Header/Header';
 import BG from '@/app/(main)/components/Background/Background';
 import Footer from '@/app/(main)/components/Footer/Footer';
 
-import styles from '@/styles/ContentBox.module.css'
+import styles from '@/styles/contentBox.module.css'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -24,17 +25,19 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body>
-        <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Header />
-            <BG />
-            <div className={styles.ContentBox}>
-              {children}
-            </div>
-            <Footer />
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+        <SessionRoot>
+          <AppRouterCacheProvider>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Header />
+              <BG />
+              <div className={styles.ContentBox}>
+                {children}
+              </div>
+              <Footer />
+            </ThemeProvider>
+          </AppRouterCacheProvider>
+        </SessionRoot>
       </body>
     </html>
   );

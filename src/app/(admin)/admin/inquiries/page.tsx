@@ -32,6 +32,7 @@ const getStatusChipColor = (status: InquiryStatus) => {
 
 export default function InquiriesPage() {
   const [rows, setRows] = React.useState<InquiryData[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [loading, setLoading] = React.useState(true);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);

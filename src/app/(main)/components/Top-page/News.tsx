@@ -43,7 +43,9 @@ export default function News() {
                 </Typography>
               </Box>
             )}
-            {newsSlice.length > 0 && newsSlice.map((item: any, idx: number) => (
+            {newsSlice.length > 0 && newsSlice.map
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            ((item: any, idx: number) => (
               <Button
                 key={item.id}
                 variant="text"

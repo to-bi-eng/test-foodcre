@@ -1,13 +1,12 @@
 import { NextResponse, NextRequest } from 'next/server';
 import mysql from 'mysql2/promise';
 
-// データベース接続情報を関数の外で共有
 const dbConfig = {
-  host: "db",
-  user: "root",
-  password: "password",
-  database: "foocre_development",
-  port: 3306,
+  host: 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com',
+  user: '2aoEqC8LhLTsFQ2.root',
+  password: 'oR04mhcWgKIFx97L',
+  database: 'test',
+  port: 4000,
 };
 
 // GET: ユーザー一覧を取得（メールアドレスでの検索機能付き）
@@ -31,6 +30,7 @@ export async function GET(request: NextRequest) {
 
     const [rows] = await connection.execute(sql, params);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const users = (rows as any[]).map(user => ({
       id: user.id,
       email: user.email,
@@ -63,12 +63,38 @@ export async function PUT(request: NextRequest) {
     }
 
     connection = await mysql.createConnection(dbConfig);
+
+    // Slack通知用に、更新対象のユーザー情報を取得
+    const [userRows] = await connection.execute('SELECT email FROM users WHERE id = ?', [id]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const userItems = userRows as any[];
+    if (userItems.length === 0) {
+        return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+    const userEmail = userItems[0].email;
+
+    // ポイントを更新
     const sql = `UPDATE users SET point = ? WHERE id = ?`;
     const [result] = await connection.execute(sql, [point, id]);
 
     const updateResult = result as mysql.ResultSetHeader;
 
     if (updateResult.affectedRows > 0) {
+      // Slack通知を送信
+      if (process.env.SLACK_LOGS_WEBHOOK_URL) {
+        try {
+            const slackPayload = {
+                text: `ユーザーのポイントが更新されました！\n\n*メールアドレス:*\n${userEmail}\n\n*新しいポイント:*\n${point}pt`,
+            };
+            await fetch(process.env.SLACK_LOGS_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(slackPayload),
+            });
+        } catch (slackError) {
+            console.error('Slackへの通知に失敗しました:', slackError);
+        }
+      }
       return NextResponse.json({ message: "User updated successfully" });
     } else {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
@@ -95,12 +121,38 @@ export async function DELETE(request: NextRequest) {
     }
 
     connection = await mysql.createConnection(dbConfig);
+
+    // Slack通知用に、削除対象のユーザー情報を取得
+    const [userRows] = await connection.execute('SELECT email FROM users WHERE id = ?', [id]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const userItems = userRows as any[];
+    if (userItems.length === 0) {
+        return NextResponse.json({ message: "User not found" }, { status: 404 });
+    }
+    const userEmail = userItems[0].email;
+
+    // ユーザーを削除
     const sql = `DELETE FROM users WHERE id = ?`;
     const [result] = await connection.execute(sql, [id]);
 
     const deleteResult = result as mysql.ResultSetHeader;
     
     if (deleteResult.affectedRows > 0) {
+      // Slack通知を送信
+      if (process.env.SLACK_LOGS_WEBHOOK_URL) {
+        try {
+            const slackPayload = {
+                text: `ユーザーが削除されました！\n\n*メールアドレス:*\n${userEmail}`,
+            };
+            await fetch(process.env.SLACK_LOGS_WEBHOOK_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(slackPayload),
+            });
+        } catch (slackError) {
+            console.error('Slackへの通知に失敗しました:', slackError);
+        }
+      }
       return NextResponse.json({ message: "User deleted successfully" });
     } else {
       return NextResponse.json({ message: "User not found" }, { status: 404 });

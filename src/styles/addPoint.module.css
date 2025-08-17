@@ -2,19 +2,20 @@
     text-align: center;
     margin: 0 auto;
     padding: 32px 16px;
-    padding-bottom: 250px; /* フッター分の余白を追加 */
-    max-width: 600px;
+    padding-bottom: 250px; 
+    max-width: 400px;
     min-height: 100vh; 
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     overflow-y: auto; 
+    align-items: center;
 }
 
 .qr {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     background-color: #f0f0f0;
     display: flex;
     justify-content: center;
@@ -28,7 +29,6 @@
     display: inline-block;
     margin-bottom: 8px;
     width: fit-content;
-    margin-left: 24%;
 }
 
 .note {
@@ -36,3 +36,9 @@
     font-size: 0.875rem;
     white-space: pre-line;
     }
+
+.button {
+  background-color: #4B4B4B !important;
+  color: white !important;
+  font-weight: bold;
+}

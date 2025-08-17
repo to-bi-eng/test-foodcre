@@ -2,8 +2,9 @@
 
 import styles from '@/styles/top.module.css';
 import News from '@/app/(main)/components/Top-page/News';
-import { Box, Typography, Link, Button } from '@mui/material';
+import { Box, Typography, Stack, Button } from '@mui/material';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Logout() {
   return (
@@ -26,20 +27,44 @@ export default function Logout() {
       <Box display="flex" justifyContent="flex-end" mt={1} mr="5px">
         <Image src="/hachiko.png" alt="キャラクター" width="70" height="70" />
       </Box>
+      <Stack direction="row" spacing={3} justifyContent="center" mt={4}>
+        <Button
+          variant="contained"
+          component={Link}
+          href="/register"
+          sx={{
+            minWidth: 120,
+            fontSize: "1.1rem",
+            py: 1.2,
+            px: 3,
+            fontWeight: "bold",
+            borderRadius: 2,
+            backgroundColor: '#2e2600',
+            color: '#fff',
+          }}
+        >
+          新規登録
+        </Button>
+        <Button
+          variant="contained"
+          component={Link}
+          href="/login"
+          sx={{
+            minWidth: 120,
+            fontSize: "1.1rem",
+            py: 1.2,
+            px: 3,
+            fontWeight: "bold",
+            borderRadius: 2,
+            backgroundColor: '#2e2600',
+            color: '#fff',
+          }}
+        >
+          ログイン
+        </Button>
+      </Stack>
       <Box className={styles.news}>
         <News />
-      </Box>
-      <Box className={styles.fixedButtons}>
-        <Link href="/register">
-          <Button variant="contained" color="info" sx={{ fontSize: '1.5rem', px: 4, borderRadius: 3 }}>
-            新規登録
-          </Button>
-        </Link>
-        <Link href="/login">
-          <Button variant="contained" color="info" sx={{ fontSize: '1.5rem', px: 4, borderRadius: 3 }}>
-            ログイン
-          </Button>
-        </Link>
       </Box>
     </div>
   );

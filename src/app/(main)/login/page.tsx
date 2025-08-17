@@ -1,4 +1,5 @@
 "use client";
+import Link from 'next/link';
 import React, { useState } from "react";
 import styles from "@/styles/login.module.css";
 import {
@@ -7,11 +8,12 @@ import {
   Stack,
   TextField,
   Typography,
-  Link,
   InputAdornment,
   IconButton,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const commonTextFieldSx = {
   '& .MuiFilledInput-root': {
@@ -28,9 +30,27 @@ const commonTextFieldSx = {
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleTogglePassword = () => {
     setShowPassword((prev) => !prev);
+  };
+
+  const handleLogin = async () => {
+    setError("");
+    const result = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+    if (result?.error) {
+      setError("メールアドレスまたはパスワードが間違っています");
+    } else {
+      router.push("/");
+    }
   };
 
   return (
@@ -49,6 +69,8 @@ export default function LoginPage() {
               fullWidth
               className={styles.input}
               sx={commonTextFieldSx}
+              value={email}
+              onChange={e => setEmail(e.target.value)}
             />
           </Box>
 
@@ -61,6 +83,8 @@ export default function LoginPage() {
               fullWidth
               className={styles.input}
               sx={commonTextFieldSx}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -73,17 +97,36 @@ export default function LoginPage() {
             />
 
             <Box className={styles.linkWrapper}>
-              <Link href="#" underline="hover" color="blue" fontSize={14}>
+              <Typography
+                component={Link}
+                href="/passwordedit"
+                sx={{
+                  color: 'blue',
+                  fontSize: 14,
+                  textDecoration: 'underline',
+                  cursor: 'pointer'
+                }}
+              >
                 パスワード変更
-              </Link>
+              </Typography>
             </Box>
           </Box>
 
+          {error && (
+            <Typography color="error" sx={{ mt: 1, textAlign: "center" }}>
+              {error}
+            </Typography>
+          )}
+
           <Stack direction="row" spacing={1} justifyContent="center" pt={8}>
-            <Button variant="contained" className={styles.button}>
+            <Button variant="contained" className={styles.button} component={Link} href="/">
               戻る
             </Button>
-            <Button variant="contained" className={styles.button}>
+            <Button
+              variant="contained"
+              className={styles.button}
+              onClick={handleLogin}
+            >
               ログイン
             </Button>
           </Stack>

@@ -49,7 +49,6 @@ export default function UsersPage() {
 
   React.useEffect(() => {
     fetchUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSearch = () => {

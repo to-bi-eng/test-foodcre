@@ -45,6 +45,7 @@ export default function NewsPage() {
     const res = await fetch('/api/admin/news');
     const data = await res.json();
     setRows(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       data.map((item: any) => ({
         news_id: item.id,
         title: item.title,

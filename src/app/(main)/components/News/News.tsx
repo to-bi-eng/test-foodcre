@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import news_styles from "@/styles/News.module.css";
+import news_styles from "@/styles/news.module.css";
 import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 import { CircularProgress } from "@mui/material";
@@ -19,20 +19,21 @@ const News = () => {
     const pageSize = 5;
 
     useEffect(() => {
-
-        // /app/api/news/route.tsにデータベースからニュースを取得する処理が書かれています
-        // 本番環境にデプロイする際にエンドポイントがたぶん変わるので注意してください
-        fetch("/api/news")
-            .then((response) => response.json())
-            .then((data: NewsItem[]) => {
-                setNews(data);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error(error);
-                setLoading(false);
-            });
-    }, []);
+    fetch("/api/news")
+        .then((response) => response.json())
+        .then((data: NewsItem[]) => {
+            if (!Array.isArray(data)) {
+                throw new Error("Invalid data from API");
+            }
+            setNews(data);
+            setLoading(false);
+        })
+        .catch((error) => {
+            console.error("Fetch failed:", error);
+            setNews([]); // ← fallbackとして空配列をセット
+            setLoading(false);
+        });
+}, []);
 
     if (loading) {
         return (
@@ -51,7 +52,7 @@ const News = () => {
                             variant="contained"
                             color="secondary"
                             disableElevation
-                            href="/home"
+                            href="/"
                         >
                             戻る
                         </Button>
@@ -77,7 +78,7 @@ const News = () => {
                             variant="contained"
                             color="secondary"
                             disableElevation
-                            href="/home"
+                            href="/"
                         >
                             戻る
                         </Button>
@@ -132,7 +133,7 @@ const News = () => {
                         variant="contained"
                         color="secondary"
                         disableElevation
-                        href="/home"
+                        href="/"
                     >
                         戻る
                     </Button>
