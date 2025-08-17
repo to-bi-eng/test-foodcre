@@ -87,7 +87,7 @@ export default function Header() {
         }} className={styles.box}>
             <AppBar position="sticky" color="primary" className={styles.header}>
                 <Toolbar sx={{ paddingLeft: 1 }}>
-                    <Stack direction="row" alignItems="center" spacing={1} sx={{ flexGrow: 1 }}>
+                    <Stack direction="row" alignItems="flex-start" spacing={1} sx={{ flexGrow: 1 }}>
                         <IconButton
                             color="inherit"
                             size="medium"
