@@ -12,11 +12,11 @@ export async function POST(request: Request) {
     }
 
     connection = await mysql.createConnection({
-      host: 'db',
-      user: 'root',
-      password: 'password',
-      database: 'foocre_development',
-      port: 3306,
+      host: 'gateway01.ap-northeast-1.prod.aws.tidbcloud.com',
+      user: '2aoEqC8LhLTsFQ2.root',
+      password: 'oR04mhcWgKIFx97L',
+      database: 'test',
+      port: 4000,
     });
 
     await connection.execute(
