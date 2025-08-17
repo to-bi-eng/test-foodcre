@@ -90,7 +90,7 @@ export default function Header() {
                     <Stack direction="row" alignItems="center" spacing={1} sx={{ flexGrow: 1 }}>
                         <IconButton
                             color="inherit"
-                            size="large"
+                            size="medium"
                             component={Link}
                             href="/"
                         >
