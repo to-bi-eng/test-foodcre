@@ -17,6 +17,9 @@ export async function POST(request: Request) {
       password: 'oR04mhcWgKIFx97L',
       database: 'test',
       port: 4000,
+      ssl: {
+        rejectUnauthorized: true,
+    },
     });
 
     await connection.execute(
