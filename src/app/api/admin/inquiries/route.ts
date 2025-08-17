@@ -63,11 +63,43 @@ export async function PUT(request: NextRequest) {
   try {
     const { id, status } = await request.json();
     connection = await mysql.createConnection(dbConfig);
-    await connection.execute(
+
+    // Slack通知用に、更新対象の情報を取得
+    const [inquiryRows] = await connection.execute('SELECT title FROM inquiry WHERE id = ?', [id]);
+    const inquiryItems = inquiryRows as any[];
+    if (inquiryItems.length === 0) {
+        return NextResponse.json({ message: "Inquiry not found" }, { status: 404 });
+    }
+    const inquiryTitle = inquiryItems[0].title;
+
+    // ステータスを更新
+    const [result] = await connection.execute(
       `UPDATE inquiry SET status = ? WHERE id = ?`,
       [statusToDb(status), id]
     );
-    return NextResponse.json({ success: true });
+
+    const updateResult = result as mysql.ResultSetHeader;
+    if (updateResult.affectedRows > 0) {
+        // Slack通知を送信
+        if (process.env.SLACK_LOGS_WEBHOOK_URL) {
+            try {
+                const slackPayload = {
+                    text: `お問い合わせのステータスが更新されました！\n\n*お問い合わせID:*\n${id}\n\n*件名:*\n${inquiryTitle}\n\n*新しいステータス:*\n${status}`,
+                };
+                await fetch(process.env.SLACK_LOGS_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(slackPayload),
+                });
+            } catch (slackError) {
+                console.error('Slackへの通知に失敗しました:', slackError);
+            }
+        }
+        return NextResponse.json({ success: true });
+    } else {
+        return NextResponse.json({ message: "Inquiry not found or status not changed" }, { status: 404 });
+    }
+
   } catch (error) {
     console.error("PUT Error:", error);
     return NextResponse.json({ error: "Failed to update status" }, { status: 500 });

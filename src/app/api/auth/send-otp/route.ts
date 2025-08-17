@@ -19,14 +19,12 @@ export async function POST(request: Request) {
       port: 3306,
     });
 
-    // 既存データを削除してからINSERT
     await connection.execute('DELETE FROM otp_temp WHERE email = ?', [email]);
     await connection.execute(
       'INSERT INTO otp_temp (email, otp, pass, expires) VALUES (?, ?, ?, ?)',
       [email, otp, hashedPassword, expires]
     );
 
-    // メール送信はそのまま
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -36,9 +34,9 @@ export async function POST(request: Request) {
     });
 
     const mailOptions = {
-      from: process.env.GMAIL_USER,
+      from: `"【はちぽ】運営" <${process.env.GMAIL_USER}>`,
       to: email,
-      subject: 'ポイントアプリ：アカウント登録の確認コード',
+      subject: '【はちぽ】アカウント登録の確認コード',
       text: `あなたのワンタイムパスワードは ${otp} です。このパスワードは10分間有効です。`,
     };
 
