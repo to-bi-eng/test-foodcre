@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 import Link from 'next/link';
 import styles from '@/styles/header.module.css';
+import { useSession, signOut } from "next-auth/react";
 
 // アイコンをインポート
 import MenuIcon from '@mui/icons-material/Menu';
@@ -13,31 +14,15 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import PolicyOutlinedIcon from '@mui/icons-material/PolicyOutlined';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 
 export default function Header() {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
-    const router = useRouter();
+    const { data: session } = useSession();
 
-    const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-        if (
-            event.type === 'keydown' &&
-            ((event as React.KeyboardEvent).key === 'Tab' ||
-             (event as React.KeyboardEvent).key === 'Shift')
-        ) {
-            return;
-        }
+    const toggleDrawer = (open: boolean) => () => {
         setDrawerOpen(open);
-    };
-
-    const handleLogout = () => {
-        // ここに実際のログアウト処理を記述しろ
-        console.log("ログアウト処理を実行");
-        setDrawerOpen(false);
-        router.push('/'); // 仮でトップに遷移
     };
 
     const menuItems = [
@@ -66,12 +51,31 @@ export default function Header() {
             </List>
             <Divider />
             <List>
-                <ListItem disablePadding>
-                    <ListItemButton onClick={handleLogout}>
-                        <ListItemIcon><LogoutIcon /></ListItemIcon>
-                        <ListItemText primary="ログアウト" />
-                    </ListItemButton>
-                </ListItem>
+                {session ? (
+                    <ListItem disablePadding>
+                        <ListItemButton
+                            onClick={() => {
+                                signOut({ callbackUrl: "/logout" });
+                                setDrawerOpen(false);
+                            }}
+                        >
+                            <ListItemText primary="ログアウト" />
+                        </ListItemButton>
+                    </ListItem>
+                ) : (
+                    <>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} href="/register">
+                                <ListItemText primary="新規登録" />
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={Link} href="/login">
+                                <ListItemText primary="ログイン" />
+                            </ListItemButton>
+                        </ListItem>
+                    </>
+                )}
             </List>
         </Box>
     );

@@ -12,7 +12,8 @@ import {
   IconButton,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-// import { signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const commonTextFieldSx = {
   '& .MuiFilledInput-root': {
@@ -27,24 +28,29 @@ const commonTextFieldSx = {
   },
 };
 
-// const handleLogin = async () => {
-//   const result = await signIn("credentials", {
-//     redirect: false,
-//     email,
-//     password,
-//   });
-//   if (result?.error) {
-//     setError("メールアドレスまたはパスワードが間違っています");
-//   } else {
-//     router.push("/"); // ログイン後の遷移先
-//   }
-// };
-
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleTogglePassword = () => {
     setShowPassword((prev) => !prev);
+  };
+
+  const handleLogin = async () => {
+    setError("");
+    const result = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+    if (result?.error) {
+      setError("メールアドレスまたはパスワードが間違っています");
+    } else {
+      router.push("/");
+    }
   };
 
   return (
@@ -63,6 +69,8 @@ export default function LoginPage() {
               fullWidth
               className={styles.input}
               sx={commonTextFieldSx}
+              value={email}
+              onChange={e => setEmail(e.target.value)}
             />
           </Box>
 
@@ -75,6 +83,8 @@ export default function LoginPage() {
               fullWidth
               className={styles.input}
               sx={commonTextFieldSx}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -102,11 +112,21 @@ export default function LoginPage() {
             </Box>
           </Box>
 
+          {error && (
+            <Typography color="error" sx={{ mt: 1, textAlign: "center" }}>
+              {error}
+            </Typography>
+          )}
+
           <Stack direction="row" spacing={1} justifyContent="center" pt={8}>
             <Button variant="contained" className={styles.button} component={Link} href="/">
               戻る
             </Button>
-            <Button variant="contained" className={styles.button} component={Link} href="/">
+            <Button
+              variant="contained"
+              className={styles.button}
+              onClick={handleLogin}
+            >
               ログイン
             </Button>
           </Stack>

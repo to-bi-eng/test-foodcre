@@ -1,33 +1,19 @@
-import 'next-auth';
-import 'next-auth/jwt';
+import { DefaultSession } from "next-auth";
 
-declare module 'next-auth' {
-  /**
-   * authorizeから返されるUserオブジェクトと、session.userの型
-   */
-
-  interface User {
-    role?: string;
-  }
-
+declare module "next-auth" {
   interface Session {
     user: {
       id: string;
+      email: string | null | undefined;
       role: string;
-    } & User; // email, name, imageは元々あるのでマージ
-    refreshToken?: string;
-    refreshTokenExpires?: number;
+    } & DefaultSession["user"];
+    iat: number;
+    exp: number;
+    refreshToken: string;
+    refreshTokenExpires: number;
   }
-}
-
-/**
- * JWTコールバックのtokenの型
- */
-declare module 'next-auth/jwt' {
-  interface JWT {
-    userid: string;
+  interface User {
+    id: string;
     role: string;
-    refreshToken?: string;
-    refreshTokenExpires?: number;
   }
 }

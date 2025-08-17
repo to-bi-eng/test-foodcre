@@ -69,7 +69,7 @@ export default function Register() {
 
     return (
         <Container component="main" maxWidth="sm" className={styles.main}>
-            <Typography variant="h3">アカウント登録</Typography>
+            <Typography variant="h3">新規登録</Typography>
             <div className={styles.form} onKeyDown={handleKeyDown}>
                 {error && <Alert severity="error" sx={{ mb: 2, width: '350px' }}>{error}</Alert>}
                 <TextField
@@ -117,7 +117,7 @@ export default function Register() {
                         color='info'
                         disabled={loading}
                     >
-                        登録確認
+                        次へ
                     </Button>
                 </Box>
             </div>
